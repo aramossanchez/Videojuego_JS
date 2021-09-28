@@ -2,6 +2,10 @@
 AUTOR: Armando Ramos
 VERSION: 1.0 
 */
+/* IMPORTO FUENTE PARA EL VIDEOJUEGO */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* FORMATEO TODO EL DOCUMENTO PARA QUE NO HAYA MARGIN Y PADDING QUE NO CONTROLO */
 *{
     margin: 0;
     padding: 0;
@@ -9,6 +13,8 @@ VERSION: 1.0
 body{
     background-color: burlywood;
 }
+
+/* CONTENEDOR PARA CENTRAR EL JUEGO */
 #container{
     width: 100vw;
     height: 100vh;
@@ -17,9 +23,47 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+/* ELEMENTO EN EL QUE CARGAREMOS TODO EL JUEGO */
 #pantalla-juego{
     width: 65em;
     height: 40em;
     background-color: cornsilk;
-    border: 0.5em solid rgb(37, 37, 37);
+    border: 0.5em solid rgb(160, 160, 160);
+    display: flex;
+    font-family: 'Press Start 2P';
+}
+
+/* CONTENEDOR EN EL QUE TENEMOS LA LISTA DE HABILIDADES DE TODOS LOS PERSONAJES */
+#habilidades-personajes{
+    width: 100%;
+    height: 18%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+}
+
+/* CONTENEDOR DE CADA LISTA DE HABILIDADES. CADA PERSONAJE TENDRÁ LA SUYA. AQUI FORMATEAMOS TODAS */
+.lista-habilidades{
+    width: 25%;
+    height: 100%;
+    background-color: rgb(58, 58, 58);
+    border: 0.2em solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 0 0.1em 0.6em 0.1em;
+    cursor: pointer;
+}
+
+/* NOMBRES DE LAS HABILIDADES */
+h6{
+    font-size: 0.5em;
+    color: white;
+    margin-left: 2em;
+}
+h6 span{
+    color:cornflowerblue;
 }
