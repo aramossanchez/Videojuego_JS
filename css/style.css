@@ -55,7 +55,6 @@ body{
     flex-direction: column;
     justify-content: space-around;
     margin: 0 0.1em 0.6em 0.1em;
-    cursor: pointer;
 }
 
 /* NOMBRES DE LAS HABILIDADES */
@@ -63,6 +62,25 @@ h6{
     font-size: 0.5em;
     color: white;
     margin-left: 2em;
+    cursor: pointer;
+    transition: 0.2s;
+    position: relative;
+}
+h6:hover{
+    text-decoration: underline;
+    color: yellow;
+}
+h6:hover::before{
+    position: absolute;
+    left: 0;
+    height: auto;
+    top: -6em;
+    content: "Hechizo que libera un caballo de fuego hacia el enemigo. Puede quemar";
+    position: absolute;
+    color: black;
+    background-color: white;
+    border: 0.2em solid red;
+    padding: 0.5em;
 }
 h6 span{
     color:cornflowerblue;

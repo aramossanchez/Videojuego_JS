@@ -41,11 +41,11 @@ class Character {
 var fireHorse = new Skill("Caballo de fuego", "Hechizo que libera un caballo de fuego hacia el enemigo. Puede quemar", 500, "quemadura", 100);
 var iceSpear = new Skill("Lanza de hielo", "Hechizo que lanza una lanza de hielo. Puede congelar", 400, "congelar", 120);
 var stormHammer = new Skill("Martillo de la tormenta", "Hechizo que invoca un martillo hecho de truenos desde el cielo. Puede ralentizar", 800, "ralentizar", 250);
-var windKnife = new Skill("Cuchillo de viento", "Hechizo que invoca corrientes de viento cortantes", 350, "", 100);
+var windKnife = new Skill("Cuchillo de viento", "Hechizo que invoca corrientes de viento cortantes", 350, "sangrar", 100);
 
-var elementalist = new Character("Roy Mustang, el Elementalista", "Domina los elementos", 500, 1000, 4, 1, 4, fireHorse, iceSpear, stormHammer, windKnife);
+var elementalist = new Character("Gloy Stylish, el Elementalista", "Mago capaz de dominar los elementos. Puede provocar estados alterados con sus hechizos", 500, 1000, 4, 1, 4, fireHorse, iceSpear, stormHammer, windKnife);
 
-var gargoyle = new Character("Goliath", "Monstruo venido del averno", 10000, 10000, 500, 8, 8, fireHorse, fireHorse, fireHorse, fireHorse);
+var gargoyle = new Character("Goliath", "Monstruo venido del averno", 10000, 5000, 500, 8, 8, fireHorse, fireHorse, fireHorse, fireHorse);
 
 // GUARDAMOS HABILIDADES DE UN PERSONAJE
 var habilidades = [];
@@ -54,8 +54,6 @@ var habilidades = [];
 var personajesElegidos = [];
 
 personajesElegidos.push(elementalist);
-
-console.log(personajesElegidos);
 
 // MOSTRAMOS HABILIDADES EN PANTALLA, Y EL MANÁ QUE GASTAN
 // INDICAMOS CUAL ES EL PERSONAJE DEL QUE QUEREMOS OBTENER LAS HABILIDADES, Y GUARDAMOS EN UN ARRAY LOS ELEMENTOS H6 CLICKABLES
@@ -73,7 +71,7 @@ const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
 
 // FUNCION CON LA QUE USAMOS HABILIDADES
 // AL CLICKAR EN LAS HABILIDADES DE CADA PERSONAJE LLAMAREMOS A ESTA FUNCION
-// USARÁ LA HABILIDAD QUE PASEMOS POR PARAMETROS DEL PERSONAJE QUE PASEMOS POR PARAMETROS
+// USARÁ LA HABILIDAD QUE PASEMOS POR PARAMETROS, DEL PERSONAJE QUE PASEMOS POR PARAMETROS
 
 const usaHabilidades = (personaje, skill) => {
     personajesElegidos[personaje].skills[skill].useSkill(elementalist, gargoyle);
