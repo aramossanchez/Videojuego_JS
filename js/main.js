@@ -41,7 +41,7 @@ class Skill{
 // CREAMOS LA CLASE CHARACTER DONDE DEFINIMOS LOS PERSONAJES
 class Character {
 
-    constructor(id, name, description, hp, mp, attack, defense, speed, skill1, skill2, skill3, skill4){
+    constructor(id, name, description, hp, mp, attack, defense, speed, skill1, skill2, skill3, skill4, img){
         this.id = id,
         this.name = name,
         this.description = description,
@@ -50,7 +50,8 @@ class Character {
         this.attack = attack,
         this.defense = defense,
         this.speed = speed,
-        this.skills = [skill1, skill2, skill3, skill4]
+        this.skills = [skill1, skill2, skill3, skill4],
+        this.img = img
     }
 
 }
@@ -73,22 +74,25 @@ var habilidadPrueba4 = new Skill("prueba4", "prueba", 500, "", 50);
 // CREAMOS HABILIDADES DEL DRAGON
 var alientoDragon = new Skill("Aliento Dragon", "Aliento que daña a todos los enemigos a la vez", 550, "", 250);
 alientoDragon.getType("all");
+
 var espinasDragon = new Skill("Espinas de Dragón", "Se lanzan espinas al suelo que dañan a todos los enemigos al comienzo del turno durante 3 turnos", 100, "", 200);
 espinasDragon.getType("all");
+
 var placajeDragon = new Skill("Placaje de Dragon", "Empuja a un enemigo realizándole un placaje. Puede empujar", 850, "empujar", 300);
+
 var alaDragon = new Skill("Ala de Dragón", "Golpea con el ala a 2 enemigos aleatorios. Puede provocar sangrado.", 550, "sangrar", 400);
 alaDragon.getType("double");
 
 // CREACION DE PERSONAJES
-var elementalist = new Character("elementalist", "Gloy Stylish, el Elementalista", "Mago capaz de dominar los elementos. Puede provocar estados alterados con sus hechizos", 500, 1000, 4, 1, 4, fireHorse, iceSpear, stormHammer, windKnife);
-var assassin = new Character("assassin", "Nia Nortan, la Asesina", "Asesina entrenada en artes marciales y tecnicas de veneno", 1500, 2000, 10, 2, 9, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, deathStrike)
-var pirate = new Character("pirate", "Garragan Blake, el Pirata Zombie", "No sabemos si es un pirata que se ha convertido en zombi, o es un zombi que ha querido hacerse pirata. Lo que sí sabemos es que le gusta la pelea", 3200, 1500, 7, 4, 6, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4 )
+var elementalist = new Character("elementalist", "Gloy Stylish, el Elementalista", "Mago capaz de dominar los elementos. Puede provocar estados alterados con sus hechizos", 1500, 2000, 9, 1, 4, fireHorse, iceSpear, stormHammer, windKnife, "./img/elementalist.gif");
+var assassin = new Character("assassin", "Nia Nortan, la Asesina", "Asesina entrenada en artes marciales y tecnicas de veneno", 1750, 1000, 10, 2, 9, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, deathStrike, "./img/elementalist.gif")
+var demon = new Character("demon", "Garragan Blake, el Demonio", "No sabemos porque nos quiere ayudar. Lo que sí sabemos es que le gusta la pelea", 3200, 1500, 7, 4, 6, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/elementalist.gif")
 
-var personajePrueba1 = new Character("personajePrueba1", "prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4);
-var personajePrueba2 = new Character("personajePrueba2", "prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba2, habilidadPrueba1, habilidadPrueba3, habilidadPrueba4);
-var personajePrueba3 = new Character("personajePrueba3", "prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba3, habilidadPrueba2, habilidadPrueba1, habilidadPrueba4);
+var personajePrueba1 = new Character("personajePrueba1", "prueba1", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/elementalist.gif");
+var personajePrueba2 = new Character("personajePrueba2", "prueba2", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba2, habilidadPrueba1, habilidadPrueba3, habilidadPrueba4, "./img/elementalist.gif");
+var personajePrueba3 = new Character("personajePrueba3", "prueba3", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba3, habilidadPrueba2, habilidadPrueba1, habilidadPrueba4, "./img/elementalist.gif");
 
-var dragon = new Character("dragon", "Goliath", "Monstruo venido del averno", 10000, 5000, 500, 8, 8, alientoDragon, espinasDragon, placajeDragon, alaDragon);
+var dragon = new Character("dragon", "Goliath", "Monstruo venido del averno", 10000, 5000, 500, 8, 8, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif");
 
 // VARIABLES PARA CONTROLAR CUAL PARTE DE LA APLICACION SE VE
 var showGame = false;
@@ -114,7 +118,7 @@ const cambiarPantalla = () => {
 }
 
 // EN ESTE ARRAY GUARDAMOS TODOS LOS PERSONAJES ELEGIBLES
-var todosLosPersonajes = [elementalist, assassin, pirate, personajePrueba1, personajePrueba2, personajePrueba2, personajePrueba3, personajePrueba3];
+var todosLosPersonajes = [elementalist, assassin, demon, personajePrueba1, personajePrueba2, personajePrueba2, personajePrueba3, personajePrueba3];
 
 // EN ESTE ARRAY GUARDAMOS LOS PERSONAJES ELEGIDOS
 var personajesElegidos = [];
@@ -138,7 +142,6 @@ const guardarPersonajeElegido = (lugarArray, id) =>{
         personajesElegidos.splice(posicionDePersonajeGuardado, 1); //ELIMINAMOS DEL ARRAY EL ELEMENTO CON EL INDICE INDICADO
         document.getElementById("switch").style.transform = "scaleY(0)";
     }
-    console.log(personajesElegidos);
 }
 
 // CREAMOS ARRAY PARA GUARDAR LAS HABILIDADES QUE MOSTRAREMOS EN CADA LISTA DE HABILIDADES
@@ -147,7 +150,7 @@ var habilidades = [];
 // MOSTRAMOS PERSONAJES EN LA PANTALLA DE SELECCION DE PERSONAJES
 let personaje = document.getElementById("seleccion-personajes");
 for (let i = 0; i < todosLosPersonajes.length; i++) {
-    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}', '${todosLosPersonajes[i].id}')">${todosLosPersonajes[i].id}</div>`;
+    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}', '${todosLosPersonajes[i].id}')"><h1>${todosLosPersonajes[i].name}</h1><img src="${todosLosPersonajes[i].img}"><p>Vida: ${todosLosPersonajes[i].hp}</p><p>Mana: ${todosLosPersonajes[i].mp}</p><p>Ataque: ${todosLosPersonajes[i].attack}</p><p>Defensa: ${todosLosPersonajes[i].defense}</p></div>`;
 }
 
 // MOSTRAMOS HABILIDADES EN PANTALLA, Y EL MANÁ QUE GASTAN
