@@ -22,7 +22,8 @@ class Skill{
 // CREAMOS LA CLASE CHARACTER DONDE DEFINIMOS LOS PERSONAJES
 class Character {
 
-    constructor(name, description, hp, mp, attack, defense, speed, skill1, skill2, skill3, skill4){
+    constructor(id, name, description, hp, mp, attack, defense, speed, skill1, skill2, skill3, skill4){
+        this.id = id,
         this.name = name,
         this.description = description,
         this.hp = hp,
@@ -51,11 +52,11 @@ var habilidadPrueba3 = new Skill("prueba3", "prueba", 500, "", 50);
 var habilidadPrueba4 = new Skill("prueba4", "prueba", 500, "", 50);
 
 // CREACION DE PERSONAJES
-var elementalist = new Character("Gloy Stylish, el Elementalista", "Mago capaz de dominar los elementos. Puede provocar estados alterados con sus hechizos", 500, 1000, 4, 1, 4, fireHorse, iceSpear, stormHammer, windKnife);
-var assassin = new Character("Nia Nortan, la Asesina", "Asesina entrenada en artes marciales y tecnicas de veneno", 1500, 2000, 10, 2, 9, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, deathStrike)
-var personajePrueba1 = new Character("prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4);
-var personajePrueba2 = new Character("prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba2, habilidadPrueba1, habilidadPrueba3, habilidadPrueba4);
-var personajePrueba3 = new Character("prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba3, habilidadPrueba2, habilidadPrueba1, habilidadPrueba4);
+var elementalist = new Character("elementalist", "Gloy Stylish, el Elementalista", "Mago capaz de dominar los elementos. Puede provocar estados alterados con sus hechizos", 500, 1000, 4, 1, 4, fireHorse, iceSpear, stormHammer, windKnife);
+var assassin = new Character("assassin", "Nia Nortan, la Asesina", "Asesina entrenada en artes marciales y tecnicas de veneno", 1500, 2000, 10, 2, 9, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, deathStrike)
+var personajePrueba1 = new Character("personajePrueba1", "prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4);
+var personajePrueba2 = new Character("personajePrueba2", "prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba2, habilidadPrueba1, habilidadPrueba3, habilidadPrueba4);
+var personajePrueba3 = new Character("personajePrueba3", "prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba3, habilidadPrueba2, habilidadPrueba1, habilidadPrueba4);
 
 var gargoyle = new Character("Goliath", "Monstruo venido del averno", 10000, 5000, 500, 8, 8, fireHorse, fireHorse, fireHorse, fireHorse);
 
@@ -65,34 +66,42 @@ var showGame = false;
 var pantallaJuego = document.getElementById("pantalla-juego");
 var seleccionPersonajes = document.getElementById("seleccion-personajes");
 
+// FUNCION PARA ALTERNAR ENTRE PANTALLAS DE LA APLICACION Y PARA MOSTRAR LAS HABILIDADES DE LOS PERSONAJES ELEGIDOS
 const cambiarPantalla = () => {
-
     if (!showGame) {
         pantallaJuego.style.display = "flex";
         seleccionPersonajes.style.display = "none";
+        // PINTA TODOS LAS HABILIDADES DE LOS PERSONAJES EN LA PANTALLA DEL JUEGO
+        for (let i = 0; i < personajesElegidos.length; i++) {
+            muestraHabilidades(personajesElegidos[i], i);
+        }
     }else{
         pantallaJuego.style.display = "none";
         seleccionPersonajes.style.display = "flex";
     }
-
     showGame = !showGame;
-    console.log(showGame);
 }
 
 // GUARDAMOS HABILIDADES DE UN PERSONAJE
 var habilidades = [];
 
 // EN ESTE ARRAY GUARDAMOS TODOS LOS PERSONAJES ELEGIBLES
-var todosLosPersonajes = [];
+var todosLosPersonajes = [elementalist, assassin, personajePrueba1, personajePrueba1, personajePrueba2, personajePrueba2, personajePrueba3, personajePrueba3];
 
 // EN ESTE ARRAY GUARDAMOS LOS PERSONAJES ELEGIDOS
 var personajesElegidos = [];
 
 // METODO PARA GUARDAR LOS PERSONAJES ELEGIDOS
-personajesElegidos.push(elementalist);
-personajesElegidos.push(assassin);
-personajesElegidos.push(personajePrueba2);
-personajesElegidos.push(personajePrueba3);
+const guardarPersonajeElegido = (lugarArray) =>{
+    personajesElegidos.push(todosLosPersonajes[lugarArray]);
+    console.log(personajesElegidos);
+}
+
+// MOSTRAMOS PERSONAJES EN LA PANTALLA DE SELECCION DE PERSONAJES
+let personaje = document.getElementById("seleccion-personajes");
+for (let i = 0; i < todosLosPersonajes.length; i++) {
+    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}')">${todosLosPersonajes[i].id}</div>`;
+}
 
 // MOSTRAMOS HABILIDADES EN PANTALLA, Y EL MANÁ QUE GASTAN
 // INDICAMOS CUAL ES EL PERSONAJE DEL QUE QUEREMOS OBTENER LAS HABILIDADES (INDICAMOS EL OBJETO DEL PERSONAJE POR POSICION EN
@@ -119,9 +128,4 @@ const usaHabilidades = (personaje, skill) => {
     personajesElegidos[personaje].skills[skill].useSkill(elementalist, gargoyle);
     console.log("Uso la habilidad " + personajesElegidos[personaje].skills[skill].name)
     console.log("La vida de la gárgola es " + gargoyle.hp);
-}
-
-// PINTA TODOS LAS HABILIDADES DE LOS PERSONAJES EN LA PANTALLA DEL JUEGO
-for (let i = 0; i < personajesElegidos.length; i++) {
-    muestraHabilidades(personajesElegidos[i], i);
 }

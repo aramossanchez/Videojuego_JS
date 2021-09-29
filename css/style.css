@@ -43,6 +43,15 @@ body{
     border: 0.5em solid rgb(160, 160, 160);
     display: flex;
     font-family: 'Press Start 2P';
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.personaje-para-elegir{
+    background-color: cornflowerblue;
+    height: 40%;
+    width: 23%;
 }
 
 /* ELEMENTO EN EL QUE CARGAREMOS TODO EL JUEGO */
