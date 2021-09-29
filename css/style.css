@@ -112,14 +112,21 @@ body{
     height: 100%;
     background-color: rgb(58, 58, 58);
     border: 0.2em solid black;
+    margin: 0 0.1em 0.6em 0.1em;
+}
+form{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    margin: 0 0.1em 0.6em 0.1em;
+    height: 100%;
+    width: 100%;
 }
 
 /* NOMBRES DE LAS HABILIDADES */
-h6{
+input[type="radio"]{
+    display: none;
+}
+label{
     font-size: 0.5em;
     color: white;
     margin-left: 2em;
@@ -127,11 +134,15 @@ h6{
     transition: 0.2s;
     position: relative;
 }
-h6:hover{
+label:hover{
     text-decoration: underline;
     color: yellow;
 }
-h6:hover::before{
+input:checked + label {
+    text-decoration: underline;
+    color: yellow;
+}
+label:hover::before{
     position: absolute;
     left: 0;
     height: auto;
@@ -143,6 +154,6 @@ h6:hover::before{
     border: 0.2em solid red;
     padding: 0.5em;
 }
-h6 span{
+label span{
     color:cornflowerblue;
 }

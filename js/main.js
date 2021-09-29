@@ -130,7 +130,7 @@ for (let i = 0; i < todosLosPersonajes.length; i++) {
 // MOSTRAMOS HABILIDADES EN PANTALLA, Y EL MANÁ QUE GASTAN
 // INDICAMOS CUAL ES EL PERSONAJE DEL QUE QUEREMOS OBTENER LAS HABILIDADES (INDICAMOS EL OBJETO DEL PERSONAJE POR POSICION EN
 // EL ARRAY, Y TAMBIEN INDICAMOS LA POSICION QUE OCUPA EL OBJETO EN EL ARRAY DE PERSONAJES) 
-// Y GUARDAMOS EN UN ARRAY LOS ELEMENTOS H6 CLICKABLES CON EVENTO ONCLICK.
+// Y GUARDAMOS EN UN ARRAY LOS ELEMENTOS RADIO CLICKABLES CON EVENTO ONCLICK.
 // A ESE EVENTO LE PASAMOS EL PERSONAJE (POR POSICION QUE OCUPA EN EL ARRAY DE PERSONAJES ELEGIDOS) Y LA SKILL A
 // USAR (POR POSICION QUE OCUPA EN EL ARRAY DE HABILIDADES DEL PERSONAJE).
 // DESPUÉS OBTENEMOS EL DIV DONDE SE MOSTRARAN LAS HABILIDADES A TRAVÉS DE SU ID, Y PINTAMOS LOS ELEMENTOS GUARDADOS EN EL ARRAY 
@@ -138,9 +138,9 @@ for (let i = 0; i < todosLosPersonajes.length; i++) {
 
 const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
     for (let i = 0; i < objetoPersonaje.skills.length; i++) {
-        habilidades.push(`<h6 onclick="usaHabilidades(${posicionObjeto}, ${i})">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span></h6>`);
+        habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="usaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label for="element${posicionObjeto}${i}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span></label>`);
     }
-    document.getElementById(`character${posicionObjeto}`).innerHTML = "<form>" + habilidades.join("") + "</form>";
+    document.getElementById(`character${posicionObjeto}`).innerHTML = `<form onclick='show(event.path[0].onclick)'>` + habilidades.join("") + "</form>";
     habilidades = [];
 }
 
@@ -148,7 +148,8 @@ const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
 // AL CLICKAR EN LAS HABILIDADES DE CADA PERSONAJE LLAMAREMOS A ESTA FUNCION
 // USARÁ LA HABILIDAD QUE PASEMOS POR PARAMETROS, DEL PERSONAJE QUE PASEMOS POR PARAMETROS
 
-const usaHabilidades = (personaje, skill) => {
+const usaHabilidades = (personaje, skill, id) => {
+    document.getElementById(id).style.pointerEvents = "none";
     personajesElegidos[personaje].skills[skill].useSkill(elementalist, dragon);
     console.log("Uso la habilidad " + personajesElegidos[personaje].skills[skill].name)
     console.log("La vida del dragón es " + dragon.hp);
@@ -156,4 +157,8 @@ const usaHabilidades = (personaje, skill) => {
 
 const empezarTurno = () =>{
     document.getElementById("pantalla-empezar-turno").style.display = "none";
+}
+
+const show = (e) =>{
+    console.log(e);
 }
