@@ -163,9 +163,16 @@ const guardaHabilidades = (personaje, skill, id) => {
     // console.log("La vida del dragón es " + dragon.hp);
 }
 
-
-
+// FUNCION QUE CARGA LA PANTALLA CON TODAS LAS HABILIDADESs
 const empezarTurno = () =>{
     document.getElementById("pantalla-empezar-turno").style.display = "none";
     document.getElementById("boton-terminar-turno").style.display = "block"
+}
+
+const terminarTurno = () => {
+    for (let i = 0; i < habilidadesTurno.length; i++) {
+        personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
+        console.log("Uso la habilidad " + personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].name + " de " + personajesElegidos[i].name + ". Quedan " + personajesElegidos[i].mp + " puntos de maná");
+        console.log("La vida del dragón es " + dragon.hp);
+    }
 }
