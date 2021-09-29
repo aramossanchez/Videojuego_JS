@@ -9,11 +9,30 @@ class Skill{
         this.description = description,
         this.damage = damage,
         this.effect = effect,
-        this.cost = cost
+        this.cost = cost,
+        this.type = "single";
+    }
+
+    getType(type){ //PODEMOS CAMBIAR EL TIPO DE HABILIDAD. ESTO SE REFIERE A CUANTOS TARGET PUEDE TENER LA SKILL
+        this.type = type
     }
 
     useSkill(caster, target){
         target.hp -= this.damage;
+        caster.mp -= this.cost; 
+    }
+
+    useSkillDouble(caster, target1, target2){ //METODO PARA HABILIDADES DE 2 TARGET
+        target1.hp -= this.damage;
+        target2.hp -= this.damage;
+        caster.mp -= this.cost; 
+    }
+
+    useSkillAll(caster, target1, target2, target3, target4){ //METODO PARA HABILIDADES DE 4 TARGET
+        target1.hp -= this.damage;
+        target2.hp -= this.damage;
+        target3.hp -= this.damage;
+        target4.hp -= this.damage;
         caster.mp -= this.cost; 
     }
 
@@ -51,10 +70,14 @@ var habilidadPrueba2 = new Skill("prueba2", "prueba", 500, "", 50);
 var habilidadPrueba3 = new Skill("prueba3", "prueba", 500, "", 50);
 var habilidadPrueba4 = new Skill("prueba4", "prueba", 500, "", 50);
 
+// CREAMOS HABILIDADES DEL DRAGON
 var alientoDragon = new Skill("Aliento Dragon", "Aliento que daña a todos los enemigos a la vez", 550, "", 250);
+alientoDragon.getType("all");
 var espinasDragon = new Skill("Espinas de Dragón", "Se lanzan espinas al suelo que dañan a todos los enemigos al comienzo del turno durante 3 turnos", 100, "", 200);
+espinasDragon.getType("all");
 var placajeDragon = new Skill("Placaje de Dragon", "Empuja a un enemigo realizándole un placaje. Puede empujar", 850, "empujar", 300);
 var alaDragon = new Skill("Ala de Dragón", "Golpea con el ala a 2 enemigos aleatorios. Puede provocar sangrado.", 550, "sangrar", 400);
+alaDragon.getType("double");
 
 // CREACION DE PERSONAJES
 var elementalist = new Character("elementalist", "Gloy Stylish, el Elementalista", "Mago capaz de dominar los elementos. Puede provocar estados alterados con sus hechizos", 500, 1000, 4, 1, 4, fireHorse, iceSpear, stormHammer, windKnife);
@@ -157,22 +180,55 @@ const guardaHabilidades = (personaje, skill, id) => {
     document.getElementById(id).style.pointerEvents = "none";
     document.getElementById(id).style.opacity = "0.5";
     habilidadesTurno.push([personaje, skill]);
-    console.log(habilidadesTurno);
-    // personajesElegidos[personaje].skills[skill].useSkill(elementalist, dragon);
-    // console.log("Uso la habilidad " + personajesElegidos[personaje].skills[skill].name)
-    // console.log("La vida del dragón es " + dragon.hp);
 }
 
-// FUNCION QUE CARGA LA PANTALLA CON TODAS LAS HABILIDADESs
+// FUNCION QUE CARGA LA PANTALLA DEL JUEGO, CON TODAS LAS HABILIDADES DE LOS PERSONAJES ELEGIDOS
+// TAMBIEN CARGAR EL BOTON DE TERMINAR TURNO
 const empezarTurno = () =>{
     document.getElementById("pantalla-empezar-turno").style.display = "none";
     document.getElementById("boton-terminar-turno").style.display = "block"
 }
 
+
+// FUNCION QUE EJECUTA LAS HABILIDADES DE NUESTROS PERSONAJES, ASI COMO DE NUESTRO ENEMIGO
+// EN LA FUNCION SE INVOCA A LOS VALORES DEL ARRAY DONDE GUARDAMOS CUALES HABILIDADES USAR, Y SE EJECUTA
+// CADA UNA DE LAS HABILIDADES
+// TAMBIEN SE RANDOMIZA EL USO DE HABILIDADES DEL ENEMIGO. EL ENEMIGO LANZARA 2 HABILIDADES EN EL MISMO TURNO DE LAS 4 QUE
+// TIENE EN SU PROPIA LISTA DE HABILIDADES
 const terminarTurno = () => {
+    // LANZAMIENTO DE HABILIDADES DE NUESTROS 4 PERSONAJES
     for (let i = 0; i < habilidadesTurno.length; i++) {
         personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
         console.log("Uso la habilidad " + personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].name + " de " + personajesElegidos[i].name + ". Quedan " + personajesElegidos[i].mp + " puntos de maná");
         console.log("La vida del dragón es " + dragon.hp);
+        document.getElementById("boton-terminar-turno").style.display = "none"
+    }
+    // LANZAMIENTO DE HABILIDADES DEL DRAGON
+    for (let i = 0; i < 2; i++) {
+        let skillNumber = parseInt(Math.random() * (4 - 0));
+        console.log("Dragon usa el ataque " + dragon.skills[skillNumber].name);
+        switch (dragon.skills[skillNumber].type) {
+            case "single":
+                let target = parseInt(Math.random() * (4 - 0));
+                dragon.skills[skillNumber].useSkill(dragon, personajesElegidos[target]);
+                console.log("Hiere a " + personajesElegidos[target].name);
+                break;
+            case "double":
+                let target1 = parseInt(Math.random() * (4 - 0));
+                let target2 = parseInt(Math.random() * (4 - 0));
+                while (target1 == target2) {
+                    target2 = parseInt(Math.random() * (4 - 0));
+                }
+                dragon.skills[skillNumber].useSkillDouble(dragon, personajesElegidos[target1], personajesElegidos[target2]);
+                console.log("Hiere a " + personajesElegidos[target1].name + " y a " + personajesElegidos[target2].name);
+                break;
+            case "all":
+                dragon.skills[skillNumber].useSkillAll(dragon, personajesElegidos[0], personajesElegidos[1], personajesElegidos[2], personajesElegidos[3]);
+                console.log("Hiere a " + personajesElegidos[0].name + ", a " + personajesElegidos[1].name + ", a " + personajesElegidos[2].name + " y a " + personajesElegidos[3].name);
+                break;
+        
+            default:
+                break;
+        }
     }
 }
