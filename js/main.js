@@ -43,30 +43,72 @@ var iceSpear = new Skill("Lanza de hielo", "Hechizo que lanza una lanza de hielo
 var stormHammer = new Skill("Martillo de la tormenta", "Hechizo que invoca un martillo hecho de truenos desde el cielo. Puede ralentizar", 800, "ralentizar", 250);
 var windKnife = new Skill("Cuchillo de viento", "Hechizo que invoca corrientes de viento cortantes", 350, "sangrar", 100);
 
+var deathStrike = new Skill("Golpe mortal", "Ataque que puede matar de un solo golpe, pero tiene muy poca probabilidad de acertar", 10000, "", 200);
+
+var habilidadPrueba1 = new Skill("prueba1", "prueba", 500, "", 50);
+var habilidadPrueba2 = new Skill("prueba2", "prueba", 500, "", 50);
+var habilidadPrueba3 = new Skill("prueba3", "prueba", 500, "", 50);
+var habilidadPrueba4 = new Skill("prueba4", "prueba", 500, "", 50);
+
+// CREACION DE PERSONAJES
 var elementalist = new Character("Gloy Stylish, el Elementalista", "Mago capaz de dominar los elementos. Puede provocar estados alterados con sus hechizos", 500, 1000, 4, 1, 4, fireHorse, iceSpear, stormHammer, windKnife);
+var assassin = new Character("Nia Nortan, la Asesina", "Asesina entrenada en artes marciales y tecnicas de veneno", 1500, 2000, 10, 2, 9, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, deathStrike)
+var personajePrueba1 = new Character("prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4);
+var personajePrueba2 = new Character("prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba2, habilidadPrueba1, habilidadPrueba3, habilidadPrueba4);
+var personajePrueba3 = new Character("prueba", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba3, habilidadPrueba2, habilidadPrueba1, habilidadPrueba4);
 
 var gargoyle = new Character("Goliath", "Monstruo venido del averno", 10000, 5000, 500, 8, 8, fireHorse, fireHorse, fireHorse, fireHorse);
+
+// VARIABLES PARA CONTROLAR CUAL PARTE DE LA APLICACION SE VE
+var showGame = false;
+
+var pantallaJuego = document.getElementById("pantalla-juego");
+var seleccionPersonajes = document.getElementById("seleccion-personajes");
+
+const cambiarPantalla = () => {
+
+    if (!showGame) {
+        pantallaJuego.style.display = "flex";
+        seleccionPersonajes.style.display = "none";
+    }else{
+        pantallaJuego.style.display = "none";
+        seleccionPersonajes.style.display = "flex";
+    }
+
+    showGame = !showGame;
+    console.log(showGame);
+}
 
 // GUARDAMOS HABILIDADES DE UN PERSONAJE
 var habilidades = [];
 
-// GUARDAMOS LOS PERSONAJES ELEGIDOS
+// EN ESTE ARRAY GUARDAMOS TODOS LOS PERSONAJES ELEGIBLES
+var todosLosPersonajes = [];
+
+// EN ESTE ARRAY GUARDAMOS LOS PERSONAJES ELEGIDOS
 var personajesElegidos = [];
 
+// METODO PARA GUARDAR LOS PERSONAJES ELEGIDOS
 personajesElegidos.push(elementalist);
+personajesElegidos.push(assassin);
+personajesElegidos.push(personajePrueba2);
+personajesElegidos.push(personajePrueba3);
 
 // MOSTRAMOS HABILIDADES EN PANTALLA, Y EL MANÁ QUE GASTAN
-// INDICAMOS CUAL ES EL PERSONAJE DEL QUE QUEREMOS OBTENER LAS HABILIDADES, Y GUARDAMOS EN UN ARRAY LOS ELEMENTOS H6 CLICKABLES
-// CON EVENTO ONCLICK. A ESE EVENTO LE PASAMOS EL PERSONAJE (POR POSICION QUE OCUPA EN EL ARRAY DE PERSONAJES ELEGIDOS) Y LA SKILL A
+// INDICAMOS CUAL ES EL PERSONAJE DEL QUE QUEREMOS OBTENER LAS HABILIDADES (INDICAMOS EL OBJETO DEL PERSONAJE POR POSICION EN
+// EL ARRAY, Y TAMBIEN INDICAMOS LA POSICION QUE OCUPA EL OBJETO EN EL ARRAY DE PERSONAJES) 
+// Y GUARDAMOS EN UN ARRAY LOS ELEMENTOS H6 CLICKABLES CON EVENTO ONCLICK.
+// A ESE EVENTO LE PASAMOS EL PERSONAJE (POR POSICION QUE OCUPA EN EL ARRAY DE PERSONAJES ELEGIDOS) Y LA SKILL A
 // USAR (POR POSICION QUE OCUPA EN EL ARRAY DE HABILIDADES DEL PERSONAJE).
 // DESPUÉS OBTENEMOS EL DIV DONDE SE MOSTRARAN LAS HABILIDADES A TRAVÉS DE SU ID, Y PINTAMOS LOS ELEMENTOS GUARDADOS EN EL ARRAY 
-// EN EL HTML
+// EN EL HTML. TRAS GUARDARLO, DEJAMOS EL ARRAY DE HABILIDADES A CERO
 
 const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
     for (let i = 0; i < objetoPersonaje.skills.length; i++) {
         habilidades.push(`<h6 onclick="usaHabilidades(${posicionObjeto}, ${i})">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span></h6>`);
     }
     document.getElementById(`character${posicionObjeto}`).innerHTML = habilidades.join("");
+    habilidades = [];
 }
 
 // FUNCION CON LA QUE USAMOS HABILIDADES
@@ -79,4 +121,7 @@ const usaHabilidades = (personaje, skill) => {
     console.log("La vida de la gárgola es " + gargoyle.hp);
 }
 
-muestraHabilidades(personajesElegidos[0], 0);
+// PINTA TODOS LAS HABILIDADES DE LOS PERSONAJES EN LA PANTALLA DEL JUEGO
+for (let i = 0; i < personajesElegidos.length; i++) {
+    muestraHabilidades(personajesElegidos[i], i);
+}
