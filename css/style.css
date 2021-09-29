@@ -52,6 +52,8 @@ body{
     background-color: cornflowerblue;
     height: 40%;
     width: 23%;
+    transition: 0.7s;
+    cursor: pointer;
 }
 
 /* ELEMENTO EN EL QUE CARGAREMOS TODO EL JUEGO */

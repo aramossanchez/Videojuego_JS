@@ -82,25 +82,35 @@ const cambiarPantalla = () => {
     showGame = !showGame;
 }
 
-// GUARDAMOS HABILIDADES DE UN PERSONAJE
-var habilidades = [];
-
 // EN ESTE ARRAY GUARDAMOS TODOS LOS PERSONAJES ELEGIBLES
 var todosLosPersonajes = [elementalist, assassin, personajePrueba1, personajePrueba1, personajePrueba2, personajePrueba2, personajePrueba3, personajePrueba3];
 
 // EN ESTE ARRAY GUARDAMOS LOS PERSONAJES ELEGIDOS
 var personajesElegidos = [];
 
-// METODO PARA GUARDAR LOS PERSONAJES ELEGIDOS
-const guardarPersonajeElegido = (lugarArray) =>{
-    personajesElegidos.push(todosLosPersonajes[lugarArray]);
+// METODO PARA GUARDAR LOS PERSONAJES CLICKADOS EN EL ARRAY DE PERSONAJES SELECCIONADOS
+// O PARA ELIMINAR DEL ARRAY DE PERSONAJES SELECCIONADOS EL PERSONAJE QUE VOLVEMOS A CLICKAR
+const guardarPersonajeElegido = (lugarArray, id) =>{
+    let fichaPersonaje = document.getElementById(id);
+    if(fichaPersonaje.style.opacity != "0.5"){
+        personajesElegidos.push(todosLosPersonajes[lugarArray]);
+        fichaPersonaje.style.opacity = "0.5";
+    }else{
+        let personajeGuardado = (element) => element.id == id;
+        fichaPersonaje.style.opacity = "1";
+        let posicionDePersonajeGuardado = personajesElegidos.findIndex(personajeGuardado);
+        personajesElegidos.splice(posicionDePersonajeGuardado, 1);
+    }
     console.log(personajesElegidos);
 }
+
+// CREAMOS ARRAY PARA GUARDAR LAS HABILIDADES QUE MOSTRAREMOS EN CADA LISTA DE HABILIDADES
+var habilidades = [];
 
 // MOSTRAMOS PERSONAJES EN LA PANTALLA DE SELECCION DE PERSONAJES
 let personaje = document.getElementById("seleccion-personajes");
 for (let i = 0; i < todosLosPersonajes.length; i++) {
-    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}')">${todosLosPersonajes[i].id}</div>`;
+    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}', '${todosLosPersonajes[i].id}')">${todosLosPersonajes[i].id}</div>`;
 }
 
 // MOSTRAMOS HABILIDADES EN PANTALLA, Y EL MANÁ QUE GASTAN
