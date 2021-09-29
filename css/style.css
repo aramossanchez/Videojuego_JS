@@ -11,7 +11,7 @@ VERSION: 1.0
     padding: 0;
 }
 body{
-    background-color: burlywood;
+    background-color: black;
 }
 
 /* CONTENEDOR PARA CENTRAR EL JUEGO */
@@ -44,16 +44,24 @@ body{
 
 /*PANTALLA EN DONDE SELECCIONAMOS A LOS PERSONAJES*/
 #seleccion-personajes{
-    width: 65em;
-    height: 40em;
-    background-color: rgb(0, 0, 0);
-    border: 0.5em solid rgb(160, 160, 160);
+    width: 68%;
+    height: 100%;
+    background-color: rgb(29, 29, 29);
+    /* border: 0.5em solid rgb(160, 160, 160); */
     display: flex;
     font-family: 'Press Start 2P';
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-around;
     flex-wrap: wrap;
+}
+#mensaje-selecciona-heroes{
+    position: absolute;
+    top: 2%;
+    padding: 0.5em;
+    color: rgb(251, 255, 0);
+    background-color: black;
+    border: 0.2em solid white;
 }
 .personaje-para-elegir{
     color: whitesmoke;
@@ -67,20 +75,21 @@ body{
     text-align: right;
 }
 .personaje-para-elegir h1{
-    font-size: 1em;
+    font-size: 0.9em;
     padding: 0.5em 0;
 }
 .personaje-para-elegir img{
     width: 7em;
+    height: 9em;
     margin-bottom: 1em;
 }
 
 /* ELEMENTO EN EL QUE CARGAREMOS TODO EL JUEGO */
 #pantalla-juego{
-    width: 65em;
-    height: 40em;
+    width: 68%;
+    height: 100%;
     background-color: cornsilk;
-    border: 0.5em solid rgb(160, 160, 160);
+    /* border: 0.5em solid rgb(160, 160, 160); */
     display: none;
     font-family: 'Press Start 2P';
     position: relative;

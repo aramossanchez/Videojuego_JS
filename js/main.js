@@ -84,9 +84,14 @@ var alaDragon = new Skill("Ala de Dragón", "Golpea con el ala a 2 enemigos alea
 alaDragon.getType("double");
 
 // CREACION DE PERSONAJES
-var elementalist = new Character("elementalist", "Gloy Stylish, el Elementalista", "Mago capaz de dominar los elementos. Puede provocar estados alterados con sus hechizos", 1500, 2000, 9, 1, 4, fireHorse, iceSpear, stormHammer, windKnife, "./img/elementalist.gif");
-var assassin = new Character("assassin", "Nia Nortan, la Asesina", "Asesina entrenada en artes marciales y tecnicas de veneno", 1750, 1000, 10, 2, 9, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, deathStrike, "./img/elementalist.gif")
-var demon = new Character("demon", "Garragan Blake, el Demonio", "No sabemos porque nos quiere ayudar. Lo que sí sabemos es que le gusta la pelea", 3200, 1500, 7, 5, 6, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/elementalist.gif")
+var elementalist = new Character("elementalist", "Gloy Stylish, the Elementalist", "Es una rana, si. Y es un mago también. Usa hechizos elementales con daño masivo, y que provocan estados alterados.", 1500, 2000, 9, 1, 4, fireHorse, iceSpear, stormHammer, windKnife, "./img/elementalist.gif");
+var assassin = new Character("assassin", "Nia Noltan, the Assassin", "Asesina entrenada en artes marciales y tecnicas de veneno", 1750, 1000, 10, 2, 9, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, deathStrike, "./img/assassin.gif");
+var demon = new Character("demon", "Liura Blake, the Demon", "No sabemos porque nos quiere ayudar. Lo que sí sabemos es que le gusta la pelea", 3200, 1500, 7, 5, 6, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/demon.gif");
+var robot = new Character("robot", "BX109 - v1.023, the Robot", "Dice que viene de nosequé año para salvar a nosequién de una revolución de nosecuando... Aguanta buenos golpes.", 5600, 900, 5, 8, 4, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/robot.gif");
+var light = new Character("light", "Liskanor Tein, the Sun's Soldier", "Dice que es hijo del Sol, que le dio todos sus poderes y habilidades... No se, suena a cuento. Pero demonios, es fuerte.", 4500, 1250, 8, 3, 6, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/light.gif");
+var healer = new Character("healer", "Sue Giys, the Healer", "Ni idea de donde saca esas medicinas, pero te deja como nuevo.", 3250, 2000, 4, 4, 3, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/healer.gif");
+var angel = new Character("angel", "Flixinia Goltric, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 5000, 2250, 3, 7, 8, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/angel.gif");
+var knight = new Character("knight", "Lucius Morrigan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 650, 7, 6, 2, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/knight.gif");
 
 var personajePrueba1 = new Character("personajePrueba1", "prueba1", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/elementalist.gif");
 var personajePrueba2 = new Character("personajePrueba2", "prueba2", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba2, habilidadPrueba1, habilidadPrueba3, habilidadPrueba4, "./img/elementalist.gif");
@@ -118,7 +123,7 @@ const cambiarPantalla = () => {
 }
 
 // EN ESTE ARRAY GUARDAMOS TODOS LOS PERSONAJES ELEGIBLES
-var todosLosPersonajes = [elementalist, assassin, demon, personajePrueba1, personajePrueba2, personajePrueba2, personajePrueba3, personajePrueba3];
+var todosLosPersonajes = [elementalist, assassin, demon, robot, light, healer, angel, knight];
 
 // EN ESTE ARRAY GUARDAMOS LOS PERSONAJES ELEGIDOS
 var personajesElegidos = [];
@@ -150,7 +155,7 @@ var habilidades = [];
 // MOSTRAMOS PERSONAJES EN LA PANTALLA DE SELECCION DE PERSONAJES
 let personaje = document.getElementById("seleccion-personajes");
 for (let i = 0; i < todosLosPersonajes.length; i++) {
-    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}', '${todosLosPersonajes[i].id}')"><h1>${todosLosPersonajes[i].name}</h1><img src="${todosLosPersonajes[i].img}"><p>Vida: ${todosLosPersonajes[i].hp}</p><p>Mana: ${todosLosPersonajes[i].mp}</p><p>Ataque: ${todosLosPersonajes[i].attack}</p><p>Defensa: ${todosLosPersonajes[i].defense}</p></div>`;
+    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}', '${todosLosPersonajes[i].id}')"><h1>${todosLosPersonajes[i].name}</h1><img src="${todosLosPersonajes[i].img}"><p>Life: ${todosLosPersonajes[i].hp}</p><p>Mana: ${todosLosPersonajes[i].mp}</p><p>Attack: ${todosLosPersonajes[i].attack}</p><p>Defense: ${todosLosPersonajes[i].defense}</p></div>`;
 }
 
 // MOSTRAMOS HABILIDADES EN PANTALLA, Y EL MANÁ QUE GASTAN
