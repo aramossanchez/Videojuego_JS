@@ -91,15 +91,17 @@ var personajesElegidos = [];
 // METODO PARA GUARDAR LOS PERSONAJES CLICKADOS EN EL ARRAY DE PERSONAJES SELECCIONADOS
 // O PARA ELIMINAR DEL ARRAY DE PERSONAJES SELECCIONADOS EL PERSONAJE QUE VOLVEMOS A CLICKAR
 const guardarPersonajeElegido = (lugarArray, id) =>{
-    let fichaPersonaje = document.getElementById(id);
+    let fichaPersonaje = document.getElementById(id); //GUARDAMOS ELEMENTO DOM DE LA FICHA DEL PERSONAJE ELEGIDO
     if(fichaPersonaje.style.opacity != "0.5"){
+        if(personajesElegidos.length < 4){ // SI NO ESTÁ SELECCIONADO, LO SELECCIONAMOS
         personajesElegidos.push(todosLosPersonajes[lugarArray]);
         fichaPersonaje.style.opacity = "0.5";
-    }else{
-        let personajeGuardado = (element) => element.id == id;
+        }
+    }else{//SI ESTÁ SELECCIONADO, LO ELIMINAMOS DEL ARRAY
         fichaPersonaje.style.opacity = "1";
-        let posicionDePersonajeGuardado = personajesElegidos.findIndex(personajeGuardado);
-        personajesElegidos.splice(posicionDePersonajeGuardado, 1);
+        let personajeGuardado = (element) => element.id == id; //BUSCA EN EL ARRAY EL ELEMENTO QUE TENGA EL ID IGUAL QUE LA FICHA DE PERSONAJE GUARDADA QUE HEMOS CLICKADO
+        let posicionDePersonajeGuardado = personajesElegidos.findIndex(personajeGuardado); //OBTENEMOS INDICE DEL ELEMENTO QUE QUEREMOS ELIMINAR DEL ARRAY
+        personajesElegidos.splice(posicionDePersonajeGuardado, 1); //ELIMINAMOS DEL ARRAY EL ELEMENTO CON EL INDICE INDICADO
     }
     console.log(personajesElegidos);
 }
