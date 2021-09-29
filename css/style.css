@@ -58,7 +58,7 @@ body{
 .personaje-para-elegir{
     color: whitesmoke;
     background-color: rgb(48, 52, 59);
-    height: 40%;
+    height: auto;
     width: 23%;
     transition: 0.4s;
     cursor: pointer;

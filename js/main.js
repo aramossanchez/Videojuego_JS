@@ -86,7 +86,7 @@ alaDragon.getType("double");
 // CREACION DE PERSONAJES
 var elementalist = new Character("elementalist", "Gloy Stylish, el Elementalista", "Mago capaz de dominar los elementos. Puede provocar estados alterados con sus hechizos", 1500, 2000, 9, 1, 4, fireHorse, iceSpear, stormHammer, windKnife, "./img/elementalist.gif");
 var assassin = new Character("assassin", "Nia Nortan, la Asesina", "Asesina entrenada en artes marciales y tecnicas de veneno", 1750, 1000, 10, 2, 9, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, deathStrike, "./img/elementalist.gif")
-var demon = new Character("demon", "Garragan Blake, el Demonio", "No sabemos porque nos quiere ayudar. Lo que sí sabemos es que le gusta la pelea", 3200, 1500, 7, 4, 6, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/elementalist.gif")
+var demon = new Character("demon", "Garragan Blake, el Demonio", "No sabemos porque nos quiere ayudar. Lo que sí sabemos es que le gusta la pelea", 3200, 1500, 7, 5, 6, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/elementalist.gif")
 
 var personajePrueba1 = new Character("personajePrueba1", "prueba1", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/elementalist.gif");
 var personajePrueba2 = new Character("personajePrueba2", "prueba2", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba2, habilidadPrueba1, habilidadPrueba3, habilidadPrueba4, "./img/elementalist.gif");
