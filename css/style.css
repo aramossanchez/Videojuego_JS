@@ -95,6 +95,19 @@ body{
     border: 0.2em solid white;
     cursor:pointer;
 }
+ /*BOTON PARA DAR EL TURNO POR FINALIZADO*/
+#boton-terminar-turno{
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    font-size: 1.5em;
+    padding: 0.5em;
+    color: red;
+    background-color: black;
+    border: 0.2em solid white;
+    cursor:pointer;
+    display: none;
+}
 /* CONTENEDOR EN EL QUE TENEMOS LA LISTA DE HABILIDADES DE TODOS LOS PERSONAJES */
 #habilidades-personajes{
     width: 100%;

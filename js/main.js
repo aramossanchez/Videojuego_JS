@@ -132,33 +132,40 @@ for (let i = 0; i < todosLosPersonajes.length; i++) {
 // EL ARRAY, Y TAMBIEN INDICAMOS LA POSICION QUE OCUPA EL OBJETO EN EL ARRAY DE PERSONAJES) 
 // Y GUARDAMOS EN UN ARRAY LOS ELEMENTOS RADIO CLICKABLES CON EVENTO ONCLICK.
 // A ESE EVENTO LE PASAMOS EL PERSONAJE (POR POSICION QUE OCUPA EN EL ARRAY DE PERSONAJES ELEGIDOS) Y LA SKILL A
-// USAR (POR POSICION QUE OCUPA EN EL ARRAY DE HABILIDADES DEL PERSONAJE).
+// USAR (POR POSICION QUE OCUPA EN EL ARRAY DE HABILIDADES DEL PERSONAJE). TAMBIEN LE PASAMOS EL ID DE SU ELEMENTO CONTENEDOR (PARA
+// QUITAR EVENTOS DE CLICK Y HACERLO TRANSPARENTE)
 // DESPUÉS OBTENEMOS EL DIV DONDE SE MOSTRARAN LAS HABILIDADES A TRAVÉS DE SU ID, Y PINTAMOS LOS ELEMENTOS GUARDADOS EN EL ARRAY 
 // EN EL HTML. TRAS GUARDARLO, DEJAMOS EL ARRAY DE HABILIDADES A CERO
 
 const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
     for (let i = 0; i < objetoPersonaje.skills.length; i++) {
-        habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="usaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label for="element${posicionObjeto}${i}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span></label>`);
+        habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="guardaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label for="element${posicionObjeto}${i}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span></label>`);
     }
-    document.getElementById(`character${posicionObjeto}`).innerHTML = `<form onclick='show(event.path[0].onclick)'>` + habilidades.join("") + "</form>";
+    document.getElementById(`character${posicionObjeto}`).innerHTML = `<form>` + habilidades.join("") + "</form>";
     habilidades = [];
 }
 
-// FUNCION CON LA QUE USAMOS HABILIDADES
+// FUNCION CON LA QUE GUARDAMOS QUE HABILIDADES VAMOS A USAR
 // AL CLICKAR EN LAS HABILIDADES DE CADA PERSONAJE LLAMAREMOS A ESTA FUNCION
-// USARÁ LA HABILIDAD QUE PASEMOS POR PARAMETROS, DEL PERSONAJE QUE PASEMOS POR PARAMETROS
+// GUARDARÁ EN UN ARRAY EL PERSONAJE Y LA HABILIDAD QUE VA A USAR
+// TAMBIEN QUITAMOS LOS EVENTOS DE CLICK EN EL DIV CONTENEDOR DE LA LISTA DE HABILIDADES A LA QUE PERTENECE LA HABILIDAD
+// QUE ELEGIMOS, Y LE QUITAMOS OPACIDAD
 
-const usaHabilidades = (personaje, skill, id) => {
+var habilidadesTurno = [];
+
+const guardaHabilidades = (personaje, skill, id) => {
     document.getElementById(id).style.pointerEvents = "none";
-    personajesElegidos[personaje].skills[skill].useSkill(elementalist, dragon);
-    console.log("Uso la habilidad " + personajesElegidos[personaje].skills[skill].name)
-    console.log("La vida del dragón es " + dragon.hp);
+    document.getElementById(id).style.opacity = "0.5";
+    habilidadesTurno.push([personaje, skill]);
+    console.log(habilidadesTurno);
+    // personajesElegidos[personaje].skills[skill].useSkill(elementalist, dragon);
+    // console.log("Uso la habilidad " + personajesElegidos[personaje].skills[skill].name)
+    // console.log("La vida del dragón es " + dragon.hp);
 }
+
+
 
 const empezarTurno = () =>{
     document.getElementById("pantalla-empezar-turno").style.display = "none";
-}
-
-const show = (e) =>{
-    console.log(e);
+    document.getElementById("boton-terminar-turno").style.display = "block"
 }
