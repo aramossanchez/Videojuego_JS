@@ -121,7 +121,7 @@ var angel = new Character("angel", "Flixinia Goltric, the Angel", "Bajada del ci
 var knight = new Character("knight", "Lucius Morrigan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 650, 7, 6, 2, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/knight.gif", "./img/knight-walking.gif");
 
 //ENEMIGO
-var dragon = new Character("dragon", "Goliath", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 5000, 500, 8, 8, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
+var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 5000, 500, 8, 8, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -178,6 +178,8 @@ let barrasSaludMana = document.getElementById("barras-salud-mana");
 // VIDA Y MANA SE HA PERDIDO EN LAS BARRAS DE SALUD Y DE MANA
 let hpPersonajesElegidos = [];
 let mpPersonajesElegidos = [];
+let hpMaxEnemy = dragon.hp;
+let mpMaxEnemy = dragon.mp;
 
 // CALCULA EL PORCENTAJE DE SALUD RESTANTE DE CADA PERSONAJE
 const porcentajeSalud = (vidaTotal, vidaActual) =>{
@@ -200,12 +202,18 @@ const porcentajeMana = (manaTotal, manaActual) =>{
     }
 }
 
-// CON ESTA FUNCION PINTAMOS LAS BARRAS DE SALUD Y MANA, Y ACTUALIZAMOS LONGITUD DE BARRAS EN FUNCION DE LOS PUNTOS QUE FALTEN
-// LA LLAMAMOS AL INICIAR EL JUEGO Y DESPUES DE CADA TURNO
+// CON ESTA FUNCION PINTAMOS LAS BARRAS DE SALUD Y MANA DE LOS HEROES ELEGIDOS, Y ACTUALIZAMOS LONGITUD DE BARRAS
+//  EN FUNCION DE LOS PUNTOS QUE FALTEN LA LLAMAMOS AL INICIAR EL JUEGO Y DESPUES DE CADA TURNO
 const pintarBarrasSaludMana = () =>{
     for (let i = 0; i < personajesElegidos.length; i++) {
         barrasSaludMana.innerHTML = barrasSaludMana.innerHTML + `<div class="barras-de-personaje"><h2>${personajesElegidos[i].name}</h2><div class="texto-barra-salud">${personajesElegidos[i].hp}/${hpPersonajesElegidos[i]}<div class="barra-salud" style="width: ${porcentajeSalud(hpPersonajesElegidos[i], personajesElegidos[i].hp)}%"></div></div><div class="texto-barra-mana">${personajesElegidos[i].mp}/${mpPersonajesElegidos[i]}<div class="barra-mana" style="width: ${porcentajeMana(mpPersonajesElegidos[i], personajesElegidos[i].mp)}%"></div></div></div>`
     }
+}
+
+// CON ESTA FUNCION PINTAMOS LAS BARRAS DE SALUD Y MANA DEL ENEMIGO, Y ACTUALIZAMOS LONGITUD DE BARRAS
+//  EN FUNCION DE LOS PUNTOS QUE FALTEN LA LLAMAMOS AL INICIAR EL JUEGO Y DESPUES DE CADA TURNO
+const pintarBarrasSaludManaEnemigo = () =>{
+    document.getElementById("barras-de-enemigo").innerHTML = `<div class="barras-de-personaje"><div class="texto-barra-salud">${dragon.hp}/${hpMaxEnemy}<div class="barra-salud" style="width: ${porcentajeSalud(hpMaxEnemy, dragon.hp)}%"></div></div><div class="texto-barra-mana">${dragon.mp}/${mpMaxEnemy}<div class="barra-mana" style="width: ${porcentajeMana(mpMaxEnemy, dragon.mp)}%"></div></div></div>`
 }
 
 // FUNCION PARA ALTERNAR ENTRE PANTALLAS DE LA APLICACION Y PARA MOSTRAR LAS HABILIDADES DE LOS PERSONAJES ELEGIDOS
@@ -216,10 +224,9 @@ const iniciarJuego = () => {
         hpPersonajesElegidos.push(personajesElegidos[i].hp);
         mpPersonajesElegidos.push(personajesElegidos[i].mp);
     }
-    console.log(hpPersonajesElegidos, mpPersonajesElegidos);
     if (!showGame) {
-        let escenarioBatalla = document.getElementById("escenario-batalla");
         let heroesBatalla = document.getElementById("heroes-en-batalla");
+        let enemigoBatalla = document.getElementById("enemigo-en-batalla");
         pantallaJuego.style.display = "flex";
         seleccionPersonajes.style.display = "none";
         document.getElementById("switch").style.transform = "scaleY(0)";
@@ -230,7 +237,8 @@ const iniciarJuego = () => {
             muestraHabilidades(personajesElegidos[i], i);
             heroesBatalla.innerHTML = heroesBatalla.innerHTML + `<div><img src="${personajesElegidos[i].imgWalking}"></div>`
         }
-        escenarioBatalla.innerHTML = escenarioBatalla.innerHTML + `<div id="enemigo-en-batalla"><img src="${dragon.imgWalking}"></div>`
+        enemigoBatalla.innerHTML = `<h2 id="nombre-dragon">${dragon.name}</h2><img src="${dragon.imgWalking}"><div id="barras-de-enemigo"></div>`
+        pintarBarrasSaludManaEnemigo();
     }else{
         pantallaJuego.style.display = "none";
         seleccionPersonajes.style.display = "flex";
@@ -274,13 +282,15 @@ const guardaHabilidades = (personaje, skill, id) => {
 }
 
 // FUNCION QUE MUESTRA LA PANTALLA DEL JUEGO, CON TODAS LAS HABILIDADES DE LOS PERSONAJES ELEGIDOS SIN CHECKED, 
-// SUS BARRAS DE VIDA Y MANA Y EL DIV CONTENEDOR DE SUS HABILIDADES
+// SUS BARRAS DE VIDA Y MANA Y EL DIV CONTENEDOR DE SUS HABILIDADES, BARRAS DE ENEMIGO Y NOMBRE DE ENEMIGO.
 // TAMBIEN CARGA EL BOTON DE TERMINAR TURNO
 const empezarTurno = () =>{
     document.getElementById("pantalla-empezar-turno").style.display = "none";
     document.getElementById("boton-terminar-turno").style.display = "block";
     document.getElementById("habilidades-personajes").style.display = "flex";
     document.getElementById("barras-salud-mana").style.display = "flex";
+    document.getElementById("barras-de-enemigo").style.display = "flex";
+    document.getElementById("nombre-dragon").style.display = "block"
     let radios = document.getElementsByTagName("input");
     for (let i = 0; i < radios.length; i++) {
         radios[i].checked = false;    
@@ -307,6 +317,7 @@ const terminarTurno = () => {
             // PINTAMOS DE NUEVO LA VIDA Y EL MANA DE CADA PERSONAJE
             barrasSaludMana.innerHTML = "";
             pintarBarrasSaludMana();
+            pintarBarrasSaludManaEnemigo();
         }, contador);
     }
     // LANZAMIENTO DE HABILIDADES DEL DRAGON
@@ -341,6 +352,7 @@ const terminarTurno = () => {
             // PINTAMOS DE NUEVO LA VIDA Y EL MANA DE CADA PERSONAJE
             barrasSaludMana.innerHTML = "";
             pintarBarrasSaludMana();
+            pintarBarrasSaludManaEnemigo();
         }, contador);
     }
     // ESTO SE EJECUTARÁ TRAS TODOS LOS ATAQUES DE LOS PERSONAJES ELEGIDOS Y DEL ENEMIGO
