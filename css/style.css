@@ -91,6 +91,9 @@ body{
     background-color: cornsilk;
     /* border: 0.5em solid rgb(160, 160, 160); */
     display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
     font-family: 'Press Start 2P';
     position: relative;
 }
@@ -128,6 +131,27 @@ body{
     border: 0.2em solid white;
     cursor:pointer;
     display: none;
+}
+#escenario-batalla{
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#escenario-batalla img{
+    width: 5em;
+    margin: 1em;
+}
+#enemigo-en-batalla{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#enemigo-en-batalla img{
+    width: 15em;
 }
 /* CONTENEDOR EN EL QUE TENEMOS LA LISTA DE HABILIDADES DE TODOS LOS PERSONAJES */
 #habilidades-personajes{
