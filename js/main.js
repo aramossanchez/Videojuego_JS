@@ -183,7 +183,7 @@ let mpPersonajesElegidos = [];
 // LA LLAMAMOS AL INICIAR EL JUEGO Y DESPUES DE CADA TURNO
 const pintarBarrasSaludMana = () =>{
     for (let i = 0; i < personajesElegidos.length; i++) {
-        barrasSaludMana.innerHTML = barrasSaludMana.innerHTML + `<div class="barras-de-personaje"><h2>${personajesElegidos[i].name}</h2><div class="texto-barra-salud">${personajesElegidos[i].hp}/${hpPersonajesElegidos[i]}<div class="barra-salud" style="width: ${porcentajeSalud(hpPersonajesElegidos[i], personajesElegidos[i].hp)}%"></div></div><div class="texto-barra-mana">${personajesElegidos[i].mp}/${mpPersonajesElegidos[i]}</div></div>`
+        barrasSaludMana.innerHTML = barrasSaludMana.innerHTML + `<div class="barras-de-personaje"><h2>${personajesElegidos[i].name}</h2><div class="texto-barra-salud">${personajesElegidos[i].hp}/${hpPersonajesElegidos[i]}<div class="barra-salud" style="width: ${porcentajeSalud(hpPersonajesElegidos[i], personajesElegidos[i].hp)}%"></div></div><div class="texto-barra-mana">${personajesElegidos[i].mp}/${mpPersonajesElegidos[i]}<div class="barra-mana" style="width: ${porcentajeMana(mpPersonajesElegidos[i], personajesElegidos[i].mp)}%"></div></div></div>`
     }
 }
 
@@ -324,5 +324,19 @@ const terminarTurno = () => {
 }
 
 const porcentajeSalud = (vidaTotal, vidaActual) =>{
-    return parseInt(vidaActual/vidaTotal * 100);
+    let hp = parseInt(vidaActual/vidaTotal * 100);
+    if (hp <= 0) {
+        return 0
+    }else{
+        return hp
+    }
+     
+}
+const porcentajeMana = (manaTotal, manaActual) =>{
+    let mp = parseInt(manaActual/manaTotal * 100);
+    if (mp <= 0) {
+        return 0
+    }else{
+        return mp
+    }
 }
