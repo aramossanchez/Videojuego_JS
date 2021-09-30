@@ -97,7 +97,7 @@ var personajePrueba1 = new Character("personajePrueba1", "prueba1", "prueba", 10
 var personajePrueba2 = new Character("personajePrueba2", "prueba2", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba2, habilidadPrueba1, habilidadPrueba3, habilidadPrueba4, "./img/elementalist.gif");
 var personajePrueba3 = new Character("personajePrueba3", "prueba3", "prueba", 1000, 1000, 10, 5, 5, habilidadPrueba3, habilidadPrueba2, habilidadPrueba1, habilidadPrueba4, "./img/elementalist.gif");
 
-var dragon = new Character("dragon", "Goliath", "Monstruo venido del averno", 10000, 5000, 500, 8, 8, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif");
+var dragon = new Character("dragon", "Goliath", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 5000, 500, 8, 8, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif");
 
 // VARIABLES PARA CONTROLAR CUAL PARTE DE LA APLICACION SE VE
 var showGame = false;
@@ -155,7 +155,7 @@ var habilidades = [];
 // MOSTRAMOS PERSONAJES EN LA PANTALLA DE SELECCION DE PERSONAJES
 let personaje = document.getElementById("seleccion-personajes");
 for (let i = 0; i < todosLosPersonajes.length; i++) {
-    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}', '${todosLosPersonajes[i].id}')"><h1>${todosLosPersonajes[i].name}</h1><img src="${todosLosPersonajes[i].img}"><p>Life: ${todosLosPersonajes[i].hp}</p><p>Mana: ${todosLosPersonajes[i].mp}</p><p>Attack: ${todosLosPersonajes[i].attack}</p><p>Defense: ${todosLosPersonajes[i].defense}</p></div>`;
+    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}', '${todosLosPersonajes[i].id}')"><h1>${todosLosPersonajes[i].name}</h1><img src="${todosLosPersonajes[i].img}"><p>Life: ${todosLosPersonajes[i].hp}</p><p>Mana: ${todosLosPersonajes[i].mp}</p><p>Attack: ${todosLosPersonajes[i].attack}</p><p>Defense: ${todosLosPersonajes[i].defense}</p><p>Speed: ${todosLosPersonajes[i].speed}</p></div>`;
 }
 
 // MOSTRAMOS HABILIDADES EN PANTALLA, Y EL MANÁ QUE GASTAN
@@ -206,37 +206,41 @@ const empezarTurno = () =>{
 const terminarTurno = () => {
     // LANZAMIENTO DE HABILIDADES DE NUESTROS 4 PERSONAJES
     for (let i = 0; i < habilidadesTurno.length; i++) {
-        personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
-        console.log("Uso la habilidad " + personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].name + " de " + personajesElegidos[i].name + ". Quedan " + personajesElegidos[i].mp + " puntos de maná");
-        console.log("La vida del dragón es " + dragon.hp);
         document.getElementById("boton-terminar-turno").style.display = "none"
+        setTimeout(() => {
+            personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
+            console.log("Uso la habilidad " + personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].name + " de " + personajesElegidos[i].name + ". Quedan " + personajesElegidos[i].mp + " puntos de maná");
+            console.log("La vida del dragón es " + dragon.hp);
+        }, parseInt(20000 / personajesElegidos[habilidadesTurno[i][0]].speed));
     }
     // LANZAMIENTO DE HABILIDADES DEL DRAGON
     for (let i = 0; i < 2; i++) {
-        let skillNumber = parseInt(Math.random() * (4 - 0));
-        console.log("Dragon usa el ataque " + dragon.skills[skillNumber].name);
-        switch (dragon.skills[skillNumber].type) {
-            case "single":
-                let target = parseInt(Math.random() * (4 - 0));
-                dragon.skills[skillNumber].useSkill(dragon, personajesElegidos[target]);
-                console.log("Hiere a " + personajesElegidos[target].name);
-                break;
-            case "double":
-                let target1 = parseInt(Math.random() * (4 - 0));
-                let target2 = parseInt(Math.random() * (4 - 0));
-                while (target1 == target2) {
-                    target2 = parseInt(Math.random() * (4 - 0));
-                }
-                dragon.skills[skillNumber].useSkillDouble(dragon, personajesElegidos[target1], personajesElegidos[target2]);
-                console.log("Hiere a " + personajesElegidos[target1].name + " y a " + personajesElegidos[target2].name);
-                break;
-            case "all":
-                dragon.skills[skillNumber].useSkillAll(dragon, personajesElegidos[0], personajesElegidos[1], personajesElegidos[2], personajesElegidos[3]);
-                console.log("Hiere a " + personajesElegidos[0].name + ", a " + personajesElegidos[1].name + ", a " + personajesElegidos[2].name + " y a " + personajesElegidos[3].name);
-                break;
-        
-            default:
-                break;
-        }
+        setTimeout(() => {
+            let skillNumber = parseInt(Math.random() * (4 - 0));
+            console.log("Dragon usa el ataque " + dragon.skills[skillNumber].name);
+            switch (dragon.skills[skillNumber].type) {
+                case "single":
+                    let target = parseInt(Math.random() * (4 - 0));
+                    dragon.skills[skillNumber].useSkill(dragon, personajesElegidos[target]);
+                    console.log("Hiere a " + personajesElegidos[target].name);
+                    break;
+                case "double":
+                    let target1 = parseInt(Math.random() * (4 - 0));
+                    let target2 = parseInt(Math.random() * (4 - 0));
+                    while (target1 == target2) {
+                        target2 = parseInt(Math.random() * (4 - 0));
+                    }
+                    dragon.skills[skillNumber].useSkillDouble(dragon, personajesElegidos[target1], personajesElegidos[target2]);
+                    console.log("Hiere a " + personajesElegidos[target1].name + " y a " + personajesElegidos[target2].name);
+                    break;
+                case "all":
+                    dragon.skills[skillNumber].useSkillAll(dragon, personajesElegidos[0], personajesElegidos[1], personajesElegidos[2], personajesElegidos[3]);
+                    console.log("Hiere a " + personajesElegidos[0].name + ", a " + personajesElegidos[1].name + ", a " + personajesElegidos[2].name + " y a " + personajesElegidos[3].name);
+                    break;
+            
+                default:
+                    break;
+            }
+        }, parseInt(20000 / dragon.speed));
     }
 }

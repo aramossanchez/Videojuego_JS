@@ -57,11 +57,11 @@ body{
 }
 #mensaje-selecciona-heroes{
     position: absolute;
-    top: 2%;
+    top: 1%;
     padding: 0.5em;
     color: rgb(251, 255, 0);
     background-color: black;
-    border: 0.2em solid white;
+    border: 0.1em solid white;
 }
 .personaje-para-elegir{
     color: whitesmoke;
