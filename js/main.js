@@ -179,6 +179,27 @@ let barrasSaludMana = document.getElementById("barras-salud-mana");
 let hpPersonajesElegidos = [];
 let mpPersonajesElegidos = [];
 
+// CALCULA EL PORCENTAJE DE SALUD RESTANTE DE CADA PERSONAJE
+const porcentajeSalud = (vidaTotal, vidaActual) =>{
+    let hp = parseInt(vidaActual/vidaTotal * 100);
+    if (hp <= 0) {
+        return 0
+    }else{
+        return hp
+    }
+     
+}
+
+// CALCULA EL PORCENTAJE DE MANA RESTANTE DE CADA PERSONAJE
+const porcentajeMana = (manaTotal, manaActual) =>{
+    let mp = parseInt(manaActual/manaTotal * 100);
+    if (mp <= 0) {
+        return 0
+    }else{
+        return mp
+    }
+}
+
 // CON ESTA FUNCION PINTAMOS LAS BARRAS DE SALUD Y MANA, Y ACTUALIZAMOS LONGITUD DE BARRAS EN FUNCION DE LOS PUNTOS QUE FALTEN
 // LA LLAMAMOS AL INICIAR EL JUEGO Y DESPUES DE CADA TURNO
 const pintarBarrasSaludMana = () =>{
@@ -272,43 +293,58 @@ const empezarTurno = () =>{
 // TAMBIEN SE RANDOMIZA EL USO DE HABILIDADES DEL ENEMIGO. EL ENEMIGO LANZARA 2 HABILIDADES EN EL MISMO TURNO DE LAS 4 QUE
 // TIENE EN SU PROPIA LISTA DE HABILIDADES
 // USAMOS SETTIMEOUT PARA VOLVER A LA PANTALLA DE INICIAR MENÚ
+
 const terminarTurno = () => {
+    let contador = 0;
     document.getElementById("boton-terminar-turno").style.display = "none"
     // LANZAMIENTO DE HABILIDADES DE NUESTROS 4 PERSONAJES
     for (let i = 0; i < habilidadesTurno.length; i++) {
+        contador += 1000;
+        setTimeout(() => {
             personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
             console.log("Uso la habilidad " + personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].name + " de " + personajesElegidos[i].name + ". Quedan " + personajesElegidos[i].mp + " puntos de maná");
             console.log("La vida del dragón es " + dragon.hp);
+            // PINTAMOS DE NUEVO LA VIDA Y EL MANA DE CADA PERSONAJE
+            barrasSaludMana.innerHTML = "";
+            pintarBarrasSaludMana();
+        }, contador);
     }
     // LANZAMIENTO DE HABILIDADES DEL DRAGON
     for (let i = 0; i < 2; i++) {
-        let skillNumber = parseInt(Math.random() * (4 - 0));
-        console.log("Dragon usa el ataque " + dragon.skills[skillNumber].name);
-        switch (dragon.skills[skillNumber].type) {
-            case "single":
-                let target = parseInt(Math.random() * (4 - 0));
-                dragon.skills[skillNumber].useSkill(dragon, personajesElegidos[target]);
-                console.log("Hiere a " + personajesElegidos[target].name);
-                break;
-            case "double":
-                let target1 = parseInt(Math.random() * (4 - 0));
-                let target2 = parseInt(Math.random() * (4 - 0));
-                while (target1 == target2) {
-                    target2 = parseInt(Math.random() * (4 - 0));
-                }
-                dragon.skills[skillNumber].useSkillDouble(dragon, personajesElegidos[target1], personajesElegidos[target2]);
-                console.log("Hiere a " + personajesElegidos[target1].name + " y a " + personajesElegidos[target2].name);
-                break;
-            case "all":
-                dragon.skills[skillNumber].useSkillAll(dragon, personajesElegidos[0], personajesElegidos[1], personajesElegidos[2], personajesElegidos[3]);
-                console.log("Hiere a " + personajesElegidos[0].name + ", a " + personajesElegidos[1].name + ", a " + personajesElegidos[2].name + " y a " + personajesElegidos[3].name);
-                break;
-        
-            default:
-                break;
-        }
+        contador += 1000;
+        setTimeout(() => {
+            let skillNumber = parseInt(Math.random() * (4 - 0));
+            console.log("Dragon usa el ataque " + dragon.skills[skillNumber].name);
+            switch (dragon.skills[skillNumber].type) {
+                case "single":
+                    let target = parseInt(Math.random() * (personajesElegidos.length - 0));
+                    dragon.skills[skillNumber].useSkill(dragon, personajesElegidos[target]);
+                    console.log("Hiere a " + personajesElegidos[target].name);
+                    break;
+                case "double":
+                    let target1 = parseInt(Math.random() * (personajesElegidos.length - 0));
+                    let target2 = parseInt(Math.random() * (personajesElegidos.length - 0));
+                    while (target1 == target2) {
+                        target2 = parseInt(Math.random() * (personajesElegidos.length - 0));
+                    }
+                    dragon.skills[skillNumber].useSkillDouble(dragon, personajesElegidos[target1], personajesElegidos[target2]);
+                    console.log("Hiere a " + personajesElegidos[target1].name + " y a " + personajesElegidos[target2].name);
+                    break;
+                case "all":
+                    dragon.skills[skillNumber].useSkillAll(dragon, personajesElegidos[0], personajesElegidos[1], personajesElegidos[2], personajesElegidos[3]);
+                    console.log("Hiere a " + personajesElegidos[0].name + ", a " + personajesElegidos[1].name + ", a " + personajesElegidos[2].name + " y a " + personajesElegidos[3].name);
+                    break;
+            
+                default:
+                    break;
+            }
+            // PINTAMOS DE NUEVO LA VIDA Y EL MANA DE CADA PERSONAJE
+            barrasSaludMana.innerHTML = "";
+            pintarBarrasSaludMana();
+        }, contador);
     }
     // ESTO SE EJECUTARÁ TRAS TODOS LOS ATAQUES DE LOS PERSONAJES ELEGIDOS Y DEL ENEMIGO
+    contador += 1000;
     setTimeout(() => {
         document.getElementById("pantalla-empezar-turno").style.display = "flex";
         habilidadesTurno = [];
@@ -317,26 +353,5 @@ const terminarTurno = () => {
             document.getElementById(`character${i}`).style.pointerEvents = "initial";
             document.getElementById(`character${i}`).style.opacity = "1";            
         }
-        // PINTAMOS DE NUEVO LA VIDA Y EL MANA DE CADA PERSONAJE
-        barrasSaludMana.innerHTML = "";
-        pintarBarrasSaludMana();
-    }, 500);
-}
-
-const porcentajeSalud = (vidaTotal, vidaActual) =>{
-    let hp = parseInt(vidaActual/vidaTotal * 100);
-    if (hp <= 0) {
-        return 0
-    }else{
-        return hp
-    }
-     
-}
-const porcentajeMana = (manaTotal, manaActual) =>{
-    let mp = parseInt(manaActual/manaTotal * 100);
-    if (mp <= 0) {
-        return 0
-    }else{
-        return mp
-    }
+    }, contador);
 }
