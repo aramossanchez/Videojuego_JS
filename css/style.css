@@ -89,6 +89,9 @@ body{
     width: 68%;
     height: 100%;
     background-color: cornsilk;
+    background-image: url("../img/fondo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     /* border: 0.5em solid rgb(160, 160, 160); */
     display: none;
     flex-direction: column;
@@ -136,7 +139,7 @@ body{
 #barras-salud-mana{
     width: 100%;
     height: 10%;
-    display: flex;
+    display: none;
     flex-direction: row;
     justify-content: space-between;
 }
@@ -153,17 +156,29 @@ body{
     margin: 0.2em 0.5em;
     color: white;
 }
-.barra-salud{
+.texto-barra-salud{
+    border: 0.1em solid white;
+    color: white;
+    z-index: 1;
     text-align: center;
-    background-color: chartreuse;
+    position: relative;
 }
-.barra-mana{
+.barra-salud{
+    z-index: -1;
+    background-color: chartreuse;
+    position: absolute;
+    top:0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+}
+.texto-barra-mana{
     text-align: center;
     background-color: cornflowerblue;
 }
 /* CONTENEDOR DE LAS IMAGENES DE LOS PERSONAJES DE LA BATALLA */
 #escenario-batalla{
-    height: auto;
+    height: 72%;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -171,6 +186,7 @@ body{
 }
 #escenario-batalla img{
     width: 5em;
+    height: 6em;
     margin: 1em;
 }
 #enemigo-en-batalla{
@@ -182,12 +198,13 @@ body{
 }
 #enemigo-en-batalla img{
     width: 15em;
+    height: 17em;
 }
 /* CONTENEDOR EN EL QUE TENEMOS LA LISTA DE HABILIDADES DE TODOS LOS PERSONAJES */
 #habilidades-personajes{
     width: 100%;
     height: 18%;
-    display: flex;
+    display: none;
     flex-direction: row;
     align-items: center;
     justify-content: center;
