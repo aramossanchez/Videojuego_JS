@@ -282,6 +282,7 @@ const guardaHabilidades = (personaje, skill, id) => {
     document.getElementById(id).style.pointerEvents = "none";
     document.getElementById(id).style.opacity = "0.5";
     habilidadesTurno[personaje] = ([personaje, skill]);
+    console.log(habilidadesTurno);
 }
 
 // FUNCION QUE MUESTRA LA PANTALLA DEL JUEGO, CON TODAS LAS HABILIDADES DE LOS PERSONAJES ELEGIDOS SIN CHECKED, 
@@ -321,17 +322,19 @@ const terminarTurno = () => {
     document.getElementById("boton-terminar-turno").style.display = "none"
     // LANZAMIENTO DE HABILIDADES DE NUESTROS 4 PERSONAJES
     for (let i = 0; i < habilidadesTurno.length; i++) {
-        contador += 1000;
-        setTimeout(() => {
-            moverHeroe(`heroe-en-batalla-${i}`);
-            personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
-            console.log("Uso la habilidad " + personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].name + " de " + personajesElegidos[i].name + ". Quedan " + personajesElegidos[i].mp + " puntos de maná");
-            console.log("La vida del dragón es " + dragon.hp);
-            // PINTAMOS DE NUEVO LA VIDA Y EL MANA DE CADA PERSONAJE
-            barrasSaludMana.innerHTML = "";
-            pintarBarrasSaludMana();
-            pintarBarrasSaludManaEnemigo();
-        }, contador);
+        if (habilidadesTurno[i] != 0) {
+            contador += 1000;
+            setTimeout(() => {
+                moverHeroe(`heroe-en-batalla-${i}`);
+                personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
+                console.log("Uso la habilidad " + personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].name + " de " + personajesElegidos[i].name + ". Quedan " + personajesElegidos[i].mp + " puntos de maná");
+                console.log("La vida del dragón es " + dragon.hp);
+                // PINTAMOS DE NUEVO LA VIDA Y EL MANA DE CADA PERSONAJE
+                barrasSaludMana.innerHTML = "";
+                pintarBarrasSaludMana();
+                pintarBarrasSaludManaEnemigo();
+            }, contador);
+        }
     }
     // LANZAMIENTO DE HABILIDADES DEL DRAGON
     for (let i = 0; i < 2; i++) {
@@ -382,7 +385,7 @@ const terminarTurno = () => {
     contador += 1000;
     setTimeout(() => {
         document.getElementById("pantalla-empezar-turno").style.display = "flex";
-        habilidadesTurno = [];
+        habilidadesTurno = [0, 0, 0, 0];
         // HABILITAMOS DE NUEVO EL USO DE HABILIDADES
         for (let i = 0; i < personajesElegidos.length; i++) {
             document.getElementById(`character${i}`).style.pointerEvents = "initial";
