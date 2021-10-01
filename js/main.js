@@ -31,7 +31,7 @@ class Skill{
         caster.mp -= this.cost;
         target.attack += 5;
     }
-    useHealOneTarget(caster, target){
+    useHeal(caster, target){
         caster.mp -= this.cost;
         target.hp += this.damage;
     }
@@ -94,15 +94,15 @@ var lightStrike = new Skill("Light Strike", "Emite un haz de luz desde todo su c
 var sunSon = new Skill("Sun Son", "Usa todo el poder cedido por el sol para hacer un ataque debastador. Puede quemar.", 1000, "quemar", 700);
 
 //HABILIDADES DE HEALER
+var goddessKiss = new Skill("Goddess Kiss", "Cura a un aliado al azar una gran cantidad de salud. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 3500, "curar", 250);
 
 
-
-var springOfLife = new Skill ("Spring of Life", "Cura a todos sus aliados una gran cantidad de vida.", 2500, "curarTodos", 1000);
+var springOfLife = new Skill ("Spring of Life", "Cura a todos sus aliados una gran cantidad de vida. Gasta mana en función de los aliados que cure. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 2500, "curarTodos", 250);
 
 //HABILIDADES DE ANGEL
 var lightFist = new Skill("Light Fist", "Golpea a su enemigo con su puño bendecido por el dios de la lucha.", 600, "", 300);
 var skysword = new Skill("Sky Sword", "Golpea con la espada que le regaló el dios de la guerra.", 650, "", 400);
-var divineBlessing = new Skill("Divine Blessing", "Cura a un aliado al azar parte de su salud. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 1000, "curarUno", 350);
+var divineBlessing = new Skill("Divine Blessing", "Cura a un aliado al azar parte de su salud. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 1000, "curar", 350);
 var finalJudgment = new Skill("Final Judgment", "Invoca pilares de luz que fulminan a su enemigo", 900, "", 700);
 
 
@@ -142,7 +142,7 @@ var robot = new Character("robot", "BX109 - v1.023, the Robot", "Dice que viene 
 
 var light = new Character("light", "Liskanor Tein, the Sun Soldier", "Dice que es hijo del Sol, que le dio todos sus poderes y habilidades... No se, suena a cuento. Pero demonios, es fuerte.", 4500, 1250, 8, 3, 6, punchSun, laserEyes, lightStrike, sunSon, "./img/light.gif", "./img/light-walking.gif");
 
-var healer = new Character("healer", "Suerestil Giysh, the Healer", "Ni idea de donde saca esas medicinas, pero te deja como nuevo.", 3250, 2000, 4, 4, 3, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/healer.gif", "./img/healer-walking.gif");
+var healer = new Character("healer", "Suerestil Giysh, the Healer", "Ni idea de donde saca esas medicinas, pero te deja como nuevo.", 3250, 2000, 4, 4, 3, goddessKiss, habilidadPrueba2, habilidadPrueba3, springOfLife, "./img/healer.gif", "./img/healer-walking.gif");
 
 var angel = new Character("angel", "Flixinia Goltric, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 5000, 1800, 3, 7, 8, lightFist, skysword, divineBlessing, finalJudgment, "./img/angel.gif", "./img/angel-walking.gif");
 
@@ -359,9 +359,13 @@ const terminarTurno = () => {
                         personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useBerserker(personajesElegidos[i], personajesElegidos[parseInt(Math.random() * (personajesElegidos.length - 0))]);
                         console.log(personajesElegidos);
                         break;
-                    case "curarUno":
-                        personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useHealOneTarget(personajesElegidos[i], personajesElegidos[parseInt(Math.random() * (personajesElegidos.length - 0))]);
-                        console.log(personajesElegidos);
+                    case "curar":
+                        personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useHeal(personajesElegidos[i], personajesElegidos[parseInt(Math.random() * (personajesElegidos.length - 0))]);
+                        break;
+                    case "curarTodos":
+                        for (let a = 0; a < personajesElegidos.length; a++) {
+                            personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useHeal(personajesElegidos[i], personajesElegidos[a]);
+                        }
                         break;
                     default:
                         personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
