@@ -96,9 +96,9 @@ alientoDragon.getType("all");
 var espinasDragon = new Skill("Espinas de Dragón", "Se lanzan espinas al suelo que dañan a todos los enemigos al comienzo del turno durante 3 turnos", 100, "", 200);
 espinasDragon.getType("all");
 
-var placajeDragon = new Skill("Placaje de Dragon", "Empuja a un enemigo realizándole un placaje. Puede empujar", 3000, "empujar", 300);
+var placajeDragon = new Skill("Placaje de Dragon", "Empuja a un enemigo realizándole un placaje. Puede empujar", 4000, "empujar", 300);
 
-var alaDragon = new Skill("Ala de Dragón", "Golpea con el ala a 2 enemigos aleatorios. Puede provocar sangrado.", 550, "sangrar", 400);
+var alaDragon = new Skill("Ala de Dragón", "Golpea con el ala a 2 enemigos aleatorios. Puede provocar sangrado.", 4000, "sangrar", 400);
 alaDragon.getType("double");
 
 // CREACION DE PERSONAJES
@@ -380,14 +380,27 @@ const terminarTurno = () => {
             document.getElementById(`character${i}`).style.opacity = "1";            
         }
         // SACAMOS DEL ARRAY DE PERSONAJES ELEGIDOS LOS PERSONAJES QUE HAYAN MUERTO
-        for (let i = 0; i < personajesElegidos.length; i++) {
-            if (personajesElegidos[i].hp <= 0) {
-                personajesElegidos.splice(i, 1);
-                hpPersonajesElegidos.splice(i, 1);
-                mpPersonajesElegidos.splice(i, 1);
+        let contador = 0;
+        while (contador < personajesElegidos.length) {
+            console.log(contador);
+            if (personajesElegidos[contador].hp <= 0) {
+                personajesElegidos.splice(contador, 1);
+                hpPersonajesElegidos.splice(contador, 1);
+                mpPersonajesElegidos.splice(contador, 1);
+                contador = 0;
             }
+            contador++;
         }
-        
+        // for (let i = 0; i < personajesElegidos.length; i++) {
+        //     console.log(personajesElegidos[i].hp);
+        //     if (personajesElegidos[i].hp <= 0) {
+        //         personajesElegidos.splice(i, 1);
+        //         hpPersonajesElegidos.splice(i, 1);
+        //         mpPersonajesElegidos.splice(i, 1);
+        //         i = 0;//CON ESTO HACEMOS QUE VUELVA A REPASAR EL ARRAY COMPLETO. SIN ESTO, SI 2 PERSONAJES MUEREN A LA VEZ, AL ACORTAR EL ARRAY NO LO RECORREMOS ENTERO Y PUEDE DAR ERROR
+        //         console.log(i);
+        //     }
+        // }
     }, contador);
 }
 
