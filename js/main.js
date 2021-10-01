@@ -325,7 +325,6 @@ const guardaHabilidades = (personaje, skill, id) => {
     document.getElementById(id).style.pointerEvents = "none";
     document.getElementById(id).style.opacity = "0.5";
     habilidadesTurno[personaje] = ([personaje, skill]);
-    console.log(habilidadesTurno);
 }
 
 // FUNCION QUE MUESTRA LA PANTALLA DEL JUEGO, CON TODAS LAS HABILIDADES DE LOS PERSONAJES ELEGIDOS SIN CHECKED, 
@@ -354,6 +353,13 @@ const empezarTurno = () =>{
     }
 }
 
+// VARIABLE PARA CONTROLA LAS PANTALLAS DE VICTORIA Y DE GAME OVER
+var meritosVictoria = document.getElementById("meritos-victoria");
+var personajesVictoria = document.getElementById("personajes-victoria");
+
+// VARIABLE PARA SABER CON CUANTOS TURNOS HAS TERMINADO LA PARTIDA
+var turnos = 0;
+
 // FUNCION QUE EJECUTA LAS HABILIDADES DE NUESTROS PERSONAJES, ASI COMO DE NUESTRO ENEMIGO
 // EN LA FUNCION SE INVOCA A LOS VALORES DEL ARRAY DONDE GUARDAMOS CUALES HABILIDADES USAR, Y SE EJECUTA
 // CADA UNA DE LAS HABILIDADES
@@ -361,6 +367,7 @@ const empezarTurno = () =>{
 // TIENE EN SU PROPIA LISTA DE HABILIDADES
 // USAMOS SETTIMEOUT PARA VOLVER A LA PANTALLA DE INICIAR MENÚ
 const terminarTurno = () => {
+    turnos++;
     let contador = 0;
     document.getElementById("boton-terminar-turno").style.display = "none"
     // LANZAMIENTO DE HABILIDADES DE NUESTROS 4 PERSONAJES
@@ -399,73 +406,85 @@ const terminarTurno = () => {
         }
     }
     // LANZAMIENTO DE HABILIDADES DEL DRAGON
-    for (let i = 0; i < 2; i++) {
-        contador += 1000;
-        setTimeout(() => {
-            moverEnemigo("dragon-en-batalla");
-            let skillNumber = parseInt(Math.random() * (4 - 0));
-            console.log("Dragon usa el ataque " + dragon.skills[skillNumber].name);
-            switch (dragon.skills[skillNumber].type) {
-                case "single":
-                    let target = parseInt(Math.random() * (personajesElegidos.length - 0));
-                    dragon.skills[skillNumber].useSkill(dragon, personajesElegidos[target]);
-                    console.log("Hiere a " + personajesElegidos[target].name);
-                    break;
-                case "double":
-                    if (personajesElegidos.length > 1) {
-                    let target1 = parseInt(Math.random() * (personajesElegidos.length - 0));
-                    let target2 = parseInt(Math.random() * (personajesElegidos.length - 0));
-                    while (target1 == target2) {
-                        target2 = parseInt(Math.random() * (personajesElegidos.length - 0));
-                    }
-                    dragon.skills[skillNumber].useSkillDouble(dragon, personajesElegidos[target1], personajesElegidos[target2]);
-                    console.log("Hiere a " + personajesElegidos[target1].name + " y a " + personajesElegidos[target2].name);
-                    }
-                    if (personajesElegidos.length == 1) {
-                        let target1 = personajesElegidos[0];
-                        dragon.skills[skillNumber].useSkillDouble(dragon, target1, target1);
-                        console.log("Hiere a " + target1.name + " y a " + target1.name);
-                    }
-                    break;
-                case "all":
+        for (let i = 0; i < 2; i++) {
+            contador += 1000;
+            setTimeout(() => {
+                if (dragon.hp == 0) { //SOLO LO EJECUTA SI EL DRAGON ESTÁ MUERTO
+                    meritosVictoria.style.display = "flex";
+                    pantallaJuego.style.display = "none";
+                    meritosVictoria.innerHTML = `<p>You managed to kill the dragon in ${turnos} turns!</p><p>${personajesElegidos.length} team characters survived!</p>`;
+                    personajesVictoria.innerHTML = "";
                     for (let i = 0; i < personajesElegidos.length; i++) {
-                        dragon.skills[skillNumber].useSkill(dragon, personajesElegidos[i]);
-                        console.log("Hiere a " + personajesElegidos[i].name)
+                        personajesVictoria.innerHTML = personajesVictoria.innerHTML + `<img src="${personajesElegidos[i].img}">`       
                     }
-                    break;
-            
-                default:
-                    break;
-            }
-            // PINTAMOS DE NUEVO LA VIDA Y EL MANA DE CADA PERSONAJE
-            barrasSaludMana.innerHTML = "";
-            pintarBarrasSaludMana();
-            pintarBarrasSaludManaEnemigo();
-        }, contador);
-    }
-    // ESTO SE EJECUTARÁ TRAS TODOS LOS ATAQUES DE LOS HEROES Y DEL ENEMIGO
-    contador += 1000;
-    setTimeout(() => {
-        document.getElementById("pantalla-empezar-turno").style.display = "flex";
-        habilidadesTurno = [0, 0, 0, 0];
-        // HABILITAMOS DE NUEVO EL USO DE HABILIDADES
-        for (let i = 0; i < personajesElegidos.length; i++) {
-            document.getElementById(`character${i}`).style.pointerEvents = "initial";
-            document.getElementById(`character${i}`).style.opacity = "1";            
+                }else{ //SOLO LO EJECUTA SI EL DRAGON ESTÁ VIVO
+                    moverEnemigo("dragon-en-batalla");
+                    let skillNumber = parseInt(Math.random() * (4 - 0));
+                    console.log("Dragon usa el ataque " + dragon.skills[skillNumber].name);
+                    switch (dragon.skills[skillNumber].type) {
+                        case "single":
+                            let target = parseInt(Math.random() * (personajesElegidos.length - 0));
+                            dragon.skills[skillNumber].useSkill(dragon, personajesElegidos[target]);
+                            console.log("Hiere a " + personajesElegidos[target].name);
+                            break;
+                        case "double":
+                            if (personajesElegidos.length > 1) {
+                            let target1 = parseInt(Math.random() * (personajesElegidos.length - 0));
+                            let target2 = parseInt(Math.random() * (personajesElegidos.length - 0));
+                            while (target1 == target2) {
+                                target2 = parseInt(Math.random() * (personajesElegidos.length - 0));
+                            }
+                            dragon.skills[skillNumber].useSkillDouble(dragon, personajesElegidos[target1], personajesElegidos[target2]);
+                            console.log("Hiere a " + personajesElegidos[target1].name + " y a " + personajesElegidos[target2].name);
+                            }
+                            if (personajesElegidos.length == 1) {
+                                let target1 = personajesElegidos[0];
+                                dragon.skills[skillNumber].useSkillDouble(dragon, target1, target1);
+                                console.log("Hiere a " + target1.name + " y a " + target1.name);
+                            }
+                            break;
+                        case "all":
+                            for (let i = 0; i < personajesElegidos.length; i++) {
+                                dragon.skills[skillNumber].useSkill(dragon, personajesElegidos[i]);
+                                console.log("Hiere a " + personajesElegidos[i].name)
+                            }
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                    // PINTAMOS DE NUEVO LA VIDA Y EL MANA DE CADA PERSONAJE
+                    barrasSaludMana.innerHTML = "";
+                    pintarBarrasSaludMana();
+                    pintarBarrasSaludManaEnemigo();
+                }
+            }, contador);
         }
-        // SACAMOS DEL ARRAY DE PERSONAJES ELEGIDOS LOS PERSONAJES QUE HAYAN MUERTO
-        // NECESITO UN WHILE PARA PODER REINICIAR EL CONTADOR Y QUE VUELVA A BUSCAR EN TODO EL ARRAY SI HAY ALGÚN PERSONAJE MUERTO
-        let contador = 0;
-        while (contador < personajesElegidos.length) {
-            if (personajesElegidos[contador].hp <= 0) {
-                personajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE PERSONAJES EL QUE HA MUERTO
-                hpPersonajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE VIDAS LA DEL PERSONAJE MUERTO
-                mpPersonajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE MANA LA DEL PERSONAJE MUERTO
-                contador = -1; // INICIALIZAMOS VARIABLE A -1 PORQUE SIEMPRE SUMAMOS 1 AL CONTADOR ANTES DE SALIR DEL BUCLE. NECESITAMOS QUE CONTADOR EMPIEZE EL WHILE EN 0 SIEMPRE QUE DETECTE UN PERSONAJE MUERTO
-            }
-            contador++;
+        if (dragon.hp > 0) {//SOLO LO EJECUTA SI EL DRAGON ESTÁ VIVO
+            // ESTO SE EJECUTARÁ TRAS TODOS LOS ATAQUES DE LOS HEROES Y DEL ENEMIGO
+            contador += 1000;
+            setTimeout(() => {
+                document.getElementById("pantalla-empezar-turno").style.display = "flex";
+                habilidadesTurno = [0, 0, 0, 0];
+                // HABILITAMOS DE NUEVO EL USO DE HABILIDADES
+                for (let i = 0; i < personajesElegidos.length; i++) {
+                    document.getElementById(`character${i}`).style.pointerEvents = "initial";
+                    document.getElementById(`character${i}`).style.opacity = "1";            
+                }
+                // SACAMOS DEL ARRAY DE PERSONAJES ELEGIDOS LOS PERSONAJES QUE HAYAN MUERTO
+                // NECESITO UN WHILE PARA PODER REINICIAR EL CONTADOR Y QUE VUELVA A BUSCAR EN TODO EL ARRAY SI HAY ALGÚN PERSONAJE MUERTO
+                let contador = 0;
+                while (contador < personajesElegidos.length) {
+                    if (personajesElegidos[contador].hp <= 0) {
+                        personajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE PERSONAJES EL QUE HA MUERTO
+                        hpPersonajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE VIDAS LA DEL PERSONAJE MUERTO
+                        mpPersonajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE MANA LA DEL PERSONAJE MUERTO
+                        contador = -1; // INICIALIZAMOS VARIABLE A -1 PORQUE SIEMPRE SUMAMOS 1 AL CONTADOR ANTES DE SALIR DEL BUCLE. NECESITAMOS QUE CONTADOR EMPIEZE EL WHILE EN 0 SIEMPRE QUE DETECTE UN PERSONAJE MUERTO
+                    }
+                    contador++;
+                }
+            }, contador);
         }
-    }, contador);
 }
 
 // HACE QUE LA IMAGEN DEL PERSONAJE SE MUEVA CUANDO ATACA, Y QUE SE PUEDA VOLVER A MOVER EN SU SIGUIENTE ATAQUE
