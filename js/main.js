@@ -64,17 +64,29 @@ class Character {
 // CREACIÓN DE HABILIDADES
 
 //HABILIDADES DE ELEMENTALIST
-var fireHorse = new Skill("Caballo de fuego", "Hechizo que libera un caballo de fuego hacia el enemigo. Puede quemar", 500, "quemadura", 100);
-var iceSpear = new Skill("Lanza de hielo", "Hechizo que lanza una lanza de hielo. Puede congelar", 400, "congelar", 120);
-var stormHammer = new Skill("Martillo de la tormenta", "Hechizo que invoca un martillo hecho de truenos desde el cielo. Puede ralentizar", 800, "ralentizar", 250);
-var windKnife = new Skill("Cuchillo de viento", "Hechizo que invoca corrientes de viento cortantes", 350, "sangrar", 100);
+var fireHorse = new Skill("Fire Horse", "Hechizo que libera un caballo de fuego hacia el enemigo. Puede quemar", 700, "quemadura", 250);
+var iceSpear = new Skill("Ice Spear", "Hechizo que lanza una lanza de hielo. Puede congelar", 460, "congelar", 300);
+var windKnife = new Skill("Knife Wind", "Hechizo que invoca corrientes de viento cortantes. Puede provocar heridas sangrantes", 650, "sangrar", 250);
+var stormHammer = new Skill("Storm Hammer", "Hechizo que invoca un martillo hecho de truenos desde el cielo. Puede ralentizar", 950, "ralentizar", 350);
+
 
 //HABILIDADES DE ASSASSIN
-var deathStrike = new Skill("Golpe mortal", "Ataque que puede matar de un solo golpe, pero tiene muy poca probabilidad de acertar", 10000, "", 200);
+var twister = new Skill("Twister", "Desenfunda sus 2 cuchillas y empieza a girar sobre sí misma cerca de su oponente, realizando multiples cortes. Puede envenenar.", 650, "envenenar", 175);
+var doubleStrike = new Skill("Double Strike", "Hace un corte con cada una de sus cuchillas. Puede envenenar.", 800, "envenenar", 100);
+var poisonDaggers = new Skill("Poison Daggers", "Lanza 2 dagas al enemigo. Puede envenenar.", 400, "envenenar", 180);
+var deathStrike = new Skill("Death Strike", "Ataque que puede matar de un solo golpe, pero tiene muy poca probabilidad de acertar", 10000, "", 200);
 
 //HABILIDADES DE DEMON
+var fireBall = new Skill("Fire Ball", "Dispara una bola de fuego desde las manos. Puede quemar", 600, "quemadura", 450);
+var demonClaws = new Skill("Demon Claws", "Usa sus garras de demonio para atacar a puntos vitales del oponente.", 700, "", 150);
+var wingStrike = new Skill("Wing Strike", "Usa sus alas para golpear al enemigo.", 500, "", 150);
+var hell = new Skill("Hell", "Invoca a demonios del infierno para que ataquen al enemigo", 950, "", 600);
 
 //HABILIDADES DE ROBOT
+var katanaCyberpunk = new Skill("Katana Cyberpunk", "Es un robot con katanas, y las usa. Puede provocar heridas sangrantes", 500, "sangrar", 200);
+var metalJump = new Skill("Metal Jump", "Salta hacia el enemigo para caer encima de él y provocarle daño.", 450, "", 150);
+var metallicWhistle = new Skill("Metalic Whistle", "Usa su altavoz para emitir un sonido que provoca dolor de cabeza al enemigo. Reparte tapones para los oídos a sus aliados antes de lanzarlo. Puede paralizar.", 350, "paralizar", 250);
+var laserBeam = new Skill("Laser Beam", "Es un robot venido del futuro. Tiene que poder disparar un laser. Y lo hace.", 1200, "", 400);
 
 //HABILIDADES DE SUN'S SOLDIER
 
@@ -104,13 +116,13 @@ alaDragon.getType("double");
 // CREACION DE PERSONAJES
 
 //PERSONAJES ELEGIBLES
-var elementalist = new Character("elementalist", "Gloy Stylish, the Elementalist", "Es una rana, si. Y es un mago también. Usa hechizos elementales con daño masivo, y que provocan estados alterados.", 1500, 2000, 9, 1, 4, fireHorse, iceSpear, stormHammer, windKnife, "./img/elementalist.gif", "./img/elementalist-walking.gif");
+var elementalist = new Character("elementalist", "Gloy Stylish, the Elementalist", "Es una rana, si. Y es un mago también. Usa hechizos elementales con daño masivo, y que provocan estados alterados.", 1500, 2500, 9, 1, 4, fireHorse, iceSpear, windKnife, stormHammer, "./img/elementalist.gif", "./img/elementalist-walking.gif");
 
-var assassin = new Character("assassin", "Nia Noltan, the Assassin", "Asesina entrenada en artes marciales y tecnicas de veneno", 1750, 1000, 10, 2, 9, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, deathStrike, "./img/assassin.gif", "./img/assassin-walking.gif");
+var assassin = new Character("assassin", "Nia Noltan, the Assassin", "Asesina entrenada en artes marciales y tecnicas de veneno", 1750, 1000, 10, 2, 9, twister, doubleStrike, poisonDaggers, deathStrike, "./img/assassin.gif", "./img/assassin-walking.gif");
 
-var demon = new Character("demon", "Liura Blake, the Demon", "No sabemos porque nos quiere ayudar. Lo que sí sabemos es que le gusta la pelea", 3200, 1500, 7, 5, 6, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/demon.gif", "./img/demon-walking.gif");
+var demon = new Character("demon", "Liura Blake, the Demon", "No sabemos porque nos quiere ayudar. Lo que sí sabemos es que le gusta la pelea", 3200, 2000, 7, 5, 6, fireBall, demonClaws, wingStrike, hell, "./img/demon.gif", "./img/demon-walking.gif");
 
-var robot = new Character("robot", "BX109 - v1.023, the Robot", "Dice que viene de nosequé año para salvar a nosequién de una revolución de nosecuando... Aguanta buenos golpes.", 5600, 900, 5, 8, 4, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/robot.gif", "./img/robot-walking.gif");
+var robot = new Character("robot", "BX109 - v1.023, the Robot", "Dice que viene de nosequé año para salvar a nosequién de una revolución de nosecuando... Aguanta buenos golpes.", 5600, 900, 5, 8, 4, katanaCyberpunk, metalJump, metallicWhistle, laserBeam, "./img/robot.gif", "./img/robot-walking.gif");
 
 var light = new Character("light", "Liskanor Tein, the Sun's Soldier", "Dice que es hijo del Sol, que le dio todos sus poderes y habilidades... No se, suena a cuento. Pero demonios, es fuerte.", 4500, 1250, 8, 3, 6, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/light.gif", "./img/light-walking.gif");
 
@@ -298,7 +310,6 @@ const empezarTurno = () =>{
     // PINTA TODOS LAS HABILIDADES DE LOS PERSONAJES Y A LAS IMAGENES DE LOS PERSONAJES EN LA PANTALLA DEL JUEGO
     document.getElementById("habilidades-personajes").innerHTML = "";
     for (let i = 0; i < personajesElegidos.length; i++) {
-        console.log(personajesElegidos.length);
         muestraHabilidades(personajesElegidos[i], i);
         document.getElementById("heroes-en-batalla").innerHTML = document.getElementById("heroes-en-batalla").innerHTML + `<div><img id="heroe-en-batalla-${i}" src="${personajesElegidos[i].imgWalking}" alt="Personaje Elegido ${i}"></div>`
     }
@@ -346,6 +357,7 @@ const terminarTurno = () => {
                     console.log("Hiere a " + personajesElegidos[target].name);
                     break;
                 case "double":
+                    if (personajesElegidos.length > 1) {
                     let target1 = parseInt(Math.random() * (personajesElegidos.length - 0));
                     let target2 = parseInt(Math.random() * (personajesElegidos.length - 0));
                     while (target1 == target2) {
@@ -353,6 +365,12 @@ const terminarTurno = () => {
                     }
                     dragon.skills[skillNumber].useSkillDouble(dragon, personajesElegidos[target1], personajesElegidos[target2]);
                     console.log("Hiere a " + personajesElegidos[target1].name + " y a " + personajesElegidos[target2].name);
+                    }
+                    if (personajesElegidos.length == 1) {
+                        let target1 = personajesElegidos[0];
+                        dragon.skills[skillNumber].useSkillDouble(dragon, personajesElegidos[target1], personajesElegidos[target1]);
+                        console.log("Hiere a " + personajesElegidos[target1].name + " y a " + personajesElegidos[target1].name);
+                    }
                     break;
                 case "all":
                     dragon.skills[skillNumber].useSkillAll(dragon, personajesElegidos[0], personajesElegidos[1], personajesElegidos[2], personajesElegidos[3]);
@@ -366,7 +384,7 @@ const terminarTurno = () => {
             barrasSaludMana.innerHTML = "";
             pintarBarrasSaludMana();
             pintarBarrasSaludManaEnemigo();
-            cancelarMoverEnemigo("dragon-en-batalla");
+            console.log(barrasSaludMana.innerHTML);
         }, contador);
     }
     // ESTO SE EJECUTARÁ TRAS TODOS LOS ATAQUES DE LOS PERSONAJES ELEGIDOS Y DEL ENEMIGO
@@ -383,7 +401,6 @@ const terminarTurno = () => {
         // NECESITO UN WHILE PARA PODER REINICIAR EL CONTADOR Y QUE VUELVA A BUSCAR EN TODO EL ARRAY SI HAY ALGÚN PERSONAJE MUERT
         let contador = 0;
         while (contador < personajesElegidos.length) {
-            console.log(contador);
             if (personajesElegidos[contador].hp <= 0) {
                 personajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE PERSONAJES EL QUE HA MUERTO
                 hpPersonajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE VIDAS LA DEL PERSONAJE MUERTO

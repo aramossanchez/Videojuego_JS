@@ -141,7 +141,8 @@ body{
     height: 10%;
     display: none;
     flex-direction: row;
-    justify-content: flex-start;
+    align-items: flex-start;
+    justify-content: left;
 }
 .barras-de-personaje{
     width: 25%;
