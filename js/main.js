@@ -104,7 +104,7 @@ var sunSon = new Skill("Sun Son", "Usa todo el poder cedido por el sol para hace
 var goddessKiss = new Skill("Goddess Kiss", "Cura a un aliado al azar una gran cantidad de salud. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 3500, "curar", 250);
 var reverseHealing = new Skill("Reverse Healing", "Daña al enemigo con la magia de curación negra.", 500, "", 200);
 var confusingMedicine = new Skill("Confusing Medicine", "Usa una medicina secreta contra el enemigo. Puede provocar ceguera.", 400, "cegar", 300);
-var springOfLife = new Skill ("Spring of Life", "Cura a todos sus aliados una gran cantidad de vida. Gasta mana en función de los aliados que cure. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 2500, "curarTodos", 250);
+var springOfLife = new Skill ("Spring of Life", "Cura a todos sus aliados una gran cantidad de vida. Gasta mana en función de los aliados que cure. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 2500, "curarTodos", 1000);
 
 //HABILIDADES DE ANGEL
 var lightFist = new Skill("Light Fist", "Golpea a su enemigo con su puño bendecido por el dios de la lucha.", 600, "", 300);
