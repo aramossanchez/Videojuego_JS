@@ -93,15 +93,15 @@ var habilidadPrueba3 = new Skill("prueba3", "prueba", 500, "", 50);
 var habilidadPrueba4 = new Skill("prueba4", "prueba", 500, "", 50);
 
 // CREAMOS HABILIDADES DEL DRAGON
-var alientoDragon = new Skill("Aliento Dragon", "Aliento que daña a todos los enemigos a la vez", 550, "", 250);
+var alientoDragon = new Skill("Aliento Dragon", "Aliento que daña a todos los enemigos a la vez", 700, "", 250);
 alientoDragon.getType("all");
 
-var espinasDragon = new Skill("Espinas de Dragón", "Se lanzan espinas al suelo que dañan a todos los enemigos al comienzo del turno durante 3 turnos", 100, "", 200);
+var espinasDragon = new Skill("Espinas de Dragón", "Se lanzan espinas al suelo que dañan a todos los enemigos al comienzo del turno durante 3 turnos", 500, "", 200);
 espinasDragon.getType("all");
 
-var placajeDragon = new Skill("Placaje de Dragon", "Empuja a un enemigo realizándole un placaje. Puede empujar", 4000, "empujar", 300);
+var placajeDragon = new Skill("Placaje de Dragon", "Empuja a un enemigo realizándole un placaje. Puede empujar", 1450, "empujar", 300);
 
-var alaDragon = new Skill("Ala de Dragón", "Golpea con el ala a 2 enemigos aleatorios. Puede provocar sangrado.", 4000, "sangrar", 400);
+var alaDragon = new Skill("Ala de Dragón", "Golpea con el ala a 2 enemigos aleatorios. Puede provocar sangrado.", 900, "sangrar", 400);
 alaDragon.getType("double");
 
 // CREACION DE PERSONAJES
@@ -124,7 +124,7 @@ var angel = new Character("angel", "Flixinia Goltric, the Angel", "Bajada del ci
 var knight = new Character("knight", "Lucius Morrigan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 650, 7, 6, 2, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/knight.gif", "./img/knight-walking.gif");
 
 //ENEMIGO
-var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 5000, 500, 8, 8, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
+var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 10000, 500, 8, 8, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -264,7 +264,7 @@ var habilidades = [];
 // EN EL HTML. TRAS GUARDARLO, DEJAMOS EL ARRAY DE HABILIDADES A CERO
 const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
     for (let i = 0; i < objetoPersonaje.skills.length; i++) {
-        habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="guardaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label for="element${posicionObjeto}${i}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span></label>`);
+        habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="guardaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label for="element${posicionObjeto}${i}" style="${(objetoPersonaje.mp < objetoPersonaje.skills[i].cost) ? 'pointer-events : none; opacity: 0.5' : 'pointer-events = initial; opacity: 1'}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span></label>`);
     }
     // document.getElementById(`character${posicionObjeto}`).innerHTML = `<form>` + habilidades.join("") + "</form>";
     document.getElementById("habilidades-personajes").innerHTML = document.getElementById("habilidades-personajes").innerHTML + `<div id="character${posicionObjeto}" class="lista-habilidades"><form>` + habilidades.join("") + "</form></div>";
@@ -276,12 +276,12 @@ const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
 // GUARDARÁ EN UN ARRAY EL PERSONAJE Y LA HABILIDAD QUE VA A USAR
 // TAMBIEN QUITAMOS LOS EVENTOS DE CLICK EN EL DIV CONTENEDOR DE LA LISTA DE HABILIDADES A LA QUE PERTENECE LA HABILIDAD
 // QUE ELEGIMOS, Y LE QUITAMOS OPACIDAD
-var habilidadesTurno = [];
+var habilidadesTurno = [0, 0, 0, 0];
 
 const guardaHabilidades = (personaje, skill, id) => {
     document.getElementById(id).style.pointerEvents = "none";
     document.getElementById(id).style.opacity = "0.5";
-    habilidadesTurno.push([personaje, skill]);
+    habilidadesTurno[personaje] = ([personaje, skill]);
 }
 
 // FUNCION QUE MUESTRA LA PANTALLA DEL JUEGO, CON TODAS LAS HABILIDADES DE LOS PERSONAJES ELEGIDOS SIN CHECKED, 
@@ -316,7 +316,6 @@ const empezarTurno = () =>{
 // TAMBIEN SE RANDOMIZA EL USO DE HABILIDADES DEL ENEMIGO. EL ENEMIGO LANZARA 2 HABILIDADES EN EL MISMO TURNO DE LAS 4 QUE
 // TIENE EN SU PROPIA LISTA DE HABILIDADES
 // USAMOS SETTIMEOUT PARA VOLVER A LA PANTALLA DE INICIAR MENÚ
-
 const terminarTurno = () => {
     let contador = 0;
     document.getElementById("boton-terminar-turno").style.display = "none"
@@ -359,8 +358,8 @@ const terminarTurno = () => {
                     }
                     if (personajesElegidos.length == 1) {
                         let target1 = personajesElegidos[0];
-                        dragon.skills[skillNumber].useSkillDouble(dragon, personajesElegidos[target1], personajesElegidos[target1]);
-                        console.log("Hiere a " + personajesElegidos[target1].name + " y a " + personajesElegidos[target1].name);
+                        dragon.skills[skillNumber].useSkillDouble(dragon, target1, target1);
+                        console.log("Hiere a " + target1.name + " y a " + target1.name);
                     }
                     break;
                 case "all":
@@ -379,7 +378,7 @@ const terminarTurno = () => {
             pintarBarrasSaludManaEnemigo();
         }, contador);
     }
-    // ESTO SE EJECUTARÁ TRAS TODOS LOS ATAQUES DE LOS PERSONAJES ELEGIDOS Y DEL ENEMIGO
+    // ESTO SE EJECUTARÁ TRAS TODOS LOS ATAQUES DE LOS HEROES Y DEL ENEMIGO
     contador += 1000;
     setTimeout(() => {
         document.getElementById("pantalla-empezar-turno").style.display = "flex";
@@ -390,12 +389,10 @@ const terminarTurno = () => {
             document.getElementById(`character${i}`).style.opacity = "1";            
         }
         // SACAMOS DEL ARRAY DE PERSONAJES ELEGIDOS LOS PERSONAJES QUE HAYAN MUERTO
-        // NECESITO UN WHILE PARA PODER REINICIAR EL CONTADOR Y QUE VUELVA A BUSCAR EN TODO EL ARRAY SI HAY ALGÚN PERSONAJE MUERT
+        // NECESITO UN WHILE PARA PODER REINICIAR EL CONTADOR Y QUE VUELVA A BUSCAR EN TODO EL ARRAY SI HAY ALGÚN PERSONAJE MUERTO
         let contador = 0;
         while (contador < personajesElegidos.length) {
             if (personajesElegidos[contador].hp <= 0) {
-                console.log("Soy el contador en el while- " + contador);
-                console.log("Soy el array de personajes vivos en el while- " + personajesElegidos.length);
                 personajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE PERSONAJES EL QUE HA MUERTO
                 hpPersonajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE VIDAS LA DEL PERSONAJE MUERTO
                 mpPersonajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE MANA LA DEL PERSONAJE MUERTO
