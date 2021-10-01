@@ -354,6 +354,7 @@ const empezarTurno = () =>{
 }
 
 // VARIABLE PARA CONTROLA LAS PANTALLAS DE VICTORIA Y DE GAME OVER
+var pantallaVictoria = document.getElementById("pantalla-victoria");
 var meritosVictoria = document.getElementById("meritos-victoria");
 var personajesVictoria = document.getElementById("personajes-victoria");
 
@@ -411,7 +412,7 @@ const terminarTurno = () => {
             setTimeout(() => {
                 console.log(dragon.hp);
                 if (dragon.hp <= 0) { //SOLO LO EJECUTA SI EL DRAGON ESTÁ MUERTO
-                    meritosVictoria.style.display = "flex";
+                    pantallaVictoria.style.display = "flex";
                     pantallaJuego.style.display = "none";
                     meritosVictoria.innerHTML = `<p>You managed to kill the dragon in ${turnos} turns!</p><p>${personajesElegidos.length} team characters survived!</p>`;
                     personajesVictoria.innerHTML = "";
