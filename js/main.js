@@ -31,6 +31,10 @@ class Skill{
         caster.mp -= this.cost;
         target.attack += 5;
     }
+    useHealOneTarget(caster, target){
+        caster.mp -= this.cost;
+        target.hp += this.damage;
+    }
 }
 
 // CREAMOS LA CLASE CHARACTER DONDE DEFINIMOS LOS PERSONAJES
@@ -88,9 +92,19 @@ var punchSun = new Skill("Punch Sun", "Rodea su mano con el calor del sol y golp
 var laserEyes = new Skill("Laser Eyes", "Lanza rayos de sol por los ojos causando daño al enemigo.", 650,"", 200);
 var lightStrike = new Skill("Light Strike", "Emite un haz de luz desde todo su cuerpo para golpear al enemigo",850, "", 400);
 var sunSon = new Skill("Sun Son", "Usa todo el poder cedido por el sol para hacer un ataque debastador. Puede quemar.", 1000, "quemar", 700);
+
 //HABILIDADES DE HEALER
 
+
+
+var springOfLife = new Skill ("Spring of Life", "Cura a todos sus aliados una gran cantidad de vida.", 2500, "curarTodos", 1000);
+
 //HABILIDADES DE ANGEL
+var lightFist = new Skill("Light Fist", "Golpea a su enemigo con su puño bendecido por el dios de la lucha.", 600, "", 300);
+var skysword = new Skill("Sky Sword", "Golpea con la espada que le regaló el dios de la guerra.", 650, "", 400);
+var divineBlessing = new Skill("Divine Blessing", "Cura a un aliado al azar parte de su salud. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 1000, "curarUno", 350);
+var finalJudgment = new Skill("Final Judgment", "Invoca pilares de luz que fulminan a su enemigo", 900, "", 700);
+
 
 //HABILIDADES DE SHADOW KNIGHT
 var darkSword = new Skill("Dark Sword", "Usa la espada que le robó a un demonio para ejecutar un corte descendente en contra de su enemigo", 650, "", 100);
@@ -130,7 +144,7 @@ var light = new Character("light", "Liskanor Tein, the Sun Soldier", "Dice que e
 
 var healer = new Character("healer", "Suerestil Giysh, the Healer", "Ni idea de donde saca esas medicinas, pero te deja como nuevo.", 3250, 2000, 4, 4, 3, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/healer.gif", "./img/healer-walking.gif");
 
-var angel = new Character("angel", "Flixinia Goltric, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 5000, 2250, 3, 7, 8, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/angel.gif", "./img/angel-walking.gif");
+var angel = new Character("angel", "Flixinia Goltric, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 5000, 1800, 3, 7, 8, lightFist, skysword, divineBlessing, finalJudgment, "./img/angel.gif", "./img/angel-walking.gif");
 
 var knight = new Character("knight", "Lucius Morrigan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 650, 7, 6, 2, darkSword, darkSpirits, berserker, blackBreath, "./img/knight.gif", "./img/knight-walking.gif");
 
@@ -199,9 +213,11 @@ let mpMaxEnemy = dragon.mp;
 const porcentajeSalud = (vidaTotal, vidaActual) =>{
     let hp = parseInt(vidaActual/vidaTotal * 100);
     if (hp <= 0) {
-        return 0
+        return 0;
+    }else if(hp > 100){
+        return 100;
     }else{
-        return hp
+        return hp;
     }
      
 }
@@ -220,7 +236,7 @@ const porcentajeMana = (manaTotal, manaActual) =>{
 //  EN FUNCION DE LOS PUNTOS QUE FALTEN LA LLAMAMOS AL INICIAR EL JUEGO Y DESPUES DE CADA TURNO
 const pintarBarrasSaludMana = () =>{
     for (let i = 0; i < personajesElegidos.length; i++) {
-        barrasSaludMana.innerHTML = barrasSaludMana.innerHTML + `<div class="barras-de-personaje"><h2>${personajesElegidos[i].name}</h2><div class="texto-barra-salud">${(personajesElegidos[i].hp < 0) ? 0 : personajesElegidos[i].hp}/${hpPersonajesElegidos[i]}<div class="barra-salud" style="width: ${porcentajeSalud(hpPersonajesElegidos[i], personajesElegidos[i].hp)}%"></div></div><div class="texto-barra-mana">${personajesElegidos[i].mp}/${mpPersonajesElegidos[i]}<div class="barra-mana" style="width: ${porcentajeMana(mpPersonajesElegidos[i], personajesElegidos[i].mp)}%"></div></div></div>`
+        barrasSaludMana.innerHTML = barrasSaludMana.innerHTML + `<div class="barras-de-personaje"><h2>${personajesElegidos[i].name}</h2><div class="texto-barra-salud">${(personajesElegidos[i].hp < 0) ? 0 : personajesElegidos[i].hp}/${hpPersonajesElegidos[i]}<div class="barra-salud" style="width: ${porcentajeSalud(hpPersonajesElegidos[i], personajesElegidos[i].hp)}%;${(personajesElegidos[i].hp > hpPersonajesElegidos[i]) ? 'background-color: lightblue' : 'background-color: chartreuse'}"></div></div><div class="texto-barra-mana">${personajesElegidos[i].mp}/${mpPersonajesElegidos[i]}<div class="barra-mana" style="width: ${porcentajeMana(mpPersonajesElegidos[i], personajesElegidos[i].mp)}%"></div></div></div>`
     }
 }
 
@@ -343,7 +359,10 @@ const terminarTurno = () => {
                         personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useBerserker(personajesElegidos[i], personajesElegidos[parseInt(Math.random() * (personajesElegidos.length - 0))]);
                         console.log(personajesElegidos);
                         break;
-                
+                    case "curarUno":
+                        personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useHealOneTarget(personajesElegidos[i], personajesElegidos[parseInt(Math.random() * (personajesElegidos.length - 0))]);
+                        console.log(personajesElegidos);
+                        break;
                     default:
                         personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
                         console.log("La vida del dragón es " + dragon.hp);
