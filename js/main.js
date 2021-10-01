@@ -96,7 +96,7 @@ alientoDragon.getType("all");
 var espinasDragon = new Skill("Espinas de Dragón", "Se lanzan espinas al suelo que dañan a todos los enemigos al comienzo del turno durante 3 turnos", 100, "", 200);
 espinasDragon.getType("all");
 
-var placajeDragon = new Skill("Placaje de Dragon", "Empuja a un enemigo realizándole un placaje. Puede empujar", 850, "empujar", 300);
+var placajeDragon = new Skill("Placaje de Dragon", "Empuja a un enemigo realizándole un placaje. Puede empujar", 3000, "empujar", 300);
 
 var alaDragon = new Skill("Ala de Dragón", "Golpea con el ala a 2 enemigos aleatorios. Puede provocar sangrado.", 550, "sangrar", 400);
 alaDragon.getType("double");
@@ -220,7 +220,7 @@ const pintarBarrasSaludManaEnemigo = () =>{
 // PINTAMOS TAMBIEN A LOS PERSONAJES EN PANTALLA
 const iniciarJuego = () => {
     // GUARDAMOS EN ARRAY LA VIDA Y EL MANA DE LOS PERSONAJES SELECCIONADOS
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < personajesElegidos.length; i++) {
         hpPersonajesElegidos.push(personajesElegidos[i].hp);
         mpPersonajesElegidos.push(personajesElegidos[i].mp);
     }
@@ -232,7 +232,7 @@ const iniciarJuego = () => {
         document.getElementById("switch").style.transform = "scaleY(0)";
         // PINTA LA VIDA Y LA SALUD DE LOS PERSONAJES EN LA PANTALLA DE JUEGO
         pintarBarrasSaludMana();
-        // PINTA TODOS LAS HABILIDADES DE LOS PERSONAJES EN LA PANTALLA DEL JUEGO
+        // PINTA TODOS LAS HABILIDADES DE LOS PERSONAJES Y A LAS IMAGENES DE LOS PERSONAJES EN LA PANTALLA DEL JUEGO
         for (let i = 0; i < personajesElegidos.length; i++) {
             muestraHabilidades(personajesElegidos[i], i);
             heroesBatalla.innerHTML = heroesBatalla.innerHTML + `<div><img id="heroe-en-batalla-${i}" src="${personajesElegidos[i].imgWalking}" alt="Personaje Elegido ${i}"></div>`
@@ -259,7 +259,6 @@ var habilidades = [];
 // QUITAR EVENTOS DE CLICK Y HACERLO TRANSPARENTE)
 // DESPUÉS OBTENEMOS EL DIV DONDE SE MOSTRARAN LAS HABILIDADES A TRAVÉS DE SU ID, Y PINTAMOS LOS ELEMENTOS GUARDADOS EN EL ARRAY 
 // EN EL HTML. TRAS GUARDARLO, DEJAMOS EL ARRAY DE HABILIDADES A CERO
-
 const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
     for (let i = 0; i < objetoPersonaje.skills.length; i++) {
         habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="guardaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label for="element${posicionObjeto}${i}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span></label>`);
@@ -291,6 +290,15 @@ const empezarTurno = () =>{
     document.getElementById("barras-salud-mana").style.display = "flex";
     document.getElementById("barras-de-enemigo").style.display = "flex";
     document.getElementById("nombre-dragon").style.display = "block"
+    document.getElementById("heroes-en-batalla").innerHTML = ""; //RESETEAMOS LAS IMAGENES Y LAS HABILIDADES DE LOS PERSONAJES
+    barrasSaludMana.innerHTML = "";
+    pintarBarrasSaludMana();
+    pintarBarrasSaludManaEnemigo(); // CREA UN NUEVO ARRAY CON LOS ELEMENTOS QUE CUMPLAN LA CONDICION
+    // PINTA TODOS LAS HABILIDADES DE LOS PERSONAJES Y A LAS IMAGENES DE LOS PERSONAJES EN LA PANTALLA DEL JUEGO
+    for (let i = 0; i < personajesElegidos.length; i++) {
+        muestraHabilidades(personajesElegidos[i], i);
+        document.getElementById("heroes-en-batalla").innerHTML = document.getElementById("heroes-en-batalla").innerHTML + `<div><img id="heroe-en-batalla-${i}" src="${personajesElegidos[i].imgWalking}" alt="Personaje Elegido ${i}"></div>`
+    }
     let radios = document.getElementsByTagName("input");
     for (let i = 0; i < radios.length; i++) {
         radios[i].checked = false;    
@@ -364,19 +372,23 @@ const terminarTurno = () => {
         document.getElementById("pantalla-empezar-turno").style.display = "flex";
         habilidadesTurno = [];
         // HABILITAMOS DE NUEVO EL USO DE HABILIDADES
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < personajesElegidos.length; i++) {
             document.getElementById(`character${i}`).style.pointerEvents = "initial";
             document.getElementById(`character${i}`).style.opacity = "1";            
         }
         // SACAMOS DEL ARRAY DE PERSONAJES ELEGIDOS LOS PERSONAJES QUE HAYAN MUERTO
-        personajesElegidos = personajesElegidos.filter(personaje => personaje.hp > 0);
-        barrasSaludMana.innerHTML = "";
-            pintarBarrasSaludMana();
-            pintarBarrasSaludManaEnemigo(); // CREA UN NUEVO ARRAY CON LOS ELEMENTOS QUE CUMPLAN LA CONDICION
+        for (let i = 0; i < personajesElegidos.length; i++) {
+            if (personajesElegidos[i].hp <= 0) {
+                personajesElegidos.splice(i, 1);
+                hpPersonajesElegidos.splice(i, 1);
+                mpPersonajesElegidos.splice(i, 1);
+            }
+        }
+        
     }, contador);
 }
 
-// HACE QUE LA IMAGEN DEL PERSONAJE SE MUEVA CUANDO ATACA
+// HACE QUE LA IMAGEN DEL PERSONAJE SE MUEVA CUANDO ATACA, Y QUE SE PUEDA VOLVER A MOVER EN SU SIGUIENTE ATAQUE
 const moverHeroe = (id) =>{
     document.getElementById(id).style.animationName = "moveHeroe";
     document.getElementById(id).style.animationDuration = "0.4s";
@@ -386,6 +398,7 @@ const moverHeroe = (id) =>{
     }, 400);
 }
 
+// HACE QUE LA IMAGEN DEL ENEMIGO SE MUEVA CUANDO ATACA, Y QUE SE PUEDA VOLVER A MOVER EN SU SIGUIENTE ATAQUE
 const moverEnemigo = (id) =>{
     document.getElementById(id).style.animationName = "moveEnemy";
     document.getElementById(id).style.animationDuration = "0.4s";
