@@ -209,14 +209,14 @@ const porcentajeMana = (manaTotal, manaActual) =>{
 //  EN FUNCION DE LOS PUNTOS QUE FALTEN LA LLAMAMOS AL INICIAR EL JUEGO Y DESPUES DE CADA TURNO
 const pintarBarrasSaludMana = () =>{
     for (let i = 0; i < personajesElegidos.length; i++) {
-        barrasSaludMana.innerHTML = barrasSaludMana.innerHTML + `<div class="barras-de-personaje"><h2>${personajesElegidos[i].name}</h2><div class="texto-barra-salud">${personajesElegidos[i].hp}/${hpPersonajesElegidos[i]}<div class="barra-salud" style="width: ${porcentajeSalud(hpPersonajesElegidos[i], personajesElegidos[i].hp)}%"></div></div><div class="texto-barra-mana">${personajesElegidos[i].mp}/${mpPersonajesElegidos[i]}<div class="barra-mana" style="width: ${porcentajeMana(mpPersonajesElegidos[i], personajesElegidos[i].mp)}%"></div></div></div>`
+        barrasSaludMana.innerHTML = barrasSaludMana.innerHTML + `<div class="barras-de-personaje"><h2>${personajesElegidos[i].name}</h2><div class="texto-barra-salud">${(personajesElegidos[i].hp < 0) ? 0 : personajesElegidos[i].hp}/${hpPersonajesElegidos[i]}<div class="barra-salud" style="width: ${porcentajeSalud(hpPersonajesElegidos[i], personajesElegidos[i].hp)}%"></div></div><div class="texto-barra-mana">${personajesElegidos[i].mp}/${mpPersonajesElegidos[i]}<div class="barra-mana" style="width: ${porcentajeMana(mpPersonajesElegidos[i], personajesElegidos[i].mp)}%"></div></div></div>`
     }
 }
 
 // CON ESTA FUNCION PINTAMOS LAS BARRAS DE SALUD Y MANA DEL ENEMIGO, Y ACTUALIZAMOS LONGITUD DE BARRAS
 //  EN FUNCION DE LOS PUNTOS QUE FALTEN LA LLAMAMOS AL INICIAR EL JUEGO Y DESPUES DE CADA TURNO
 const pintarBarrasSaludManaEnemigo = () =>{
-    document.getElementById("barras-de-enemigo").innerHTML = `<div class="barras-de-personaje"><div class="texto-barra-salud">${dragon.hp}/${hpMaxEnemy}<div class="barra-salud" style="width: ${porcentajeSalud(hpMaxEnemy, dragon.hp)}%"></div></div><div class="texto-barra-mana">${dragon.mp}/${mpMaxEnemy}<div class="barra-mana" style="width: ${porcentajeMana(mpMaxEnemy, dragon.mp)}%"></div></div></div>`
+    document.getElementById("barras-de-enemigo").innerHTML = `<div class="barras-de-personaje"><div class="texto-barra-salud">${(dragon.hp < 0) ? 0 : dragon.hp}/${hpMaxEnemy}<div class="barra-salud" style="width: ${porcentajeSalud(hpMaxEnemy, dragon.hp)}%"></div></div><div class="texto-barra-mana">${dragon.mp}/${mpMaxEnemy}<div class="barra-mana" style="width: ${porcentajeMana(mpMaxEnemy, dragon.mp)}%"></div></div></div>`
 }
 
 // FUNCION PARA ALTERNAR ENTRE PANTALLAS DE LA APLICACION Y PARA MOSTRAR LAS HABILIDADES DE LOS PERSONAJES ELEGIDOS
@@ -322,7 +322,7 @@ const terminarTurno = () => {
     document.getElementById("boton-terminar-turno").style.display = "none"
     // LANZAMIENTO DE HABILIDADES DE NUESTROS 4 PERSONAJES
     for (let i = 0; i < habilidadesTurno.length; i++) {
-        if (habilidadesTurno[i] != 0) {
+        if (habilidadesTurno[i] != 0) { // ESTO SIRVE PARA HACER QUE SOLO LOS PERSONAJES QUE HAN MARCADO HABILIDAD, SE MUEVAN Y EJECUTEN ALGO
             contador += 1000;
             setTimeout(() => {
                 moverHeroe(`heroe-en-batalla-${i}`);
