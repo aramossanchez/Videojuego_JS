@@ -27,15 +27,6 @@ class Skill{
         target2.hp -= this.damage;
         caster.mp -= this.cost; 
     }
-
-    useSkillAll(caster, target1, target2, target3, target4){ //METODO PARA HABILIDADES DE 4 TARGET
-        target1.hp -= this.damage;
-        target2.hp -= this.damage;
-        target3.hp -= this.damage;
-        target4.hp -= this.damage;
-        caster.mp -= this.cost; 
-    }
-
 }
 
 // CREAMOS LA CLASE CHARACTER DONDE DEFINIMOS LOS PERSONAJES
@@ -373,8 +364,10 @@ const terminarTurno = () => {
                     }
                     break;
                 case "all":
-                    dragon.skills[skillNumber].useSkillAll(dragon, personajesElegidos[0], personajesElegidos[1], personajesElegidos[2], personajesElegidos[3]);
-                    console.log("Hiere a " + personajesElegidos[0].name + ", a " + personajesElegidos[1].name + ", a " + personajesElegidos[2].name + " y a " + personajesElegidos[3].name);
+                    for (let i = 0; i < personajesElegidos.length; i++) {
+                        dragon.skills[skillNumber].useSkill(dragon, personajesElegidos[i]);
+                        console.log("Hiere a " + personajesElegidos[i].name)
+                    }
                     break;
             
                 default:
@@ -384,7 +377,6 @@ const terminarTurno = () => {
             barrasSaludMana.innerHTML = "";
             pintarBarrasSaludMana();
             pintarBarrasSaludManaEnemigo();
-            console.log(barrasSaludMana.innerHTML);
         }, contador);
     }
     // ESTO SE EJECUTARÁ TRAS TODOS LOS ATAQUES DE LOS PERSONAJES ELEGIDOS Y DEL ENEMIGO
@@ -402,10 +394,12 @@ const terminarTurno = () => {
         let contador = 0;
         while (contador < personajesElegidos.length) {
             if (personajesElegidos[contador].hp <= 0) {
+                console.log("Soy el contador en el while- " + contador);
+                console.log("Soy el array de personajes vivos en el while- " + personajesElegidos.length);
                 personajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE PERSONAJES EL QUE HA MUERTO
                 hpPersonajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE VIDAS LA DEL PERSONAJE MUERTO
                 mpPersonajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE MANA LA DEL PERSONAJE MUERTO
-                contador = 0;
+                contador = -1; // INICIALIZAMOS VARIABLE A -1 PORQUE SIEMPRE SUMAMOS 1 AL CONTADOR ANTES DE SALIR DEL BUCLE. NECESITAMOS QUE CONTADOR EMPIEZE EL WHILE EN 0 SIEMPRE QUE DETECTE UN PERSONAJE MUERTO
             }
             contador++;
         }
