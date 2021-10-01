@@ -380,27 +380,18 @@ const terminarTurno = () => {
             document.getElementById(`character${i}`).style.opacity = "1";            
         }
         // SACAMOS DEL ARRAY DE PERSONAJES ELEGIDOS LOS PERSONAJES QUE HAYAN MUERTO
+        // NECESITO UN WHILE PARA PODER REINICIAR EL CONTADOR Y QUE VUELVA A BUSCAR EN TODO EL ARRAY SI HAY ALGÚN PERSONAJE MUERT
         let contador = 0;
         while (contador < personajesElegidos.length) {
             console.log(contador);
             if (personajesElegidos[contador].hp <= 0) {
-                personajesElegidos.splice(contador, 1);
-                hpPersonajesElegidos.splice(contador, 1);
-                mpPersonajesElegidos.splice(contador, 1);
+                personajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE PERSONAJES EL QUE HA MUERTO
+                hpPersonajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE VIDAS LA DEL PERSONAJE MUERTO
+                mpPersonajesElegidos.splice(contador, 1); //ELIMINO DEL ARRAY DE MANA LA DEL PERSONAJE MUERTO
                 contador = 0;
             }
             contador++;
         }
-        // for (let i = 0; i < personajesElegidos.length; i++) {
-        //     console.log(personajesElegidos[i].hp);
-        //     if (personajesElegidos[i].hp <= 0) {
-        //         personajesElegidos.splice(i, 1);
-        //         hpPersonajesElegidos.splice(i, 1);
-        //         mpPersonajesElegidos.splice(i, 1);
-        //         i = 0;//CON ESTO HACEMOS QUE VUELVA A REPASAR EL ARRAY COMPLETO. SIN ESTO, SI 2 PERSONAJES MUEREN A LA VEZ, AL ACORTAR EL ARRAY NO LO RECORREMOS ENTERO Y PUEDE DAR ERROR
-        //         console.log(i);
-        //     }
-        // }
     }, contador);
 }
 
