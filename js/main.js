@@ -409,7 +409,8 @@ const terminarTurno = () => {
         for (let i = 0; i < 2; i++) {
             contador += 1000;
             setTimeout(() => {
-                if (dragon.hp == 0) { //SOLO LO EJECUTA SI EL DRAGON ESTÁ MUERTO
+                console.log(dragon.hp);
+                if (dragon.hp <= 0) { //SOLO LO EJECUTA SI EL DRAGON ESTÁ MUERTO
                     meritosVictoria.style.display = "flex";
                     pantallaJuego.style.display = "none";
                     meritosVictoria.innerHTML = `<p>You managed to kill the dragon in ${turnos} turns!</p><p>${personajesElegidos.length} team characters survived!</p>`;
