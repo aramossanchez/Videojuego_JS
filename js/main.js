@@ -27,6 +27,10 @@ class Skill{
         target2.hp -= this.damage;
         caster.mp -= this.cost; 
     }
+    useBerserker(caster, target){
+        caster.mp -= this.cost;
+        target.attack += 5;
+    }
 }
 
 // CREAMOS LA CLASE CHARACTER DONDE DEFINIMOS LOS PERSONAJES
@@ -55,7 +59,7 @@ class Character {
 // CREACIÓN DE HABILIDADES
 
 //HABILIDADES DE ELEMENTALIST
-var fireHorse = new Skill("Fire Horse", "Hechizo que libera un caballo de fuego hacia el enemigo. Puede quemar", 700, "quemadura", 250);
+var fireHorse = new Skill("Fire Horse", "Hechizo que libera un caballo de fuego hacia el enemigo. Puede quemar", 700, "quemar", 250);
 var iceSpear = new Skill("Ice Spear", "Hechizo que lanza una lanza de hielo. Puede congelar", 460, "congelar", 300);
 var windKnife = new Skill("Knife Wind", "Hechizo que invoca corrientes de viento cortantes. Puede provocar heridas sangrantes", 650, "sangrar", 250);
 var stormHammer = new Skill("Storm Hammer", "Hechizo que invoca un martillo hecho de truenos desde el cielo. Puede ralentizar", 950, "ralentizar", 350);
@@ -68,7 +72,7 @@ var poisonDaggers = new Skill("Poison Daggers", "Lanza 2 dagas al enemigo. Puede
 var deathStrike = new Skill("Death Strike", "Ataque que puede matar de un solo golpe, pero tiene muy poca probabilidad de acertar", 10000, "", 200);
 
 //HABILIDADES DE DEMON
-var fireBall = new Skill("Fire Ball", "Dispara una bola de fuego desde las manos. Puede quemar", 600, "quemadura", 450);
+var fireBall = new Skill("Fire Ball", "Dispara una bola de fuego desde las manos. Puede quemar", 600, "quemar", 450);
 var demonClaws = new Skill("Demon Claws", "Usa sus garras de demonio para atacar a puntos vitales del oponente.", 700, "", 150);
 var wingStrike = new Skill("Wing Strike", "Usa sus alas para golpear al enemigo.", 500, "", 150);
 var hell = new Skill("Hell", "Invoca a demonios del infierno para que ataquen al enemigo", 950, "", 600);
@@ -79,13 +83,20 @@ var metalJump = new Skill("Metal Jump", "Salta hacia el enemigo para caer encima
 var metallicWhistle = new Skill("Metalic Whistle", "Usa su altavoz para emitir un sonido que provoca dolor de cabeza al enemigo. Reparte tapones para los oídos a sus aliados antes de lanzarlo. Puede paralizar.", 350, "paralizar", 250);
 var laserBeam = new Skill("Laser Beam", "Es un robot venido del futuro. Tiene que poder disparar un laser. Y lo hace.", 1200, "", 400);
 
-//HABILIDADES DE SUN'S SOLDIER
-
+//HABILIDADES DE SUN SOLDIER
+var punchSun = new Skill("Punch Sun", "Rodea su mano con el calor del sol y golpea al enemigo. Puede quemar", 750, "quemar", 250);
+var laserEyes = new Skill("Laser Eyes", "Lanza rayos de sol por los ojos causando daño al enemigo.", 650,"", 200);
+var lightStrike = new Skill("Light Strike", "Emite un haz de luz desde todo su cuerpo para golpear al enemigo",850, "", 400);
+var sunSon = new Skill("Sun Son", "Usa todo el poder cedido por el sol para hacer un ataque debastador. Puede quemar.", 1000, "quemar", 700);
 //HABILIDADES DE HEALER
 
 //HABILIDADES DE ANGEL
 
 //HABILIDADES DE SHADOW KNIGHT
+var darkSword = new Skill("Dark Sword", "Usa la espada que le robó a un demonio para ejecutar un corte descendente en contra de su enemigo", 650, "", 100);
+var darkSpirits = new Skill("Dark Spirits", "Invoca a sus enemigos caidos para herir a su enemigo. Puede provocar ceguera", 500, "cegar", 180);
+var berserker = new Skill("Berserker", "Con un grito aterrador aumenta las fuerzas de un aliado aleatorio", 0, "aumentarAtaque", 350);
+var blackBreath = new Skill("Black Breath", "Despide un aliento negro para herir a su enemigo. Puede provocar ceguera", 900, "cegar", 300)
 
 var habilidadPrueba1 = new Skill("prueba1", "prueba", 500, "", 50);
 var habilidadPrueba2 = new Skill("prueba2", "prueba", 500, "", 50);
@@ -115,13 +126,13 @@ var demon = new Character("demon", "Liura Blake, the Demon", "No sabemos porque 
 
 var robot = new Character("robot", "BX109 - v1.023, the Robot", "Dice que viene de nosequé año para salvar a nosequién de una revolución de nosecuando... Aguanta buenos golpes.", 5600, 900, 5, 8, 4, katanaCyberpunk, metalJump, metallicWhistle, laserBeam, "./img/robot.gif", "./img/robot-walking.gif");
 
-var light = new Character("light", "Liskanor Tein, the Sun's Soldier", "Dice que es hijo del Sol, que le dio todos sus poderes y habilidades... No se, suena a cuento. Pero demonios, es fuerte.", 4500, 1250, 8, 3, 6, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/light.gif", "./img/light-walking.gif");
+var light = new Character("light", "Liskanor Tein, the Sun Soldier", "Dice que es hijo del Sol, que le dio todos sus poderes y habilidades... No se, suena a cuento. Pero demonios, es fuerte.", 4500, 1250, 8, 3, 6, punchSun, laserEyes, lightStrike, sunSon, "./img/light.gif", "./img/light-walking.gif");
 
 var healer = new Character("healer", "Suerestil Giysh, the Healer", "Ni idea de donde saca esas medicinas, pero te deja como nuevo.", 3250, 2000, 4, 4, 3, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/healer.gif", "./img/healer-walking.gif");
 
 var angel = new Character("angel", "Flixinia Goltric, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 5000, 2250, 3, 7, 8, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/angel.gif", "./img/angel-walking.gif");
 
-var knight = new Character("knight", "Lucius Morrigan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 650, 7, 6, 2, habilidadPrueba1, habilidadPrueba2, habilidadPrueba3, habilidadPrueba4, "./img/knight.gif", "./img/knight-walking.gif");
+var knight = new Character("knight", "Lucius Morrigan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 650, 7, 6, 2, darkSword, darkSpirits, berserker, blackBreath, "./img/knight.gif", "./img/knight-walking.gif");
 
 //ENEMIGO
 var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 10000, 500, 8, 8, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
@@ -326,7 +337,18 @@ const terminarTurno = () => {
             contador += 1000;
             setTimeout(() => {
                 moverHeroe(`heroe-en-batalla-${i}`);
-                personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
+                // FILTRO PARA HABILIDADES CON MECANICAS ESPECIALES
+                switch (personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].effect) {
+                    case "aumentarAtaque":
+                        personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useBerserker(personajesElegidos[i], personajesElegidos[parseInt(Math.random() * (personajesElegidos.length - 0))]);
+                        console.log(personajesElegidos);
+                        break;
+                
+                    default:
+                        personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
+                        console.log("La vida del dragón es " + dragon.hp);
+                        break;
+                };
                 console.log("Uso la habilidad " + personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].name + " de " + personajesElegidos[i].name + ". Quedan " + personajesElegidos[i].mp + " puntos de maná");
                 console.log("La vida del dragón es " + dragon.hp);
                 // PINTAMOS DE NUEVO LA VIDA Y EL MANA DE CADA PERSONAJE
