@@ -235,9 +235,9 @@ const iniciarJuego = () => {
         // PINTA TODOS LAS HABILIDADES DE LOS PERSONAJES EN LA PANTALLA DEL JUEGO
         for (let i = 0; i < personajesElegidos.length; i++) {
             muestraHabilidades(personajesElegidos[i], i);
-            heroesBatalla.innerHTML = heroesBatalla.innerHTML + `<div><img src="${personajesElegidos[i].imgWalking}"></div>`
+            heroesBatalla.innerHTML = heroesBatalla.innerHTML + `<div><img id="heroe-en-batalla-${i}" src="${personajesElegidos[i].imgWalking}" alt="Personaje Elegido ${i}"></div>`
         }
-        enemigoBatalla.innerHTML = `<h2 id="nombre-dragon">${dragon.name}</h2><img src="${dragon.imgWalking}"><div id="barras-de-enemigo"></div>`
+        enemigoBatalla.innerHTML = `<h2 id="nombre-dragon">${dragon.name}</h2><img id="dragon-en-batalla" src="${dragon.imgWalking}" alt="Imagen Dragon"><div id="barras-de-enemigo"></div>`
         pintarBarrasSaludManaEnemigo();
     }else{
         pantallaJuego.style.display = "none";
@@ -311,6 +311,7 @@ const terminarTurno = () => {
     for (let i = 0; i < habilidadesTurno.length; i++) {
         contador += 1000;
         setTimeout(() => {
+            moverHeroe(`heroe-en-batalla-${i}`);
             personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
             console.log("Uso la habilidad " + personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].name + " de " + personajesElegidos[i].name + ". Quedan " + personajesElegidos[i].mp + " puntos de maná");
             console.log("La vida del dragón es " + dragon.hp);
@@ -324,6 +325,7 @@ const terminarTurno = () => {
     for (let i = 0; i < 2; i++) {
         contador += 1000;
         setTimeout(() => {
+            moverEnemigo("dragon-en-batalla");
             let skillNumber = parseInt(Math.random() * (4 - 0));
             console.log("Dragon usa el ataque " + dragon.skills[skillNumber].name);
             switch (dragon.skills[skillNumber].type) {
@@ -353,6 +355,7 @@ const terminarTurno = () => {
             barrasSaludMana.innerHTML = "";
             pintarBarrasSaludMana();
             pintarBarrasSaludManaEnemigo();
+            cancelarMoverEnemigo("dragon-en-batalla");
         }, contador);
     }
     // ESTO SE EJECUTARÁ TRAS TODOS LOS ATAQUES DE LOS PERSONAJES ELEGIDOS Y DEL ENEMIGO
@@ -365,5 +368,29 @@ const terminarTurno = () => {
             document.getElementById(`character${i}`).style.pointerEvents = "initial";
             document.getElementById(`character${i}`).style.opacity = "1";            
         }
+        // SACAMOS DEL ARRAY DE PERSONAJES ELEGIDOS LOS PERSONAJES QUE HAYAN MUERTO
+        personajesElegidos = personajesElegidos.filter(personaje => personaje.hp > 0);
+        barrasSaludMana.innerHTML = "";
+            pintarBarrasSaludMana();
+            pintarBarrasSaludManaEnemigo(); // CREA UN NUEVO ARRAY CON LOS ELEMENTOS QUE CUMPLAN LA CONDICION
     }, contador);
+}
+
+// HACE QUE LA IMAGEN DEL PERSONAJE SE MUEVA CUANDO ATACA
+const moverHeroe = (id) =>{
+    document.getElementById(id).style.animationName = "moveHeroe";
+    document.getElementById(id).style.animationDuration = "0.4s";
+    setTimeout(() => {
+        document.getElementById(id).style.animationName = "";
+        document.getElementById(id).style.animationDuration = "0s";
+    }, 400);
+}
+
+const moverEnemigo = (id) =>{
+    document.getElementById(id).style.animationName = "moveEnemy";
+    document.getElementById(id).style.animationDuration = "0.4s";
+    setTimeout(() => {
+        document.getElementById(id).style.animationName = "";
+        document.getElementById(id).style.animationDuration = "0s";
+    }, 400);
 }

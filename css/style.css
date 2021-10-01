@@ -287,3 +287,27 @@ label:hover::before{
 label span{
     color:cornflowerblue;
 }
+
+/* ANIMACION PARA LOS PERSONAJES CUANDO ATACAN */
+@keyframes moveHeroe {
+    0% {
+        margin-left: 1em;
+    }
+    50% {
+        margin-left: 3em;
+    }
+    100% {
+        margin-left: 1em;
+    }
+}
+@keyframes moveEnemy {
+    0% {
+        margin-right: 1em;
+    }
+    50% {
+        margin-right: 5em;
+    }
+    100% {
+        margin-right: 1em;
+    }
+}
