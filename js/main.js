@@ -22,7 +22,7 @@ class Skill{
         caster.mp -= this.cost; 
     }
 
-    useSkillDouble(caster, target1, target2){ //METODO PARA HABILIDADES DE 2 TARGET
+    useSkillDouble(caster, target1, target2){ //METODO PARA HABILIDADES DE 2 TARGET DEL ENEMIGO
         target1.hp -= this.damage;
         target2.hp -= this.damage;
         caster.mp -= this.cost; 
@@ -151,9 +151,9 @@ var light = new Character("light", "Liskanor Tein, the Sun Soldier", "Dice que e
 
 var healer = new Character("healer", "Suerestil Giysh, the Healer", "Ni idea de donde saca esas medicinas, pero te deja como nuevo.", 3250, 2000, 4, 4, 3, goddessKiss, reverseHealing, confusingMedicine, springOfLife, "./img/healer.gif", "./img/healer-walking.gif");
 
-var angel = new Character("angel", "Flixinia Goltric, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 5000, 1800, 3, 7, 8, lightFist, skysword, divineBlessing, finalJudgment, "./img/angel.gif", "./img/angel-walking.gif");
+var angel = new Character("angel", "Flixinia Golt, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 5000, 1800, 3, 7, 8, lightFist, skysword, divineBlessing, finalJudgment, "./img/angel.gif", "./img/angel-walking.gif");
 
-var knight = new Character("knight", "Lucius Morrigan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 650, 7, 6, 2, darkSword, darkSpirits, berserker, blackBreath, "./img/knight.gif", "./img/knight-walking.gif");
+var knight = new Character("knight", "Blad Nolan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 650, 7, 6, 2, darkSword, darkSpirits, berserker, blackBreath, "./img/knight.gif", "./img/knight-walking.gif");
 
 //ENEMIGO
 var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 10000, 500, 8, 8, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
@@ -199,11 +199,20 @@ const guardarPersonajeElegido = (lugarArray, id) =>{
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// VARIABLES PARA CONTROLAR CUAL PARTE DE LA APLICACION SE VE
+// VARIABLES PARA CONTROLA PASAR DE LA PANTALLA DE INICIO A LA ELECCION DE PERSONAJES
+var menuPrincipal = document.getElementById("menu-principal");
+var seleccionPersonajes = document.getElementById("seleccion-personajes");
+
+//FUNCION PARA IR HACIA EL MENÚ DE SELECCIÓN DE PERSONAJE DESDE EL MENU PRINCIPAL
+const irSeleccionPersonaje = () =>{
+    seleccionPersonajes.style.display = "flex";
+    menuPrincipal.style.display = "none";
+}
+
+// VARIABLES PARA PASAR DE LA ELECCION DE PERSONAJES AL JUEGO
 var showGame = false;
 
 var pantallaJuego = document.getElementById("pantalla-juego");
-var seleccionPersonajes = document.getElementById("seleccion-personajes");
 
 
 // VARIABLE EN LA QUE GUARDAMOS EL ELEMENTO CONTENEDOR DE LAS BARRAS DE SALUD Y MANA
