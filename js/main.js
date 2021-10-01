@@ -263,7 +263,8 @@ const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
     for (let i = 0; i < objetoPersonaje.skills.length; i++) {
         habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="guardaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label for="element${posicionObjeto}${i}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span></label>`);
     }
-    document.getElementById(`character${posicionObjeto}`).innerHTML = `<form>` + habilidades.join("") + "</form>";
+    // document.getElementById(`character${posicionObjeto}`).innerHTML = `<form>` + habilidades.join("") + "</form>";
+    document.getElementById("habilidades-personajes").innerHTML = document.getElementById("habilidades-personajes").innerHTML + `<div id="character${posicionObjeto}" class="lista-habilidades"><form>` + habilidades.join("") + "</form></div>";
     habilidades = [];
 }
 
@@ -295,7 +296,9 @@ const empezarTurno = () =>{
     pintarBarrasSaludMana();
     pintarBarrasSaludManaEnemigo(); // CREA UN NUEVO ARRAY CON LOS ELEMENTOS QUE CUMPLAN LA CONDICION
     // PINTA TODOS LAS HABILIDADES DE LOS PERSONAJES Y A LAS IMAGENES DE LOS PERSONAJES EN LA PANTALLA DEL JUEGO
+    document.getElementById("habilidades-personajes").innerHTML = "";
     for (let i = 0; i < personajesElegidos.length; i++) {
+        console.log(personajesElegidos.length);
         muestraHabilidades(personajesElegidos[i], i);
         document.getElementById("heroes-en-batalla").innerHTML = document.getElementById("heroes-en-batalla").innerHTML + `<div><img id="heroe-en-batalla-${i}" src="${personajesElegidos[i].imgWalking}" alt="Personaje Elegido ${i}"></div>`
     }
