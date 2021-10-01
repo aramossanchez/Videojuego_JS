@@ -17,7 +17,6 @@ body{
 /* CONTENEDOR PARA CENTRAR EL JUEGO */
 #container{
     width: 100vw;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,9 +43,9 @@ body{
 
 /*PANTALLA EN DONDE SELECCIONAMOS A LOS PERSONAJES*/
 #seleccion-personajes{
-    width: 68%;
-    height: 100%;
-    background-color: rgb(29, 29, 29);
+    width: 60em;
+    height: 45em;
+    background-color: rgb(172, 38, 38);
     /* border: 0.5em solid rgb(160, 160, 160); */
     display: flex;
     font-family: 'Press Start 2P';
@@ -54,6 +53,7 @@ body{
     align-items: flex-end;
     justify-content: space-around;
     flex-wrap: wrap;
+    position: relative;
 }
 #mensaje-selecciona-heroes{
     position: absolute;
@@ -86,8 +86,8 @@ body{
 
 /* ELEMENTO EN EL QUE CARGAREMOS TODO EL JUEGO */
 #pantalla-juego{
-    width: 68%;
-    height: 100%;
+    width: 60em;
+    height: 45em;
     background-color: cornsilk;
     background-image: url("../img/fondo.png");
     background-repeat: no-repeat;
