@@ -163,7 +163,7 @@ var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // EN ESTE ARRAY GUARDAMOS TODOS LOS PERSONAJES ELEGIBLES
-var todosLosPersonajes = [elementalist, assassin, demon, robot, light, healer, angel, knight];
+var todosLosPersonajes = [assassin, elementalist, demon, robot, light, healer, angel, knight];
 
 // MOSTRAMOS PERSONAJES EN LA PANTALLA DE SELECCION DE PERSONAJES
 let personaje = document.getElementById("seleccion-personajes");
@@ -358,6 +358,9 @@ var pantallaVictoria = document.getElementById("pantalla-victoria");
 var meritosVictoria = document.getElementById("meritos-victoria");
 var personajesVictoria = document.getElementById("personajes-victoria");
 
+var pantallaGameOver = document.getElementById("pantalla-game-over");
+var resumenDerrota = document.getElementById("resumen-derrota");
+
 // VARIABLE PARA SABER CON CUANTOS TURNOS HAS TERMINADO LA PARTIDA
 var turnos = 0;
 
@@ -466,7 +469,6 @@ const terminarTurno = () => {
             // ESTO SE EJECUTARÁ TRAS TODOS LOS ATAQUES DE LOS HEROES Y DEL ENEMIGO
             contador += 1000;
             setTimeout(() => {
-                document.getElementById("pantalla-empezar-turno").style.display = "flex";
                 habilidadesTurno = [0, 0, 0, 0];
                 // HABILITAMOS DE NUEVO EL USO DE HABILIDADES
                 for (let i = 0; i < personajesElegidos.length; i++) {
@@ -484,6 +486,14 @@ const terminarTurno = () => {
                         contador = -1; // INICIALIZAMOS VARIABLE A -1 PORQUE SIEMPRE SUMAMOS 1 AL CONTADOR ANTES DE SALIR DEL BUCLE. NECESITAMOS QUE CONTADOR EMPIEZE EL WHILE EN 0 SIEMPRE QUE DETECTE UN PERSONAJE MUERTO
                     }
                     contador++;
+                }
+                //CONTROLAMOS SI TODOS LOS PERSONAJES ESTÁN MUERTOS PARA PARAR EL JUEGO
+                if (personajesElegidos.length == 0) {
+                    pantallaJuego.style.display = "none";
+                    pantallaGameOver.style.display = "flex";
+                    resumenDerrota.innerHTML = `<p>The dragon has finished you in ${turnos} turns</p>`;
+                }else{
+                    document.getElementById("pantalla-empezar-turno").style.display = "flex";
                 }
             }, contador);
         }
