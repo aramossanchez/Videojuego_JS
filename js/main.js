@@ -125,7 +125,7 @@ var finalJudgment = new Skill("Final Judgment", "Invoca pilares de luz que fulmi
 //HABILIDADES DE SHADOW KNIGHT
 var darkSword = new Skill("Dark Sword", "Usa la espada que le robó a un demonio para ejecutar un corte descendente en contra de su enemigo", 650, "", 100);
 var darkSpirits = new Skill("Dark Spirits", "Invoca a sus enemigos caidos para herir a su enemigo. Puede provocar ceguera", 500, "cegar", 180);
-var berserker = new Skill("Berserker", "Con un grito aterrador aumenta las fuerzas de un aliado aleatorio", 0, "aumentarStats", 350);
+var berserker = new Skill("Berserker", "Lanza una maldición a un aliado aleatorio. Lo convierte en un monstruo y duplica sus fuerzas.", 0, "aumentarStats", 350);
 var blackBreath = new Skill("Black Breath", "Despide un aliento negro para herir a su enemigo. Puede provocar ceguera", 900, "cegar", 300)
 
 var habilidadPrueba1 = new Skill("prueba1", "prueba", 500, "", 50);
@@ -277,8 +277,10 @@ const porcentajeMana = (manaTotal, manaActual) =>{
     let mp = parseInt(manaActual/manaTotal * 100);
     if (mp <= 0) {
         return 0
+    }else if(mp > 100){
+        return 100;
     }else{
-        return mp
+        return mp;
     }
 }
 
@@ -286,7 +288,7 @@ const porcentajeMana = (manaTotal, manaActual) =>{
 //  EN FUNCION DE LOS PUNTOS QUE FALTEN LA LLAMAMOS AL INICIAR EL JUEGO Y DESPUES DE CADA TURNO
 const pintarBarrasSaludMana = () =>{
     for (let i = 0; i < personajesElegidos.length; i++) {
-        barrasSaludMana.innerHTML = barrasSaludMana.innerHTML + `<div class="barras-de-personaje"><h2>${personajesElegidos[i].name}</h2><div class="texto-barra-salud">${(personajesElegidos[i].hp < 0) ? 0 : personajesElegidos[i].hp}/${hpPersonajesElegidos[i]}<div class="barra-salud" style="width: ${porcentajeSalud(hpPersonajesElegidos[i], personajesElegidos[i].hp)}%;${(personajesElegidos[i].hp > hpPersonajesElegidos[i]) ? 'background-color: lightblue' : 'background-color: chartreuse'}"></div></div><div class="texto-barra-mana">${personajesElegidos[i].mp}/${mpPersonajesElegidos[i]}<div class="barra-mana" style="width: ${porcentajeMana(mpPersonajesElegidos[i], personajesElegidos[i].mp)}%"></div></div></div>`
+        barrasSaludMana.innerHTML = barrasSaludMana.innerHTML + `<div class="barras-de-personaje"><h2>${personajesElegidos[i].name}</h2><div class="texto-barra-salud">${(personajesElegidos[i].hp < 0) ? 0 : personajesElegidos[i].hp}/${hpPersonajesElegidos[i]}<div class="barra-salud" style="width: ${porcentajeSalud(hpPersonajesElegidos[i], personajesElegidos[i].hp)}%;${(personajesElegidos[i].hp > hpPersonajesElegidos[i]) ? 'background-color: lightblue' : 'background-color: chartreuse'}"></div></div><div class="texto-barra-mana">${personajesElegidos[i].mp}/${mpPersonajesElegidos[i]}<div class="barra-mana" style="width: ${porcentajeMana(mpPersonajesElegidos[i], personajesElegidos[i].mp)}%; ${(personajesElegidos[i].mp > mpPersonajesElegidos[i]) ? 'background-color: cyan' : 'background-color: cornflowerblue'}""></div></div></div>`
     }
 }
 
@@ -428,7 +430,18 @@ const terminarTurno = () => {
                 switch (personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].effect) {
                     case "aumentarStats":
                         personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useBerserker(personajesElegidos[i], personajesElegidos[parseInt(Math.random() * (personajesElegidos.length - 0))]);
-                        console.log(personajesElegidos);
+                        //BUSCA QUE PERSONAJE TIENE EL ESTADO BERSERKER Y CAMBIA SU ASPECTO
+                        for (let i = 0; i < personajesElegidos.length; i++) {
+                            if (personajesElegidos[i].state == "berserker") {
+                                personajesElegidos[i].getImgWalking("./img/berserker.png");
+                            }
+                        }
+                        //PINTAMOS DE NUEVO LOS HEROES CON EL NUEVO ASPECTO DE BERSERKER
+                        document.getElementById("heroes-en-batalla").innerHTML = "";
+                        for (let i = 0; i < personajesElegidos.length; i++) {
+                            document.getElementById("heroes-en-batalla").innerHTML = document.getElementById("heroes-en-batalla").innerHTML + `<div><img id="heroe-en-batalla-${i}" src="${personajesElegidos[i].imgWalking}" alt="Personaje Elegido ${i}"></div>`
+                        }
+                        moverHeroe(`heroe-en-batalla-${i}`);//POR UN BUG QUE NO CONOZCO, EL PERSONAJE NO SE MUEVE AL LANZAR LA HABILIDAD. CON ESTO SE SOLUCIONA
                         break;
                     case "curar":
                         personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useHeal(personajesElegidos[i], personajesElegidos[parseInt(Math.random() * (personajesElegidos.length - 0))]);
