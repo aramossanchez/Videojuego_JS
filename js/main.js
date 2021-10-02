@@ -18,13 +18,13 @@ class Skill{
     }
 
     useSkill(caster, target){
-        target.hp -= this.damage;
+        target.hp -= parseInt(this.damage * (caster.attack/10));
         caster.mp -= this.cost; 
     }
 
     useSkillDouble(caster, target1, target2){ //METODO PARA HABILIDADES DE 2 TARGET DEL ENEMIGO
-        target1.hp -= this.damage;
-        target2.hp -= this.damage;
+        target1.hp -= parseInt(this.damage * (caster.attack/10));
+        target2.hp -= parseInt(this.damage * (caster.attack/10));
         caster.mp -= this.cost; 
     }
     useBerserker(caster, target){
@@ -37,7 +37,7 @@ class Skill{
 
     }
     useHealHealth(target){ // METODO PARA USAR HABILIDADES DE CURACION MULTITARGET. SE EJECUTA EN BUCLE POR TODOS LOS PERSONAJES
-        target.hp += this.damage;
+        target.hp += this.damage
     }
     useHealMana(caster){ // METODO PARA USAR HABILIDADES DE CURACION MULTITARGET. SE EJECUTA UNA SOLA VEZ
         caster.mp -= this.cost;
@@ -47,15 +47,13 @@ class Skill{
 // CREAMOS LA CLASE CHARACTER DONDE DEFINIMOS LOS PERSONAJES
 class Character {
 
-    constructor(id, name, description, hp, mp, attack, defense, speed, skill1, skill2, skill3, skill4, img, imgWalking){
+    constructor(id, name, description, hp, mp, attack, skill1, skill2, skill3, skill4, img, imgWalking){
         this.id = id,
         this.name = name,
         this.description = description,
         this.hp = hp,
         this.mp = mp,
         this.attack = attack,
-        this.defense = defense,
-        this.speed = speed,
         this.skills = [skill1, skill2, skill3, skill4],
         this.img = img,
         this.imgWalking = imgWalking
@@ -85,20 +83,20 @@ var deathStrike = new Skill("Death Strike", "Ataque que puede matar de un solo g
 //HABILIDADES DE DEMON
 var fireBall = new Skill("Fire Ball", "Dispara una bola de fuego desde las manos. Puede quemar", 600, "quemar", 450);
 var demonClaws = new Skill("Demon Claws", "Usa sus garras de demonio para atacar a puntos vitales del oponente.", 700, "", 150);
-var wingStrike = new Skill("Wing Strike", "Usa sus alas para golpear al enemigo.", 500, "", 150);
+var wingStrike = new Skill("Wing Strike", "Usa sus alas para golpear al enemigo.", 500, "", 100);
 var hell = new Skill("Hell", "Invoca a demonios del infierno para que ataquen al enemigo", 950, "", 600);
 
 //HABILIDADES DE ROBOT
-var katanaCyberpunk = new Skill("Katana Cyberpunk", "Es un robot con katanas, y las usa. Puede provocar heridas sangrantes", 500, "sangrar", 200);
-var metalJump = new Skill("Metal Jump", "Salta hacia el enemigo para caer encima de él y provocarle daño.", 450, "", 150);
-var metallicWhistle = new Skill("Metalic Whistle", "Usa su altavoz para emitir un sonido que provoca dolor de cabeza al enemigo. Reparte tapones para los oídos a sus aliados antes de lanzarlo. Puede paralizar.", 350, "paralizar", 250);
-var laserBeam = new Skill("Laser Beam", "Es un robot venido del futuro. Tiene que poder disparar un laser. Y lo hace.", 1200, "", 400);
+var katanaCyberpunk = new Skill("Katana Cyberpunk", "Es un robot con katanas, y las usa. Puede provocar heridas sangrantes", 750, "sangrar", 100);
+var metalJump = new Skill("Metal Jump", "Salta hacia el enemigo para caer encima de él y provocarle daño.", 650, "", 50);
+var metallicWhistle = new Skill("Metalic Whistle", "Usa su altavoz para emitir un sonido que provoca dolor de cabeza al enemigo. Reparte tapones para los oídos a sus aliados antes de lanzarlo. Puede paralizar.", 500, "paralizar", 150);
+var laserBeam = new Skill("Laser Beam", "Es un robot venido del futuro. Tiene que poder disparar un laser. Y lo hace.", 1400, "", 300);
 
 //HABILIDADES DE SUN SOLDIER
 var punchSun = new Skill("Punch Sun", "Rodea su mano con el calor del sol y golpea al enemigo. Puede quemar", 750, "quemar", 250);
 var laserEyes = new Skill("Laser Eyes", "Lanza rayos de sol por los ojos causando daño al enemigo.", 650,"", 200);
-var lightStrike = new Skill("Light Strike", "Emite un haz de luz desde todo su cuerpo para golpear al enemigo",850, "", 400);
-var sunSon = new Skill("Sun Son", "Usa todo el poder cedido por el sol para hacer un ataque debastador. Puede quemar.", 1000, "quemar", 700);
+var lightStrike = new Skill("Light Strike", "Emite un haz de luz desde todo su cuerpo para golpear al enemigo",900, "", 400);
+var sunSon = new Skill("Sun Son", "Usa todo el poder cedido por el sol para hacer un ataque debastador. Puede quemar.", 1300, "quemar", 700);
 
 //HABILIDADES DE HEALER
 var goddessKiss = new Skill("Goddess Kiss", "Cura a un aliado al azar una gran cantidad de salud. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 3500, "curar", 250);
@@ -108,9 +106,9 @@ var springOfLife = new Skill ("Spring of Life", "Cura a todos sus aliados una gr
 
 //HABILIDADES DE ANGEL
 var lightFist = new Skill("Light Fist", "Golpea a su enemigo con su puño bendecido por el dios de la lucha.", 600, "", 300);
-var skysword = new Skill("Sky Sword", "Golpea con la espada que le regaló el dios de la guerra.", 650, "", 400);
+var skysword = new Skill("Sky Sword", "Golpea con la espada que le regaló el dios de la guerra.", 750, "", 400);
 var divineBlessing = new Skill("Divine Blessing", "Cura a un aliado al azar parte de su salud. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 1000, "curar", 350);
-var finalJudgment = new Skill("Final Judgment", "Invoca pilares de luz que fulminan a su enemigo", 900, "", 700);
+var finalJudgment = new Skill("Final Judgment", "Invoca pilares de luz que fulminan a su enemigo", 1050, "", 700);
 
 
 //HABILIDADES DE SHADOW KNIGHT
@@ -139,24 +137,25 @@ alaDragon.getType("double");
 // CREACION DE PERSONAJES
 
 //PERSONAJES ELEGIBLES
-var elementalist = new Character("elementalist", "Gloy Stylish, the Elementalist", "Es una rana, si. Y es un mago también. Usa hechizos elementales con daño masivo, y que provocan estados alterados.", 1500, 2500, 9, 1, 4, fireHorse, iceSpear, windKnife, stormHammer, "./img/elementalist.gif", "./img/elementalist-walking.gif");
 
-var assassin = new Character("assassin", "Nia Noltan, the Assassin", "Asesina entrenada en artes marciales y tecnicas de veneno", 1750, 1000, 10, 2, 9, twister, doubleStrike, poisonDaggers, deathStrike, "./img/assassin.gif", "./img/assassin-walking.gif");
+var assassin = new Character("assassin", "Nia Noltan, the Assassin", "Asesina entrenada en artes marciales y tecnicas de veneno", 1750, 1500, 10, twister, doubleStrike, poisonDaggers, deathStrike, "./img/assassin.gif", "./img/assassin-walking.gif");
 
-var demon = new Character("demon", "Liura Blake, the Demon", "No sabemos porque nos quiere ayudar. Lo que sí sabemos es que le gusta la pelea", 3200, 2000, 7, 5, 6, fireBall, demonClaws, wingStrike, hell, "./img/demon.gif", "./img/demon-walking.gif");
+var elementalist = new Character("elementalist", "Gloy Stylish, the Elementalist", "Es una rana, si. Y es un mago también. Usa hechizos elementales con daño masivo, y que provocan estados alterados.", 1500, 3500, 9, fireHorse, iceSpear, windKnife, stormHammer, "./img/elementalist.gif", "./img/elementalist-walking.gif");
 
-var robot = new Character("robot", "BX109 - v1.023, the Robot", "Dice que viene de nosequé año para salvar a nosequién de una revolución de nosecuando... Aguanta buenos golpes.", 5600, 900, 5, 8, 4, katanaCyberpunk, metalJump, metallicWhistle, laserBeam, "./img/robot.gif", "./img/robot-walking.gif");
+var demon = new Character("demon", "Liura Blake, the Demon", "No sabemos porque nos quiere ayudar. Lo que sí sabemos es que le gusta la pelea", 3200, 2000, 7, fireBall, demonClaws, wingStrike, hell, "./img/demon.gif", "./img/demon-walking.gif");
 
-var light = new Character("light", "Liskanor Tein, the Sun Soldier", "Dice que es hijo del Sol, que le dio todos sus poderes y habilidades... No se, suena a cuento. Pero demonios, es fuerte.", 4500, 1250, 8, 3, 6, punchSun, laserEyes, lightStrike, sunSon, "./img/light.gif", "./img/light-walking.gif");
+var robot = new Character("robot", "BX109 - v1.023, the Robot", "Dice que viene de nosequé año para salvar a nosequién de una revolución de nosecuando... Aguanta buenos golpes.", 5600, 900, 5, katanaCyberpunk, metalJump, metallicWhistle, laserBeam, "./img/robot.gif", "./img/robot-walking.gif");
 
-var healer = new Character("healer", "Suerestil Giysh, the Healer", "Ni idea de donde saca esas medicinas, pero te deja como nuevo.", 3250, 2000, 4, 4, 3, goddessKiss, reverseHealing, confusingMedicine, springOfLife, "./img/healer.gif", "./img/healer-walking.gif");
+var light = new Character("light", "Liskanor Tein, the Sun Soldier", "Dice que es hijo del Sol, que le dio todos sus poderes y habilidades... No se, suena a cuento. Pero demonios, es fuerte.", 2750, 3000, 8, punchSun, laserEyes, lightStrike, sunSon, "./img/light.gif", "./img/light-walking.gif");
 
-var angel = new Character("angel", "Flixinia Golt, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 5000, 1800, 3, 7, 8, lightFist, skysword, divineBlessing, finalJudgment, "./img/angel.gif", "./img/angel-walking.gif");
+var healer = new Character("healer", "Suerestil Giysh, the Healer", "Ni idea de donde saca esas medicinas, pero te deja como nuevo.", 3250, 2000, 4, goddessKiss, reverseHealing, confusingMedicine, springOfLife, "./img/healer.gif", "./img/healer-walking.gif");
 
-var knight = new Character("knight", "Blad Nolan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 650, 7, 6, 2, darkSword, darkSpirits, berserker, blackBreath, "./img/knight.gif", "./img/knight-walking.gif");
+var angel = new Character("angel", "Flixinia Golt, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 5000, 2800, 3, lightFist, skysword, divineBlessing, finalJudgment, "./img/angel.gif", "./img/angel-walking.gif");
+
+var knight = new Character("knight", "Blad Nolan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 1000, 7, darkSword, darkSpirits, berserker, blackBreath, "./img/knight.gif", "./img/knight-walking.gif");
 
 //ENEMIGO
-var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 10000, 500, 8, 8, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
+var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 10000, 10, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -220,9 +219,16 @@ const irManual = () =>{
     manualPersonajes.innerHTML = ""; //RESETEAMOS LA LISTA DE PERSONAJES EN EL MANUAL
     for (let i = 0; i < todosLosPersonajes.length; i++) {
         // PINTAMOS TODA LA INFORMACION DE LOS PERSONAJES. USAMOS UN .MAP PARA PODER PINTAR LAS HABILIDADES DE CADA PERSONAJE
-        manualPersonajes.innerHTML = manualPersonajes.innerHTML + `<p>${todosLosPersonajes[i].name}<br><img src="${todosLosPersonajes[i].img}"><br>${todosLosPersonajes[i].description}<br>Attack:${todosLosPersonajes[i].attack}<br>Defense:${todosLosPersonajes[i].defense}</p><p class="tarjeta-skills">Skills: <br>,,,,,,,,,,,,,,,,,,,,,,,,,${todosLosPersonajes[i].skills.map((skill)=> `<br>${skill.name}<br>Description: ${skill.description}<br>Damage: ${skill.damage}<br>Cost of Mana: ${skill.cost}<br>,,,,,,,,,,,,,,,,,,,,,,`)}</p>`;
-    }  
-}
+        manualPersonajes.innerHTML = manualPersonajes.innerHTML + `<p>${todosLosPersonajes[i].name}<br><img src="${todosLosPersonajes[i].img}"><br>${todosLosPersonajes[i].description}<br><br>Health Point:${todosLosPersonajes[i].hp}<br>Mana Point:${todosLosPersonajes[i].mp}<br>Attack:${todosLosPersonajes[i].attack}<br>Defense:${todosLosPersonajes[i].defense}</p><p class="tarjeta-skills">Skills: <br>,,,,,,,,,,,,,,,,,,,,,,,,,${todosLosPersonajes[i].skills.map((skill)=> `<br>${skill.name}<br>Description: ${skill.description}<br>Damage: ${skill.damage}<br>Cost of Mana: ${skill.cost}<br>,,,,,,,,,,,,,,,,,,,,,,`)}</p>`;
+    }; 
+};
+
+
+//FUNCION PARA CAMBIAR HACIA LA PANTALLA INICIO DESDE MANUAL
+const irInicio = () =>{
+    menuPrincipal.style.display = "flex";
+    manual.style.display = "none";
+};
 
 // VARIABLES PARA PASAR DE LA ELECCION DE PERSONAJES AL JUEGO
 var showGame = false;
@@ -428,7 +434,6 @@ const terminarTurno = () => {
         for (let i = 0; i < 2; i++) {
             contador += 1000;
             setTimeout(() => {
-                console.log(dragon.hp);
                 if (dragon.hp <= 0) { //SOLO LO EJECUTA SI EL DRAGON ESTÁ MUERTO
                     pantallaVictoria.style.display = "flex";
                     pantallaJuego.style.display = "none";
