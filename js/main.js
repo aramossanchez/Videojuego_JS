@@ -29,7 +29,10 @@ class Skill{
     }
     useBerserker(caster, target){
         caster.mp -= this.cost;
-        target.attack += 5;
+        target.attack *= 2;
+        target.hp *= 2;
+        target.mp *= 2;
+        target.state = "berserker"
     }
     useHeal(caster, target){ // METODO PARA USAR HABILIDADES DE CURACION UNITARGET
         caster.mp -= this.cost;
@@ -56,7 +59,15 @@ class Character {
         this.attack = attack,
         this.skills = [skill1, skill2, skill3, skill4],
         this.img = img,
-        this.imgWalking = imgWalking
+        this.imgWalking = imgWalking,
+        this.state = "";
+    }
+
+    getState(state){
+        this.state = state;
+    }
+    getImgWalking(img){
+        this.imgWalking = img;
     }
 
 }
@@ -102,7 +113,7 @@ var sunSon = new Skill("Sun Son", "Usa todo el poder cedido por el sol para hace
 var goddessKiss = new Skill("Goddess Kiss", "Cura a un aliado al azar una gran cantidad de salud. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 3500, "curar", 250);
 var reverseHealing = new Skill("Reverse Healing", "Daña al enemigo con la magia de curación negra.", 500, "", 200);
 var confusingMedicine = new Skill("Confusing Medicine", "Usa una medicina secreta contra el enemigo. Puede provocar ceguera.", 400, "cegar", 300);
-var springOfLife = new Skill ("Spring of Life", "Cura a todos sus aliados una gran cantidad de vida. Gasta mana en función de los aliados que cure. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 2500, "curarTodos", 1000);
+var springOfLife = new Skill ("Spring of Life", "Cura a todos sus aliados. Gasta mana en función de los aliados que cure. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 2500, "curarTodos", 1000);
 
 //HABILIDADES DE ANGEL
 var lightFist = new Skill("Light Fist", "Golpea a su enemigo con su puño bendecido por el dios de la lucha.", 600, "", 300);
@@ -114,7 +125,7 @@ var finalJudgment = new Skill("Final Judgment", "Invoca pilares de luz que fulmi
 //HABILIDADES DE SHADOW KNIGHT
 var darkSword = new Skill("Dark Sword", "Usa la espada que le robó a un demonio para ejecutar un corte descendente en contra de su enemigo", 650, "", 100);
 var darkSpirits = new Skill("Dark Spirits", "Invoca a sus enemigos caidos para herir a su enemigo. Puede provocar ceguera", 500, "cegar", 180);
-var berserker = new Skill("Berserker", "Con un grito aterrador aumenta las fuerzas de un aliado aleatorio", 0, "aumentarAtaque", 350);
+var berserker = new Skill("Berserker", "Con un grito aterrador aumenta las fuerzas de un aliado aleatorio", 0, "aumentarStats", 350);
 var blackBreath = new Skill("Black Breath", "Despide un aliento negro para herir a su enemigo. Puede provocar ceguera", 900, "cegar", 300)
 
 var habilidadPrueba1 = new Skill("prueba1", "prueba", 500, "", 50);
@@ -219,8 +230,10 @@ const irManual = () =>{
     manualPersonajes.innerHTML = ""; //RESETEAMOS LA LISTA DE PERSONAJES EN EL MANUAL
     for (let i = 0; i < todosLosPersonajes.length; i++) {
         // PINTAMOS TODA LA INFORMACION DE LOS PERSONAJES. USAMOS UN .MAP PARA PODER PINTAR LAS HABILIDADES DE CADA PERSONAJE
-        manualPersonajes.innerHTML = manualPersonajes.innerHTML + `<p>${todosLosPersonajes[i].name}<br><img src="${todosLosPersonajes[i].img}"><br>${todosLosPersonajes[i].description}<br><br>Health Point:${todosLosPersonajes[i].hp}<br>Mana Point:${todosLosPersonajes[i].mp}<br>Attack:${todosLosPersonajes[i].attack}<br>Defense:${todosLosPersonajes[i].defense}</p><p class="tarjeta-skills">Skills: <br>,,,,,,,,,,,,,,,,,,,,,,,,,${todosLosPersonajes[i].skills.map((skill)=> `<br>${skill.name}<br>Description: ${skill.description}<br>Damage: ${skill.damage}<br>Cost of Mana: ${skill.cost}<br>,,,,,,,,,,,,,,,,,,,,,,`)}</p>`;
-    }; 
+        manualPersonajes.innerHTML = manualPersonajes.innerHTML + `<p>${todosLosPersonajes[i].name}<br><img src="${todosLosPersonajes[i].img}"><br>${todosLosPersonajes[i].description}<br><br>Health Points:${todosLosPersonajes[i].hp}<br>Mana Points:${todosLosPersonajes[i].mp}<br>Attack:${todosLosPersonajes[i].attack}</p><p class="tarjeta-skills">Skills: <br>,,,,,,,,,,,,,,,,,,,,,,,,,${todosLosPersonajes[i].skills.map((skill)=> `<br>${skill.name}<br>Description: ${skill.description}<br>Damage: ${skill.damage}<br>Cost of Mana: ${skill.cost}<br>,,,,,,,,,,,,,,,,,,,,,,`)}</p>`;
+    };
+    // PINTAMOS INFORMACION DEL DRAGON
+    document.getElementById("manual-enemigo").innerHTML = `<h2>Enemy</h2><p>${dragon.name}<br><img src="${dragon.imgWalking}"><br>${dragon.description}<br><br>Health Points: ${dragon.hp}<br>Mana Points: ${dragon.mp}<br>Attack:${dragon.attack}</p><p class="tarjeta-skills">Skills: <br>,,,,,,,,,,,,,,,,,,,,,,,,,${dragon.skills.map((skill)=> `<br>${skill.name}<br>Description: ${skill.description}<br>Damage: ${skill.damage}<br>Cost of Mana: ${skill.cost}<br>,,,,,,,,,,,,,,,,,,,,,,`)}</p>`;
 };
 
 
@@ -314,6 +327,16 @@ const iniciarJuego = () => {
 }
 
 
+// FUNCION PARA MOSTRAR DETALLES DE LA HABILIDAD AL PASAR EL RATON POR ENCIMA
+const mostrarDescripcion = (id) => {
+    let details = document.getElementById(id);
+    details.style.display = "inline";
+}
+const ocultarDescripcion = (id) => {
+    let details = document.getElementById(id);
+    details.style.display = "none";
+}
+
 // CREAMOS ARRAY PARA GUARDAR LAS HABILIDADES QUE MOSTRAREMOS EN CADA LISTA DE HABILIDADES
 var habilidades = [];
 
@@ -328,7 +351,7 @@ var habilidades = [];
 // EN EL HTML. TRAS GUARDARLO, DEJAMOS EL ARRAY DE HABILIDADES A CERO
 const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
     for (let i = 0; i < objetoPersonaje.skills.length; i++) {
-        habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="guardaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label for="element${posicionObjeto}${i}" style="${(objetoPersonaje.mp < objetoPersonaje.skills[i].cost) ? 'pointer-events : none; opacity: 0.5' : 'pointer-events = initial; opacity: 1'}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span></label>`);
+        habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="guardaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label id="label-${posicionObjeto}-${i}" onmouseenter="mostrarDescripcion('details-${posicionObjeto}-${i}')" onmouseleave="ocultarDescripcion('details-${posicionObjeto}-${i}')" for="element${posicionObjeto}${i}" style="${(objetoPersonaje.mp < objetoPersonaje.skills[i].cost) ? 'pointer-events : none; opacity: 0.5' : 'pointer-events = initial; opacity: 1'}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span><div id="details-${posicionObjeto}-${i}" class="details-skills">Damage: ${objetoPersonaje.skills[i].damage}<br>Description: ${objetoPersonaje.skills[i].description}</div></label>`);
     }
     // document.getElementById(`character${posicionObjeto}`).innerHTML = `<form>` + habilidades.join("") + "</form>";
     document.getElementById("habilidades-personajes").innerHTML = document.getElementById("habilidades-personajes").innerHTML + `<div id="character${posicionObjeto}" class="lista-habilidades"><form>` + habilidades.join("") + "</form></div>";
@@ -403,7 +426,7 @@ const terminarTurno = () => {
                 moverHeroe(`heroe-en-batalla-${i}`);
                 // FILTRO PARA HABILIDADES CON MECANICAS ESPECIALES
                 switch (personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].effect) {
-                    case "aumentarAtaque":
+                    case "aumentarStats":
                         personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useBerserker(personajesElegidos[i], personajesElegidos[parseInt(Math.random() * (personajesElegidos.length - 0))]);
                         console.log(personajesElegidos);
                         break;

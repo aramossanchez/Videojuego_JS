@@ -143,6 +143,7 @@ body{
     text-shadow: 0px 0px 7px #ffffff;   
 }
 #manual h2{
+    text-align: center;
     color: #fbff00;
     text-shadow: 0px 0px 4px #ffffff;
     margin: 2em;
@@ -433,12 +434,12 @@ input:checked + label {
     text-decoration: underline;
     color: yellow;
 }
-label:hover::before{
+.details-skills{
     position: absolute;
+    display: none;
     left: 0;
     height: auto;
-    top: -6em;
-    content: "Hechizo que libera un caballo de fuego hacia el enemigo. Puede quemar";
+    top: -9em;
     position: absolute;
     color: black;
     background-color: white;
