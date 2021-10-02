@@ -77,9 +77,9 @@ var stormHammer = new Skill("Storm Hammer", "Hechizo que invoca un martillo hech
 
 
 //HABILIDADES DE ASSASSIN
-var twister = new Skill("Twister", "Desenfunda sus 2 cuchillas y empieza a girar sobre sí misma cerca de su oponente, realizando multiples cortes. Puede envenenar.", 650, "envenenar", 175);
-var doubleStrike = new Skill("Double Strike", "Hace un corte con cada una de sus cuchillas. Puede envenenar.", 800, "envenenar", 100);
-var poisonDaggers = new Skill("Poison Daggers", "Lanza 2 dagas al enemigo. Puede envenenar.", 400, "envenenar", 180);
+var twister = new Skill("Twister", "Desenfunda sus 2 cuchillas y empieza a girar sobre sí misma cerca de su oponente, realizando multiples cortes. Puede envenenar.", 600, "envenenar", 150);
+var doubleStrike = new Skill("Double Strike", "Hace un corte con cada una de sus cuchillas. Puede envenenar.", 950, "envenenar", 250);
+var poisonDaggers = new Skill("Poison Daggers", "Lanza 2 dagas al enemigo. Puede envenenar.", 750, "envenenar", 200);
 var deathStrike = new Skill("Death Strike", "Ataque que puede matar de un solo golpe, pero tiene muy poca probabilidad de acertar", 10000, "", 200);
 
 //HABILIDADES DE DEMON
@@ -209,6 +209,21 @@ const irSeleccionPersonaje = () =>{
     menuPrincipal.style.display = "none";
 }
 
+// VARIABLES PARA CONTROLA PASAR DE LA PANTALLA DE INICIO A MANUAL
+var manual = document.getElementById("manual");
+
+//FUNCION PARA CAMBIAR HACIA LA PANTALLA MANUAL DESDE INICIO
+const irManual = () =>{
+    menuPrincipal.style.display = "none";
+    manual.style.display = "flex";
+    var manualPersonajes = document.getElementById("manual-personajes");
+    manualPersonajes.innerHTML = ""; //RESETEAMOS LA LISTA DE PERSONAJES EN EL MANUAL
+    for (let i = 0; i < todosLosPersonajes.length; i++) {
+        // PINTAMOS TODA LA INFORMACION DE LOS PERSONAJES. USAMOS UN .MAP PARA PODER PINTAR LAS HABILIDADES DE CADA PERSONAJE
+        manualPersonajes.innerHTML = manualPersonajes.innerHTML + `<p>${todosLosPersonajes[i].name}<br><img src="${todosLosPersonajes[i].img}"><br>${todosLosPersonajes[i].description}<br>Attack:${todosLosPersonajes[i].attack}<br>Defense:${todosLosPersonajes[i].defense}</p><p class="tarjeta-skills">Skills: <br>,,,,,,,,,,,,,,,,,,,,,,,,,${todosLosPersonajes[i].skills.map((skill)=> `<br>${skill.name}<br>Description: ${skill.description}<br>Damage: ${skill.damage}<br>Cost of Mana: ${skill.cost}<br>,,,,,,,,,,,,,,,,,,,,,,`)}</p>`;
+    }  
+}
+
 // VARIABLES PARA PASAR DE LA ELECCION DE PERSONAJES AL JUEGO
 var showGame = false;
 
@@ -218,7 +233,7 @@ var pantallaJuego = document.getElementById("pantalla-juego");
 // VARIABLE EN LA QUE GUARDAMOS EL ELEMENTO CONTENEDOR DE LAS BARRAS DE SALUD Y MANA
 let barrasSaludMana = document.getElementById("barras-salud-mana");
 
-// CREAMOS ARRAY PARA GUARDAR LA VIDA Y EL MANA DE LOS PERSONAJES SELECCIONADOS, NECESARIO PARA PODER MOSTRAR CUANTA 
+// CREAMOS ARRAY PARA GUARDAR LA VIDA Y EL MANA DE LOS PERSONAJES SELECCIONADOS NECESARIO PARA PODER MOSTRAR CUANTA 
 // VIDA Y MANA SE HA PERDIDO EN LAS BARRAS DE SALUD Y DE MANA
 let hpPersonajesElegidos = [];
 let mpPersonajesElegidos = [];

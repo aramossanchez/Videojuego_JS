@@ -12,12 +12,13 @@ VERSION: 1.0
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    
+    <!-- CONTENEDOR GENERAL DEL PROGRAMA -->
     <div id="container">
         <div id="switch" onclick="iniciarJuego()">GO TO THE BATTLE!</div>
+        <!-- MENU PRINCIPAL. ES LA PRIMERA PANTALLA QUE CARGA EL PROGRAMA -->
         <div id="menu-principal">
             <div class="opciones-menu-principal" onclick="irSeleccionPersonaje()"><h1>START</h1></div>
-            <div class="opciones-menu-principal" onclick="irGuia()"><h1>MANUAL</h1></div>
+            <div class="opciones-menu-principal" onclick="irManual()"><h1>MANUAL</h1></div>
             <img src="./img/dragon-walking.gif" alt="Dragón bailando">
             <img src="./img/elementalist.gif" alt="Elementalist">
             <img src="./img/light.gif" alt="Light">
@@ -25,9 +26,52 @@ VERSION: 1.0
             <img src="./img/demon.gif" alt="Demon">
             <img src="./img/knight.gif" alt="Knight">
         </div>
+        <!-- MANUAL. LA PANTALLA DONDE ESTÁ LA GUÍA DE JUEGO Y PERSONAJES -->
+        <div id="manual">
+            <h1>MANUAL</h1>
+            <p>A guide explaining everything about how the game works</p>
+            <h2>First steps</h2>
+            <p>Tras pulsar el botón "START" empezamos en la pantalla "selección de personaje". En esta pantalla necesitamos elegir 4 personajes de los
+                8 disponibles. Para elegir cualquiera de los personajes debemos de clickar sobre su ficha. Si clickamos sobre
+            la ficha de algún personaje que ya estaba elegido, lo desmarcaremos.</p>
+            <p>Cuando tengamos elegidos a los 4 personajes con los que queremos jugar, aparecerá el botón "GO TO THE BATTLE", que 
+                nos llevará a la partida.</p>
+
+            <h2>We started the game</h2>
+            <p>Al cargar la partida nos aparecerán nuestros 4 personajes elegidos (aka heroes), nuestro enemigo (aka dragon) y el
+                botón "START YOUR TURN". Al pulsarlo, cargarán las barras de vida y mana de nuestros heroes, las barras de vida y de
+                mana del dragon y las habilidades de nuestros 4 heroes.</p>
+            <p>Las imágenes de los personajes están ordenadas de arriba a abajo, y las barras de vida y mana y las listas de
+                habilidades están ordenadas de izquierda a derecha.</p>
+            
+            <h2>Playing the game</h2>
+            <p>Para jugar podemos interactuar con 2 cosas: las listas de habilidades de nuestros personajes y el botón
+                "END YOUR TURN".</p>
+            <p>Listas de habilidades: podemos elegir una habilidad de cada personaje para ejecutarlas durante el turno (lanzar un
+                total de 4 habilidades por turno). Podemos ver cuanto mana gasta la habilidad al lado de su nombre, y una breve
+                descripción de lo que hace pasando el cursor por encima. Cuando seleccionemos una habilidad de una lista, dicha
+                lista se quedará deshabilitada y no se podrá elegir otra habilidad o deseleccionar la habilidad marcada.</p>
+            <p>Botón "END YOUR TURN": al pulsar el botón, las habilidades que hayamos marcado se guardarán para ser ejecutadas
+            (no es necesario tener marcadas 4 habilidades para poder pulsar el botón, solo se ejecutarán las que hayamos marcado).
+            Ahora se sucederán una serie de animaciones en las que los heroes atacan, el dragon ataca, y las barras de salud y de
+            mana de todos los afectados por el combate mostrarán los cambios que tengan.</p>
+
+            <h2>End of game</h2>
+            <p>El objetivo es muy simple: VENCE AL DRAGON. Busca los personajes mas fuertes, las mejores combinaciones y los trucos
+                escondidos para poder acabar con tu enemigo.</p>
+
+            <h2>Characters</h2>
+            <p>Aqui puedes ver una lista con todos los personajes: una descripcion de ellos, sus stats y sus habilidades.</p>
+            <div id="manual-personajes">
+
+            </div>
+            
+        </div>
+        <!-- SELECCION DE PERSONAJES, DONDE APARECE EL LISTADO DE PERSONAJES A ELEGIR (CONTENIDO AÑADIDO DESDE JS) -->
         <div id="seleccion-personajes">
             <h1 id="mensaje-selecciona-heroes">SELECT 4 HEROES!</h1>
         </div>
+        <!-- PANTALLA DE JUEGO, DONDE SE DESARROLLARÁ LA PARTIDA DEL JUEGO (CONTENIDO AÑADIDO DESDE JS) -->
         <div id="pantalla-juego">
             <div id="pantalla-empezar-turno">
                 <div id="boton-empezar-turno" onclick="empezarTurno()">START YOUR TURN</div>
@@ -45,11 +89,13 @@ VERSION: 1.0
                 <div id="character3" class="lista-habilidades"></div>
             </div>
         </div>
+        <!-- PANTALLA DE VICTORIA. PANTALLA QUE APARECE CUANDO NOS PASAMOS EL JUEGO (CONTENIDO AÑADIDO DESDE JS) -->
         <div id="pantalla-victoria">
             <h1>VICTORY!</h1>
             <div id="meritos-victoria"></div>
             <div id="personajes-victoria"></div>
         </div>
+        <!-- PANTALLA DE GAMEOVER. PANTALLA QUE APARECE CUANDO PERDEMOS EL JUEGO (CONTENIDO AÑADIDO DESDE JS) -->
         <div id="pantalla-game-over">
             <h1>YOU LOSE...</h1>
             <p>All your characters have died...</p>
