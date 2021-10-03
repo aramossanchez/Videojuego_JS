@@ -178,12 +178,18 @@ var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha 
 
 // CREAMOS LOS SONIDOS
 const cancionInit = new Audio("./sound/init.wav");
+cancionInit.loop = true;
 const cancionManual = new Audio("./sound/manual.wav");
+cancionManual.loop = true;
 const cancionSelecccion = new Audio("./sound/selection.wav");
 cancionSelecccion.volume = 0.6;
+cancionSelecccion.loop = true;
 const cancionBattle = new Audio("./sound/battle.wav");
+cancionBattle.loop = true;
 const cancionGameOver = new Audio("./sound/game-over.wav");
+cancionGameOver.loop = true;
 const cancionWin = new Audio("./sound/win.wav");
+cancionWin.loop = true;
 
 const sonidoBoton = new Audio("./sound/sonido-boton.wav");
 const sonidoAtaque = new Audio("./sound/sonido-ataque.wav");

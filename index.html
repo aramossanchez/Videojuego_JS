@@ -96,14 +96,16 @@ VERSION: 1.0
             <h1>VICTORY!</h1>
             <div id="meritos-victoria"></div>
             <div id="personajes-victoria"></div>
-            <input type="button" value="PLAY AGAIN!" onclick="sonarBoton(), location.reload()"/>
+            <div class="volver-a-jugar">
+                <input type="button" value="PLAY AGAIN!" onclick="sonarBoton(), location.reload()"/>
+            </div>
         </div>
         <!-- PANTALLA DE GAMEOVER. PANTALLA QUE APARECE CUANDO PERDEMOS EL JUEGO (CONTENIDO AÑADIDO DESDE JS) -->
         <div id="pantalla-game-over">
             <h1>YOU LOSE...</h1>
             <p>All your characters have died...</p>
             <div id="resumen-derrota"></div>
-            <div id="volver-a-jugar">
+            <div class="volver-a-jugar">
                 <input type="button" value="TRY AGAIN!" onclick="sonarBoton(), location.reload()"/>
             </div>
         </div>
