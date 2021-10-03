@@ -176,6 +176,25 @@ var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// CREAMOS LOS SONIDOS
+const cancionInit = new Audio("./sound/init.wav");
+const cancionManual = new Audio("./sound/manual.wav");
+const cancionSelecccion = new Audio("./sound/selection.wav");
+cancionSelecccion.volume = 0.6;
+const cancionBattle = new Audio("./sound/battle.wav");
+const cancionGameOver = new Audio("./sound/game-over.wav");
+const cancionWin = new Audio("./sound/win.wav");
+
+const sonidoBoton = new Audio("./sound/sonido-boton.wav");
+const sonidoAtaque = new Audio("./sound/sonido-ataque.wav");
+const sonidoGuardarPersonaje = new Audio("./sound/sonido-guardar-personaje.wav");
+const sonidoSeleccionarHabilidad = new Audio("./sound/sonido-seleccionar-habilidad.wav");
+
+
+const sonarBoton = () =>{
+    sonidoBoton.play();
+}
+
 // EN ESTE ARRAY GUARDAMOS TODOS LOS PERSONAJES ELEGIBLES
 var todosLosPersonajes = [assassin, elementalist, demon, robot, light, healer, angel, knight];
 
@@ -191,6 +210,8 @@ var personajesElegidos = [];
 // METODO PARA GUARDAR LOS PERSONAJES CLICKADOS EN EL ARRAY DE PERSONAJES SELECCIONADOS
 // O PARA ELIMINAR DEL ARRAY DE PERSONAJES SELECCIONADOS EL PERSONAJE QUE VOLVEMOS A CLICKAR
 const guardarPersonajeElegido = (lugarArray, id) =>{
+    sonidoGuardarPersonaje.currentTime = 0;
+    sonidoGuardarPersonaje.play();
     let fichaPersonaje = document.getElementById(id); //GUARDAMOS ELEMENTO DOM DE LA FICHA DEL PERSONAJE ELEGIDO
     if(fichaPersonaje.style.opacity != "0.5"){
         if(personajesElegidos.length < 4){ // SI NO ESTÁ SELECCIONADO, LO SELECCIONAMOS
@@ -219,6 +240,9 @@ var seleccionPersonajes = document.getElementById("seleccion-personajes");
 
 //FUNCION PARA IR HACIA EL MENÚ DE SELECCIÓN DE PERSONAJE DESDE EL MENU PRINCIPAL
 const irSeleccionPersonaje = () =>{
+    cancionInit.pause();
+    cancionSelecccion.play();
+    sonidoBoton.play();
     seleccionPersonajes.style.display = "flex";
     menuPrincipal.style.display = "none";
 }
@@ -228,6 +252,10 @@ var manual = document.getElementById("manual");
 
 //FUNCION PARA CAMBIAR HACIA LA PANTALLA MANUAL DESDE INICIO
 const irManual = () =>{
+    cancionInit.pause();
+    cancionInit.currentTime = 0;
+    cancionManual.play();
+    sonidoBoton.play();
     menuPrincipal.style.display = "none";
     manual.style.display = "flex";
     var manualPersonajes = document.getElementById("manual-personajes");
@@ -243,6 +271,10 @@ const irManual = () =>{
 
 //FUNCION PARA CAMBIAR HACIA LA PANTALLA INICIO DESDE MANUAL
 const irInicio = () =>{
+    cancionManual.pause();
+    cancionManual.currentTime = 0;
+    cancionInit.play();
+    sonidoBoton.play();
     menuPrincipal.style.display = "flex";
     manual.style.display = "none";
 };
@@ -305,6 +337,9 @@ const pintarBarrasSaludManaEnemigo = () =>{
 // FUNCION PARA ALTERNAR ENTRE PANTALLAS DE LA APLICACION Y PARA MOSTRAR LAS HABILIDADES DE LOS PERSONAJES ELEGIDOS
 // PINTAMOS TAMBIEN A LOS PERSONAJES EN PANTALLA
 const iniciarJuego = () => {
+    sonidoBoton.play();
+    cancionSelecccion.pause();
+    cancionBattle.play();
     // GUARDAMOS EN ARRAY LA VIDA Y EL MANA DE LOS PERSONAJES SELECCIONADOS
     for (let i = 0; i < personajesElegidos.length; i++) {
         hpPersonajesElegidos.push(personajesElegidos[i].hp);
@@ -372,6 +407,8 @@ const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
 var habilidadesTurno = [0, 0, 0, 0];
 
 const guardaHabilidades = (personaje, skill, id) => {
+    sonidoSeleccionarHabilidad.currentTime = 0;
+    sonidoSeleccionarHabilidad.play();
     document.getElementById(id).style.pointerEvents = "none";
     document.getElementById(id).style.opacity = "0.5";
     habilidadesTurno[personaje] = ([personaje, skill]);
@@ -381,6 +418,7 @@ const guardaHabilidades = (personaje, skill, id) => {
 // SUS BARRAS DE VIDA Y MANA Y EL DIV CONTENEDOR DE SUS HABILIDADES, BARRAS DE ENEMIGO Y NOMBRE DE ENEMIGO.
 // TAMBIEN CARGA EL BOTON DE TERMINAR TURNO
 const empezarTurno = () =>{
+    sonidoBoton.play();
     document.getElementById("pantalla-empezar-turno").style.display = "none";
     document.getElementById("boton-terminar-turno").style.display = "block";
     document.getElementById("habilidades-personajes").style.display = "flex";
@@ -421,6 +459,7 @@ var turnos = 0;
 // TIENE EN SU PROPIA LISTA DE HABILIDADES
 // USAMOS SETTIMEOUT PARA VOLVER A LA PANTALLA DE INICIAR MENÚ
 const terminarTurno = () => {
+    sonidoBoton.play();
     turnos++;
     let contador = 0;
     document.getElementById("boton-terminar-turno").style.display = "none"
@@ -430,6 +469,7 @@ const terminarTurno = () => {
             contador += 1000;
             setTimeout(() => {
                 moverHeroe(`heroe-en-batalla-${i}`);
+                sonidoAtaque.play();
                 // FILTRO PARA HABILIDADES CON MECANICAS ESPECIALES
                 switch (personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].effect) {
                     case "aumentarStats":
@@ -488,6 +528,8 @@ const terminarTurno = () => {
             contador += 1000;
             setTimeout(() => {
                 if (dragon.hp <= 0) { //SOLO LO EJECUTA SI EL DRAGON ESTÁ MUERTO
+                    cancionBattle.pause();
+                    cancionWin.play();
                     pantallaVictoria.style.display = "flex";
                     pantallaJuego.style.display = "none";
                     meritosVictoria.innerHTML = `<p>You managed to kill the dragon in ${turnos} turns!</p><p>${personajesElegidos.length} team characters survived!</p>`;
@@ -496,6 +538,7 @@ const terminarTurno = () => {
                         personajesVictoria.innerHTML = personajesVictoria.innerHTML + `<img src="${personajesElegidos[i].img}">`       
                     }
                 }else{ //SOLO LO EJECUTA SI EL DRAGON ESTÁ VIVO
+                    sonidoAtaque.play();
                     moverEnemigo("dragon-en-batalla");
                     let skillNumber = parseInt(Math.random() * (4 - 0));
                     console.log("Dragon usa el ataque " + dragon.skills[skillNumber].name);
@@ -562,6 +605,8 @@ const terminarTurno = () => {
                 }
                 //CONTROLAMOS SI TODOS LOS PERSONAJES ESTÁN MUERTOS PARA PARAR EL JUEGO
                 if (personajesElegidos.length == 0) {
+                    cancionBattle.pause();
+                    cancionGameOver.play();
                     pantallaJuego.style.display = "none";
                     pantallaGameOver.style.display = "flex";
                     resumenDerrota.innerHTML = `<p>The dragon has finished you in ${turnos} turns</p>`;
