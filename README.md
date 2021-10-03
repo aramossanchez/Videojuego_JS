@@ -20,28 +20,28 @@ Procedo a explicar punto por punto el funcionamiento del videojuego:
 
 * En este **Menú Principal** se puede entrar al juego pulsando **START** o se puede acceder a la guía del juego pulsando **MANUAL**
 ***
-
+![Logo del Juego](screenshots/menu-principal.jpg)
 * Si se decide entrar en manual, se cargará la vista **Manual**. Aquí se puede ver una guía del funcionamiento del juego (escrita directamente en el HTML), así como una explicación detallada de cada personaje y cada una de sus habilidades (para conseguir esto se hace desde el archivo JS, recorriendo el array que contiene a los personajes creados). Se puede volver al menú principal con el botón **MAIN MENU**.
 ***
+![Logo del Juego](screenshots/pantalla-manual.jpg)
 
 *  Si se pulsa el botón **START** se accede a la vista **Selección Personajes**. En esta vista se mostrarán todos los personajes seleccionables para el juego. Desde el archivo JS es desde donde se crea cada tarjeta con la información y la imagen del personaje. Además, desde esa misma orden que pinta toda la información, también se introducen eventos ```onclick```, creados para poder guardar en un array los personajes que se vayan eligiendo. Si se clicka sobre un personaje elegido, se saca del array.
 ***
 
+![Logo del Juego](screenshots/pantalla-seleccion-personaje.jpg)
 * Cuando hay 4 personajes seleccionados, aparece el botón **GO TO THE BATTLE!**, que hace aparecer la vista **Pantalla Juego**
 ***
 
+![Logo del Juego](screenshots/boton-go-battle.jpg)
 * La vista **Pantalla Juego** es la más importante de la aplicación, donde tendrá lugar todo lo referente a la partida. En ella se cargan los siguientes puntos:
     * **Botón START YOUR TURN**: este botón hace visibles todos los elementos del DOM necesarios, resetea la información de las barras de salud y de mana, las imágenes de los personajes y las habilidades.
     * **Barras de salud y de mana**: se cargan recorriendo el array de personajes seleccionados. Las barras están configuradas para que sean de ```width``` variable, en función del porcentaje de salud o mana que se tenga (para tener presente siempre la salud y el mana máximos de cada personaje, estos valores se guardan en un array al comienzo de la partida). También el color de las barras es variable en función de si la vida o mana actual superan el 100% o no. A su vez, está configurado para que los valores de salud o mana nunca se muestren menores de 0. Todas estas características del aspecto visual se añaden desde el JS, a la vez que se agrega todo este contenido de manera dinámica.
     * **Imágenes de los personajes elegidos**: Se cargan las imagenes asociadas a cada objeto Character, recorriendo el array de personajes seleccionados.
     * **Datos del enemigo**: se cargan el nombre del enemigo, su imagen y sus barras de salud y mana. Adicionalmente se carga un div invisible, el cual contendrá información para algunas habilidades con mecánicas especiales.
-    * **Habilidades de los personajes**: se recorre el array de personajes elegidos para mostrar en pantalla cada una de las habilidades de cada personaje. Se muestran el nombre de la habilidad y su gasto de mana. A su vez, se carga un div invisible con su descripcion y su daño base, que solo será visible si pasamos el ratón por encima de la habilidad. También hay añadido efecto ```:hover``` a los nombres de las habilidades. Cuando el personaje no tiene suficiente mana para lanzar la habilidad, está se vuelve menos opaca y pierde la capacidad para poder interactuar con eventos de ratón, haciendo imposible ser lanzada.
-
-
-    Cada vez que se selecciona una habilidad, el cuadro donde están guardadas se vuelve menos opaco y pierde la capacidad de interactuar con eventos de ratón. De esta manera se hace que solo se pueda usar una habilidad de cada personaje por turno. Al seleccionar una habilidad, esta se guarda en un array. En este array, la habilidad se guarda en función de la posición que ocupe en el array de personajes seleccionados el personaje que tiene la habilidad (p.e.: si el personaje 2 usa una habilidad, esta se guardará en la posición 2 del array, aunque no hayan seleccionado aún habilidad los personajes anteriores). De esta manera se respetan los gastos de mana correctamente, y permite que no todos personajes usen sus habilidades, si así se desea, sin errores.
+    * **Habilidades de los personajes**: se recorre el array de personajes elegidos para mostrar en pantalla cada una de las habilidades de cada personaje. Se muestran el nombre de la habilidad y su gasto de mana. A su vez, se carga un div invisible con su descripcion y su daño base, que solo será visible si pasamos el ratón por encima de la habilidad. También hay añadido efecto ```:hover``` a los nombres de las habilidades. Cuando el personaje no tiene suficiente mana para lanzar la habilidad, está se vuelve menos opaca y pierde la capacidad para poder interactuar con eventos de ratón, haciendo imposible ser lanzada. Cada vez que se selecciona una habilidad, el cuadro donde están guardadas se vuelve menos opaco y pierde la capacidad de interactuar con eventos de ratón. De esta manera se hace que solo se pueda usar una habilidad de cada personaje por turno. Al seleccionar una habilidad, esta se guarda en un array. En este array, la habilidad se guarda en función de la posición que ocupe en el array de personajes seleccionados el personaje que tiene la habilidad (p.e.: si el personaje 2 usa una habilidad, esta se guardará en la posición 2 del array, aunque no hayan seleccionado aún habilidad los personajes anteriores). De esta manera se respetan los gastos de mana correctamente, y permite que no todos personajes usen sus habilidades, si así se desea, sin errores.
     * Cuando se decide que no se quiere elegir ninguna habilidad más, o ya se han elegido las 4 posibles, o no se pueden elegir ninguna por falta de mana, se pulsará el botón **END YOUR TURN**.
 ***
-
+![Logo del Juego](screenshots/pantalla-juego.jpg)
 * El botón **END YOUR TURN** gestiona todos los cambios que suceden entre un turno y otro:
     * Gestiona la variable turnos, que lleva la cuenta de cuantos turnos se han hecho en la partida.
     * Recorre el array donde se guardaron las habilidades guardadas para este turno, y las va ejecutando por orden, creando un ```setTimeout``` a cada una de las habilidades. Este delay entre habilidades se gestiona con un contador.
@@ -58,6 +58,9 @@ Procedo a explicar punto por punto el funcionamiento del videojuego:
 ***
 * En las vistas **Pantalla Victoria** y **Pantalla Game Over** aparece un botón que recargará la página.
 ***
+![Logo del Juego](screenshots/pantalla-victoria.jpg)
+![Logo del Juego](screenshots/pantalla-gameover.jpg)
+
 * Mecánicas especiales: la mayoría de los ataques creados en esta aplicación están gestionados por un solo método: ```getSkill()```, el cual utiliza los datos ```target``` y ```caster```, para gestionar cuanto daño hace la habilidad al enemigo, y cuanto coste de mana supone para el personaje que la usa. También se usa la característica ```Attack``` para determinar el daño total de la habilidad. Sin embargo, existen otras pocas habilidades que funcionan de manera especial y necesitan ser gestionadas por métodos diferentes. En función de la característica ```effect``` de los objetos Skill, el filtro de habilidades determinará como se ejecuta cada una de ellas. Son las siguientes:
     * **Berserker**: esta habilidad hace que un aliado al azar vea duplicados sus puntos de salud, sus puntos de mana y su ataque. Tambien hace que su aspecto cambie y se convierta en un monstruo. Esta habilidad está gestionada por el método ```useBerserker```. La habilidad usa la característica ```state``` de los objetos Character y su método ```getImgWalking``` para cambiar el aspecto del personaje objetivo. Vuelve a mostrar todas las imagenes de los personajes.
     * **Habilidades de cura a un solo objetivo**: estas habilidades aumentan la vida de un aliado al azar. Si la vida supera el 100%, se suma a la vida existente. Está gestionada por el método ```useHeal```.
@@ -73,6 +76,7 @@ Procedo a explicar punto por punto el funcionamiento del videojuego:
 
 * **Imágenes**:
     * Personajes: descargados de http://www.rpg-maker.fr/ressources/vxchar y montados con GIMP.
-    * Fondos: descargados de Google
+    * Fondos: descargados de Google Imágenes
+* **Audio**:
     * Canciones: descargadas de http://www.bitmidi.com , y convertidos a .wav en http://onlineconverter.com
     * Sonidos: descargados de http://www.mixkit.co 
