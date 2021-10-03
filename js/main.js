@@ -45,6 +45,10 @@ class Skill{
     useHealMana(caster){ // METODO PARA USAR HABILIDADES DE CURACION MULTITARGET. SE EJECUTA UNA SOLA VEZ
         caster.mp -= this.cost;
     }
+    useDeathStrike(caster, target, suerte){
+        target.hp -= this.damage * suerte;
+        caster.mp -= this.cost;
+    }
 }
 
 // CREAMOS LA CLASE CHARACTER DONDE DEFINIMOS LOS PERSONAJES
@@ -89,7 +93,7 @@ var stormHammer = new Skill("Storm Hammer", "Hechizo que invoca un martillo hech
 var twister = new Skill("Twister", "Desenfunda sus 2 cuchillas y empieza a girar sobre sí misma cerca de su oponente, realizando multiples cortes. Puede envenenar.", 600, "envenenar", 150);
 var doubleStrike = new Skill("Double Strike", "Hace un corte con cada una de sus cuchillas. Puede envenenar.", 950, "envenenar", 250);
 var poisonDaggers = new Skill("Poison Daggers", "Lanza 2 dagas al enemigo. Puede envenenar.", 750, "envenenar", 200);
-var deathStrike = new Skill("Death Strike", "Ataque que puede matar de un solo golpe, pero tiene muy poca probabilidad de acertar", 10000, "", 200);
+var deathStrike = new Skill("Death Strike", "Ataque que puede matar de un solo golpe, pero tiene muy poca probabilidad de acertar", 10000, "deathStrike", 200);
 
 //HABILIDADES DE DEMON
 var fireBall = new Skill("Fire Ball", "Dispara una bola de fuego desde las manos. Puede quemar", 600, "quemar", 450);
@@ -125,7 +129,7 @@ var finalJudgment = new Skill("Final Judgment", "Invoca pilares de luz que fulmi
 //HABILIDADES DE SHADOW KNIGHT
 var darkSword = new Skill("Dark Sword", "Usa la espada que le robó a un demonio para ejecutar un corte descendente en contra de su enemigo", 650, "", 100);
 var darkSpirits = new Skill("Dark Spirits", "Invoca a sus enemigos caidos para herir a su enemigo. Puede provocar ceguera", 500, "cegar", 180);
-var berserker = new Skill("Berserker", "Lanza una maldición a un aliado aleatorio. Lo convierte en un monstruo y duplica sus fuerzas.", 0, "aumentarStats", 350);
+var berserker = new Skill("Berserker", "Lanza una maldición a un aliado aleatorio. Lo convierte en un monstruo y duplica sus fuerzas.", 0, "aumentarStats", 550);
 var blackBreath = new Skill("Black Breath", "Despide un aliento negro para herir a su enemigo. Puede provocar ceguera", 900, "cegar", 300)
 
 var habilidadPrueba1 = new Skill("prueba1", "prueba", 500, "", 50);
@@ -161,12 +165,12 @@ var light = new Character("light", "Liskanor Tein, the Sun Soldier", "Dice que e
 
 var healer = new Character("healer", "Suerestil Giysh, the Healer", "Ni idea de donde saca esas medicinas, pero te deja como nuevo.", 3250, 2000, 4, goddessKiss, reverseHealing, confusingMedicine, springOfLife, "./img/healer.gif", "./img/healer-walking.gif");
 
-var angel = new Character("angel", "Flixinia Golt, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 5000, 2800, 3, lightFist, skysword, divineBlessing, finalJudgment, "./img/angel.gif", "./img/angel-walking.gif");
+var angel = new Character("angel", "Flixinia Golt, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 6500, 2800, 3, lightFist, skysword, divineBlessing, finalJudgment, "./img/angel.gif", "./img/angel-walking.gif");
 
 var knight = new Character("knight", "Blad Nolan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 1000, 7, darkSword, darkSpirits, berserker, blackBreath, "./img/knight.gif", "./img/knight-walking.gif");
 
 //ENEMIGO
-var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 10000, 10, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
+var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 20000, 10, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -178,7 +182,7 @@ var todosLosPersonajes = [assassin, elementalist, demon, robot, light, healer, a
 // MOSTRAMOS PERSONAJES EN LA PANTALLA DE SELECCION DE PERSONAJES
 let personaje = document.getElementById("seleccion-personajes");
 for (let i = 0; i < todosLosPersonajes.length; i++) {
-    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}', '${todosLosPersonajes[i].id}')"><h1>${todosLosPersonajes[i].name}</h1><img src="${todosLosPersonajes[i].img}"><p>Life: ${todosLosPersonajes[i].hp}</p><p>Mana: ${todosLosPersonajes[i].mp}</p><p>Attack: ${todosLosPersonajes[i].attack}</p><p>Defense: ${todosLosPersonajes[i].defense}</p></div>`;
+    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}', '${todosLosPersonajes[i].id}')"><h1>${todosLosPersonajes[i].name}</h1><img src="${todosLosPersonajes[i].img}"><p>Life: ${todosLosPersonajes[i].hp}</p><p>Mana: ${todosLosPersonajes[i].mp}</p><p>Attack: ${todosLosPersonajes[i].attack}</p></div>`;
 }
 
 // EN ESTE ARRAY GUARDAMOS LOS PERSONAJES ELEGIDOS
@@ -451,6 +455,17 @@ const terminarTurno = () => {
                             personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useHealHealth(personajesElegidos[a]);
                         }
                         personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useHealMana(personajesElegidos[i]);
+                        break;
+                    case "deathStrike":
+                        //PASAMOS DE MANERA ALEATORIA UN VALOR DEL ARRAY RULETASUERTE. LA HABILIDAD SOLO HARÁ DAÑO SI OBTIENE EL VALOR 1
+                        var ruletaSuerte = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+                        personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useDeathStrike(personajesElegidos[i], dragon, ruletaSuerte[parseInt(Math.random() * (10-0))]);
+                        console.log(parseInt(Math.random() * (10-0)));
+                        console.log(parseInt(Math.random() * (10-0)));
+                        console.log(parseInt(Math.random() * (10-0)));
+                        console.log(parseInt(Math.random() * (10-0)));
+                        console.log(parseInt(Math.random() * (10-0)));
+                        console.log(parseInt(Math.random() * (10-0)));
                         break;
                     default:
                         personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
