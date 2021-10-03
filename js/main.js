@@ -443,7 +443,7 @@ const empezarTurno = () =>{
     document.getElementById("heroes-en-batalla").innerHTML = ""; //RESETEAMOS LAS IMAGENES Y LAS HABILIDADES DE LOS PERSONAJES
     barrasSaludMana.innerHTML = "";
     pintarBarrasSaludMana();
-    pintarBarrasSaludManaEnemigo(); // CREA UN NUEVO ARRAY CON LOS ELEMENTOS QUE CUMPLAN LA CONDICION
+    pintarBarrasSaludManaEnemigo();
     // PINTA TODOS LAS HABILIDADES DE LOS PERSONAJES Y A LAS IMAGENES DE LOS PERSONAJES EN LA PANTALLA DEL JUEGO
     document.getElementById("habilidades-personajes").innerHTML = "";
     for (let i = 0; i < personajesElegidos.length; i++) {
