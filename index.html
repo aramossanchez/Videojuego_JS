@@ -16,6 +16,7 @@ VERSION: 1.0
     <div id="container">
         <!-- MENU PRINCIPAL. ES LA PRIMERA PANTALLA QUE CARGA EL PROGRAMA -->
         <div id="menu-principal">
+            <div id="logo"><img src="./img/logo.png" alt="Logo" onclick="entrarMenuPrincipal()"></div>
             <div class="opciones-menu-principal" onclick="irSeleccionPersonaje()"><h1>START</h1></div>
             <div class="opciones-menu-principal" onclick="irManual()"><h1>MANUAL</h1></div>
             <img src="./img/dragon-walking.gif" alt="Dragón bailando">
@@ -62,6 +63,7 @@ VERSION: 1.0
 
             <h2>Characters</h2>
             <p>Aqui puedes ver una lista con todos los personajes: una descripcion de ellos, sus stats y sus habilidades.</p>
+            <p>La estadística "Attack" determina cuanto daño hará cada habilidad (salvo algunas excepciones).</p>
             <div id="manual-personajes">
 
             </div>
@@ -96,7 +98,7 @@ VERSION: 1.0
             <h1>VICTORY!</h1>
             <div id="meritos-victoria"></div>
             <div id="personajes-victoria"></div>
-            <div class="volver-a-jugar">
+            <div class="volver-a-jugar win">
                 <input type="button" value="PLAY AGAIN!" onclick="sonarBoton(), location.reload()"/>
             </div>
         </div>

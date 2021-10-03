@@ -117,7 +117,7 @@ var sunSon = new Skill("Sun Son", "Usa todo el poder cedido por el sol para hace
 var goddessKiss = new Skill("Goddess Kiss", "Cura a un aliado al azar una gran cantidad de salud. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 3500, "curar", 250);
 var reverseHealing = new Skill("Reverse Healing", "Daña al enemigo con la magia de curación negra.", 500, "", 200);
 var confusingMedicine = new Skill("Confusing Medicine", "Usa una medicina secreta contra el enemigo. Puede provocar ceguera.", 400, "cegar", 300);
-var springOfLife = new Skill ("Spring of Life", "Cura a todos sus aliados. Gasta mana en función de los aliados que cure. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 2500, "curarTodos", 1000);
+var springOfLife = new Skill ("Spring of Life", "Cura a todos sus aliados. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 2500, "curarTodos", 1000);
 
 //HABILIDADES DE ANGEL
 var lightFist = new Skill("Light Fist", "Golpea a su enemigo con su puño bendecido por el dios de la lucha.", 600, "", 300);
@@ -180,6 +180,7 @@ var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha 
 const cancionInit = new Audio("./sound/init.wav");
 cancionInit.loop = true;
 const cancionManual = new Audio("./sound/manual.wav");
+cancionManual.volume = 0.6;
 cancionManual.loop = true;
 const cancionSelecccion = new Audio("./sound/selection.wav");
 cancionSelecccion.volume = 0.6;
@@ -239,6 +240,14 @@ const guardarPersonajeElegido = (lugarArray, id) =>{
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// VARIABLES PARA ACCEDER AL JUEGO
+var logo = document.getElementById("logo");
+const entrarMenuPrincipal = () =>{
+    logo.style.display = "none";
+    menuPrincipal.style.display = "flex";
+    cancionInit.play();
+}
 
 // VARIABLES PARA CONTROLA PASAR DE LA PANTALLA DE INICIO A LA ELECCION DE PERSONAJES
 var menuPrincipal = document.getElementById("menu-principal");
@@ -398,7 +407,7 @@ var habilidades = [];
 // EN EL HTML. TRAS GUARDARLO, DEJAMOS EL ARRAY DE HABILIDADES A CERO
 const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
     for (let i = 0; i < objetoPersonaje.skills.length; i++) {
-        habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="guardaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label id="label-${posicionObjeto}-${i}" onmouseenter="mostrarDescripcion('details-${posicionObjeto}-${i}')" onmouseleave="ocultarDescripcion('details-${posicionObjeto}-${i}')" for="element${posicionObjeto}${i}" style="${(objetoPersonaje.mp < objetoPersonaje.skills[i].cost) ? 'pointer-events : none; opacity: 0.5' : 'pointer-events = initial; opacity: 1'}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span><div id="details-${posicionObjeto}-${i}" class="details-skills">Damage: ${objetoPersonaje.skills[i].damage}<br>Description: ${objetoPersonaje.skills[i].description}</div></label>`);
+        habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="guardaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label id="label-${posicionObjeto}-${i}" onmouseenter="mostrarDescripcion('details-${posicionObjeto}-${i}')" onmouseleave="ocultarDescripcion('details-${posicionObjeto}-${i}')" for="element${posicionObjeto}${i}" style="${(objetoPersonaje.mp < objetoPersonaje.skills[i].cost) ? 'pointer-events : none; opacity: 0.5' : 'pointer-events = initial; opacity: 1'}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span><div id="details-${posicionObjeto}-${i}" class="details-skills">Base Damage: ${objetoPersonaje.skills[i].damage}<br>Description: ${objetoPersonaje.skills[i].description}</div></label>`);
     }
     // document.getElementById(`character${posicionObjeto}`).innerHTML = `<form>` + habilidades.join("") + "</form>";
     document.getElementById("habilidades-personajes").innerHTML = document.getElementById("habilidades-personajes").innerHTML + `<div id="character${posicionObjeto}" class="lista-habilidades"><form>` + habilidades.join("") + "</form></div>";
@@ -483,7 +492,7 @@ const terminarTurno = () => {
                         //BUSCA QUE PERSONAJE TIENE EL ESTADO BERSERKER Y CAMBIA SU ASPECTO
                         for (let i = 0; i < personajesElegidos.length; i++) {
                             if (personajesElegidos[i].state == "berserker") {
-                                personajesElegidos[i].getImgWalking("./img/berserker.png");
+                                personajesElegidos[i].getImgWalking("./img/berserker.gif");
                             }
                         }
                         //PINTAMOS DE NUEVO LOS HEROES CON EL NUEVO ASPECTO DE BERSERKER

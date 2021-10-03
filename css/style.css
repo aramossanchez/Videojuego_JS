@@ -25,6 +25,7 @@ body{
 }
 /*PANTALLA DE INICIO DEL JUEGO*/
 #menu-principal{
+    display: none;
     background-image: url(../img/fondo-menu-principal.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -34,9 +35,24 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     position: relative;
     overflow: hidden;
+}
+#logo{
+    position: absolute;
+    z-index: 4;
+    top: -10%;
+    width: 100%;
+    height: 200%;
+    background-color: black;
+    cursor:pointer;
+}
+#logo img{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    animation: logo 1.5s infinite;
 }
 #menu-principal h1{
     font-family: 'Press Start 2P';
@@ -44,6 +60,7 @@ body{
     color: white;
     cursor: pointer;
     transition: 0.2s;
+    margin: 1em 0;
 }
 #menu-principal h1:hover{
     color: #fbff00;
@@ -523,6 +540,9 @@ label span{
     cursor:pointer;
     font-family: 'Press Start 2P';
 }
+.win input{
+    color: yellow;
+}
 /* ANIMACIONES PARA LOS PERSONAJES CUANDO ATACAN */
 @keyframes moveHeroe {
     0% {
@@ -544,6 +564,17 @@ label span{
     }
     100% {
         margin-right: 1em;
+    }
+}
+@keyframes logo {
+    0% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.8);
     }
 }
 @keyframes dragonDancing {
