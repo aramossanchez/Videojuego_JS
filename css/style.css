@@ -371,6 +371,13 @@ body{
     justify-content: center;
     align-items: center;
 }
+#fail{
+    display: none;
+    color: white;
+    font-size: 3em;
+    position: absolute;
+    left: 37%;
+}
 #enemigo-en-batalla img{
     width: 15em;
     height: 17em;

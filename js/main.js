@@ -323,7 +323,7 @@ const iniciarJuego = () => {
             muestraHabilidades(personajesElegidos[i], i);
             heroesBatalla.innerHTML = heroesBatalla.innerHTML + `<div><img id="heroe-en-batalla-${i}" src="${personajesElegidos[i].imgWalking}" alt="Personaje Elegido ${i}"></div>`
         }
-        enemigoBatalla.innerHTML = `<h2 id="nombre-dragon">${dragon.name}</h2><img id="dragon-en-batalla" src="${dragon.imgWalking}" alt="Imagen Dragon"><div id="barras-de-enemigo"></div>`
+        enemigoBatalla.innerHTML = `<h2 id="nombre-dragon">${dragon.name}</h2><div id="fail">FAIL</div><img id="dragon-en-batalla" src="${dragon.imgWalking}" alt="Imagen Dragon"><div id="barras-de-enemigo"></div>`
         pintarBarrasSaludManaEnemigo();
     }else{
         pantallaJuego.style.display = "none";
@@ -459,13 +459,15 @@ const terminarTurno = () => {
                     case "deathStrike":
                         //PASAMOS DE MANERA ALEATORIA UN VALOR DEL ARRAY RULETASUERTE. LA HABILIDAD SOLO HARÁ DAÑO SI OBTIENE EL VALOR 1
                         var ruletaSuerte = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
-                        personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useDeathStrike(personajesElegidos[i], dragon, ruletaSuerte[parseInt(Math.random() * (10-0))]);
-                        console.log(parseInt(Math.random() * (10-0)));
-                        console.log(parseInt(Math.random() * (10-0)));
-                        console.log(parseInt(Math.random() * (10-0)));
-                        console.log(parseInt(Math.random() * (10-0)));
-                        console.log(parseInt(Math.random() * (10-0)));
-                        console.log(parseInt(Math.random() * (10-0)));
+                        var suerte = parseInt(Math.random() * (10-0));
+                        var fail = document.getElementById("fail");
+                        if(suerte != 9){
+                            fail.style.display = "inline";
+                            setTimeout(() => {
+                                fail.style.display = "none";                                
+                            }, 500);
+                        }
+                        personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useDeathStrike(personajesElegidos[i], dragon, ruletaSuerte[suerte]);
                         break;
                     default:
                         personajesElegidos[habilidadesTurno[i][0]].skills[habilidadesTurno[i][1]].useSkill(personajesElegidos[i], dragon);
