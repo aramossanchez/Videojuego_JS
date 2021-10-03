@@ -5,6 +5,7 @@
 
 # NEED BEAT THE DRAGON
 ![Logo del Juego](screenshots/logo-letras-negras.png)
+<br>
 Basándome en los juegos de RPG clásicos he decidido enfocar el proyecto hacia la temática "videojuego por turnos".
 <br>
 Procedo a explicar punto por punto el funcionamiento del videojuego:
@@ -18,7 +19,7 @@ Procedo a explicar punto por punto el funcionamiento del videojuego:
 * En la pantalla inicial aparece el logo del videojuego. Si se pulsa el logo se esconde el div que lo contiene con ```display:none;```y aparece la primera vista de la aplicación: **Menu Principal**, añadiendo ```display:flex;``` en el div correspondiente. Se usará este método para cambiar entre vistas durante toda la aplicación.
 ***
 
-* En este **Menú Principal** se puede entrar al juego pulsando **START** o se puede acceder a la guía del juego pulsando **MANUAL**
+* En este **Menú Principal** se puede entrar al juego pulsando **START** o se puede acceder a la guía del juego pulsando **MANUAL**.
 ***
 ![Logo del Juego](screenshots/menu-principal.jpg)
 * Si se decide entrar en manual, se cargará la vista **Manual**. Aquí se puede ver una guía del funcionamiento del juego (escrita directamente en el HTML), así como una explicación detallada de cada personaje y cada una de sus habilidades (para conseguir esto se hace desde el archivo JS, recorriendo el array que contiene a los personajes creados). Se puede volver al menú principal con el botón **MAIN MENU**.
@@ -29,7 +30,7 @@ Procedo a explicar punto por punto el funcionamiento del videojuego:
 ***
 
 ![Logo del Juego](screenshots/pantalla-seleccion-personaje.jpg)
-* Cuando hay 4 personajes seleccionados, aparece el botón **GO TO THE BATTLE!**, que hace aparecer la vista **Pantalla Juego**
+* Cuando hay 4 personajes seleccionados, aparece el botón **GO TO THE BATTLE!**, que hace aparecer la vista **Pantalla Juego**.
 ***
 
 ![Logo del Juego](screenshots/boton-go-battle.jpg)
@@ -38,7 +39,7 @@ Procedo a explicar punto por punto el funcionamiento del videojuego:
     * **Barras de salud y de mana**: se cargan recorriendo el array de personajes seleccionados. Las barras están configuradas para que sean de ```width``` variable, en función del porcentaje de salud o mana que se tenga (para tener presente siempre la salud y el mana máximos de cada personaje, estos valores se guardan en un array al comienzo de la partida). También el color de las barras es variable en función de si la vida o mana actual superan el 100% o no. A su vez, está configurado para que los valores de salud o mana nunca se muestren menores de 0. Todas estas características del aspecto visual se añaden desde el JS, a la vez que se agrega todo este contenido de manera dinámica.
     * **Imágenes de los personajes elegidos**: Se cargan las imagenes asociadas a cada objeto Character, recorriendo el array de personajes seleccionados.
     * **Datos del enemigo**: se cargan el nombre del enemigo, su imagen y sus barras de salud y mana. Adicionalmente se carga un div invisible, el cual contendrá información para algunas habilidades con mecánicas especiales.
-    * **Habilidades de los personajes**: se recorre el array de personajes elegidos para mostrar en pantalla cada una de las habilidades de cada personaje. Se muestran el nombre de la habilidad y su gasto de mana. A su vez, se carga un div invisible con su descripcion y su daño base, que solo será visible si pasamos el ratón por encima de la habilidad. También hay añadido efecto ```:hover``` a los nombres de las habilidades. Cuando el personaje no tiene suficiente mana para lanzar la habilidad, está se vuelve menos opaca y pierde la capacidad para poder interactuar con eventos de ratón, haciendo imposible ser lanzada. Cada vez que se selecciona una habilidad, el cuadro donde están guardadas se vuelve menos opaco y pierde la capacidad de interactuar con eventos de ratón. De esta manera se hace que solo se pueda usar una habilidad de cada personaje por turno. Al seleccionar una habilidad, esta se guarda en un array. En este array, la habilidad se guarda en función de la posición que ocupe en el array de personajes seleccionados el personaje que tiene la habilidad (p.e.: si el personaje 2 usa una habilidad, esta se guardará en la posición 2 del array, aunque no hayan seleccionado aún habilidad los personajes anteriores). De esta manera se respetan los gastos de mana correctamente, y permite que no todos personajes usen sus habilidades (si así se desea) sin errores.
+    * **Habilidades de los personajes**: se recorre el array de personajes elegidos para mostrar en pantalla cada una de las habilidades de cada personaje. Se muestran el nombre de la habilidad y su gasto de mana. A su vez, se carga un div invisible con su descripcion y su daño base, que solo será visible si pasamos el ratón por encima de la habilidad. También hay añadido efecto ```:hover``` a los nombres de las habilidades. Cuando el personaje no tiene suficiente mana para lanzar la habilidad, está se vuelve menos opaca y pierde la capacidad para poder interactuar con eventos de ratón, haciendo imposible ser lanzada. Cada vez que se selecciona una habilidad, el cuadro donde están guardadas se vuelve menos opaco y pierde la capacidad de interactuar con eventos de ratón. De esta manera se hace que solo se pueda usar una habilidad de cada personaje por turno. Al seleccionar una habilidad, esta se guarda en un array. En este array, la habilidad se guarda en función de la posición que ocupe en el array de personajes seleccionados el personaje que tiene la habilidad (p.e.: si el personaje 2 usa una habilidad, esta se guardará en la posición 2 del array, aunque no hayan seleccionado aún habilidad los personajes anteriores). De esta manera se respetan los gastos de mana correctamente, y permite que no todos los personajes usen sus habilidades (si así se desea) sin errores.
     * Cuando se decide que no se quiere elegir ninguna habilidad más, o ya se han elegido las 4 posibles, o no se pueden elegir ninguna por falta de mana, se pulsará el botón **END YOUR TURN**.
 ***
 ![Logo del Juego](screenshots/pantalla-juego.jpg)

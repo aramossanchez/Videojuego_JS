@@ -380,6 +380,12 @@ body{
     height: 6em;
     margin: 1em;
 }
+#heroes-en-batalla{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
 #enemigo-en-batalla{
     margin-right: 1em;
     height: 100%;
