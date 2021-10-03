@@ -83,54 +83,54 @@ class Character {
 // CREACIÓN DE HABILIDADES
 
 //HABILIDADES DE ELEMENTALIST
-var fireHorse = new Skill("Fire Horse", "Hechizo que libera un caballo de fuego hacia el enemigo. Puede quemar", 700, "quemar", 250);
-var iceSpear = new Skill("Ice Spear", "Hechizo que lanza una lanza de hielo. Puede congelar", 460, "congelar", 300);
-var windKnife = new Skill("Knife Wind", "Hechizo que invoca corrientes de viento cortantes. Puede provocar heridas sangrantes", 650, "sangrar", 250);
-var stormHammer = new Skill("Storm Hammer", "Hechizo que invoca un martillo hecho de truenos desde el cielo. Puede ralentizar", 950, "ralentizar", 350);
+var fireHorse = new Skill("Fire Horse", "Spell that releases a fire horse towards the enemy. Can burn.", 700, "quemar", 250);
+var iceSpear = new Skill("Ice Spear", "Spell that casts an ice spear. Can freeze.", 460, "congelar", 300);
+var windKnife = new Skill("Knife Wind", "Spell that summons cutting wind currents. May cause bleeding wounds", 650, "sangrar", 250);
+var stormHammer = new Skill("Storm Hammer", "Spell that summons a hammer made of thunder from the sky. Can slow down.", 950, "ralentizar", 350);
 
 
 //HABILIDADES DE ASSASSIN
-var twister = new Skill("Twister", "Desenfunda sus 2 cuchillas y empieza a girar sobre sí misma cerca de su oponente, realizando multiples cortes. Puede envenenar.", 600, "envenenar", 150);
-var doubleStrike = new Skill("Double Strike", "Hace un corte con cada una de sus cuchillas. Puede envenenar.", 950, "envenenar", 250);
-var poisonDaggers = new Skill("Poison Daggers", "Lanza 2 dagas al enemigo. Puede envenenar.", 750, "envenenar", 200);
-var deathStrike = new Skill("Death Strike", "Ataque que puede matar de un solo golpe, pero tiene muy poca probabilidad de acertar", 10000, "deathStrike", 200);
+var twister = new Skill("Twister", "She unsheathes her 2 blades and begins to spin near her opponent, making multiple cuts. It can poison.", 600, "envenenar", 150);
+var doubleStrike = new Skill("Double Strike", "It makes a cut with each of its blades. It can poison.", 950, "envenenar", 250);
+var poisonDaggers = new Skill("Poison Daggers", "Throw 2 daggers at the enemy. It can poison.", 750, "envenenar", 200);
+var deathStrike = new Skill("Death Strike", "Attack that can kill in one hit, but has a very low chance of hitting.", 10000, "deathStrike", 200);
 
 //HABILIDADES DE DEMON
-var fireBall = new Skill("Fire Ball", "Dispara una bola de fuego desde las manos. Puede quemar", 600, "quemar", 450);
-var demonClaws = new Skill("Demon Claws", "Usa sus garras de demonio para atacar a puntos vitales del oponente.", 700, "", 150);
-var wingStrike = new Skill("Wing Strike", "Usa sus alas para golpear al enemigo.", 500, "", 100);
-var hell = new Skill("Hell", "Invoca a demonios del infierno para que ataquen al enemigo", 950, "", 600);
+var fireBall = new Skill("Fire Ball", "Shoot a fireball from the hands. Can burn.", 600, "quemar", 450);
+var demonClaws = new Skill("Demon Claws", "It uses its demon claws to attack vital points of the opponent.", 700, "", 150);
+var wingStrike = new Skill("Wing Strike", "Use her wings to hit the enemy.", 500, "", 100);
+var hell = new Skill("Hell", "Summons demons from hell to attack the enemy.", 950, "", 600);
 
 //HABILIDADES DE ROBOT
-var katanaCyberpunk = new Skill("Katana Cyberpunk", "Es un robot con katanas, y las usa. Puede provocar heridas sangrantes", 750, "sangrar", 100);
-var metalJump = new Skill("Metal Jump", "Salta hacia el enemigo para caer encima de él y provocarle daño.", 650, "", 50);
-var metallicWhistle = new Skill("Metalic Whistle", "Usa su altavoz para emitir un sonido que provoca dolor de cabeza al enemigo. Reparte tapones para los oídos a sus aliados antes de lanzarlo. Puede paralizar.", 500, "paralizar", 150);
-var laserBeam = new Skill("Laser Beam", "Es un robot venido del futuro. Tiene que poder disparar un laser. Y lo hace.", 1400, "", 300);
+var katanaCyberpunk = new Skill("Cyberpunk Katana", "He's a robot with katanas, and he uses them. May cause bleeding wounds.", 750, "sangrar", 100);
+var metalJump = new Skill("Metal Jump", "Jump towards the enemy to land on top of him and cause damage.", 650, "", 50);
+var metallicWhistle = new Skill("Metalic Whistle", "It uses its loudspeaker to emit a sound that causes a headache to the enemy. It can paralyze.", 500, "paralizar", 150);
+var laserBeam = new Skill("Laser Beam", "It is a robot from the future. It has to be able to shoot a laser. And it does.", 1400, "", 300);
 
 //HABILIDADES DE SUN SOLDIER
-var punchSun = new Skill("Punch Sun", "Rodea su mano con el calor del sol y golpea al enemigo. Puede quemar", 750, "quemar", 250);
-var laserEyes = new Skill("Laser Eyes", "Lanza rayos de sol por los ojos causando daño al enemigo.", 650,"", 200);
-var lightStrike = new Skill("Light Strike", "Emite un haz de luz desde todo su cuerpo para golpear al enemigo",900, "", 400);
-var sunSon = new Skill("Sun Son", "Usa todo el poder cedido por el sol para hacer un ataque debastador. Puede quemar.", 1300, "quemar", 700);
+var punchSun = new Skill("Punch Sun", "Surround his hand with the heat of the sun and strike the enemy. It can burn.", 750, "quemar", 250);
+var laserEyes = new Skill("Laser Eyes", "Shoots rays of sunlight through the eyes, causing damage to the enemy.", 650,"", 200);
+var lightStrike = new Skill("Light Strike", "He emits a beam of light from his entire body to hit the enemy.",900, "", 400);
+var sunSon = new Skill("Sun Son", "He uses all the power given by the sun to make a devastating attack. It can burn.", 1300, "quemar", 700);
 
 //HABILIDADES DE HEALER
-var goddessKiss = new Skill("Goddess Kiss", "Cura a un aliado al azar una gran cantidad de salud. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 3500, "curar", 250);
-var reverseHealing = new Skill("Reverse Healing", "Daña al enemigo con la magia de curación negra.", 500, "", 200);
-var confusingMedicine = new Skill("Confusing Medicine", "Usa una medicina secreta contra el enemigo. Puede provocar ceguera.", 400, "cegar", 300);
-var springOfLife = new Skill ("Spring of Life", "Cura a todos sus aliados. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 2500, "curarTodos", 1000);
+var goddessKiss = new Skill("Goddess Kiss", "Heals a random ally for a large amount of health. If the ally already has 100% health, it causes overheal.", 3500, "curar", 250);
+var reverseHealing = new Skill("Reverse Healing", "Damage the enemy with black healing magic.", 500, "", 200);
+var confusingMedicine = new Skill("Confusing Medicine", "Use a secret medicine against the enemy. It can cause blindness.", 400, "cegar", 300);
+var springOfLife = new Skill ("Spring of Life", "Heal all her allies. If the ally already has 100% health, it causes overheal.", 2500, "curarTodos", 1000);
 
 //HABILIDADES DE ANGEL
-var lightFist = new Skill("Light Fist", "Golpea a su enemigo con su puño bendecido por el dios de la lucha.", 600, "", 300);
-var skysword = new Skill("Sky Sword", "Golpea con la espada que le regaló el dios de la guerra.", 750, "", 400);
-var divineBlessing = new Skill("Divine Blessing", "Cura a un aliado al azar parte de su salud. Si el aliado ya tiene el 100% de la vida provoca sobrecuración.", 1000, "curar", 350);
-var finalJudgment = new Skill("Final Judgment", "Invoca pilares de luz que fulminan a su enemigo", 1050, "", 700);
+var lightFist = new Skill("Light Fist", "Strike her enemy with her fist blessed by the god of fighting.", 600, "", 300);
+var skysword = new Skill("Sky Sword", "Strike with the sword gifted by the god of war.", 750, "", 400);
+var divineBlessing = new Skill("Divine Blessing", "Heals a random ally for part of their health. If the ally already has 100% health, it causes overheal.", 1000, "curar", 350);
+var finalJudgment = new Skill("Final Judgment", "Summons pillars of light that strike down her enemy.", 1050, "", 700);
 
 
 //HABILIDADES DE SHADOW KNIGHT
-var darkSword = new Skill("Dark Sword", "Usa la espada que le robó a un demonio para ejecutar un corte descendente en contra de su enemigo", 650, "", 100);
-var darkSpirits = new Skill("Dark Spirits", "Invoca a sus enemigos caidos para herir a su enemigo. Puede provocar ceguera", 500, "cegar", 180);
-var berserker = new Skill("Berserker", "Lanza una maldición a un aliado aleatorio. Lo convierte en un monstruo y duplica sus fuerzas.", 0, "aumentarStats", 550);
-var blackBreath = new Skill("Black Breath", "Despide un aliento negro para herir a su enemigo. Puede provocar ceguera", 900, "cegar", 300)
+var darkSword = new Skill("Dark Sword", "He use the sword he stole from a demon to execute a downward slash against his enemy.", 650, "", 100);
+var darkSpirits = new Skill("Dark Spirits", "Summons his fallen enemies to wound his enemy. May cause blindness", 500, "cegar", 180);
+var berserker = new Skill("Berserker", "Cast a curse on a random ally. It turns him into a monster and doubles his forces.", 0, "aumentarStats", 550);
+var blackBreath = new Skill("Black Breath", "He emits a black breath to wound his enemy. May cause blindness.", 900, "cegar", 300)
 
 var habilidadPrueba1 = new Skill("prueba1", "prueba", 500, "", 50);
 var habilidadPrueba2 = new Skill("prueba2", "prueba", 500, "", 50);
@@ -138,39 +138,39 @@ var habilidadPrueba3 = new Skill("prueba3", "prueba", 500, "", 50);
 var habilidadPrueba4 = new Skill("prueba4", "prueba", 500, "", 50);
 
 // CREAMOS HABILIDADES DEL DRAGON
-var alientoDragon = new Skill("Aliento Dragon", "Aliento que daña a todos los enemigos a la vez", 700, "", 250);
+var alientoDragon = new Skill("Breath Dragon", "Breath that damages all enemies at once.", 700, "", 250);
 alientoDragon.getType("all");
 
-var espinasDragon = new Skill("Espinas de Dragón", "Se lanzan espinas al suelo que dañan a todos los enemigos al comienzo del turno durante 3 turnos", 500, "", 200);
+var espinasDragon = new Skill("Dragon Thorns", "Throws thorns to the ground that damage all enemies at the start of the turn for 3 turns.", 500, "", 200);
 espinasDragon.getType("all");
 
-var placajeDragon = new Skill("Placaje de Dragon", "Empuja a un enemigo realizándole un placaje. Puede empujar", 1450, "empujar", 300);
+var placajeDragon = new Skill("Dragon Tackle", "Knock back an enemy by tackling them. Can push.", 1450, "empujar", 300);
 
-var alaDragon = new Skill("Ala de Dragón", "Golpea con el ala a 2 enemigos aleatorios. Puede provocar sangrado.", 900, "sangrar", 400);
+var alaDragon = new Skill("Dragon Wing", "Wing 2 random enemies. It can cause bleeding.", 900, "sangrar", 400);
 alaDragon.getType("double");
 
 // CREACION DE PERSONAJES
 
 //PERSONAJES ELEGIBLES
 
-var assassin = new Character("assassin", "Nia Noltan, the Assassin", "Asesina entrenada en artes marciales y tecnicas de veneno", 1750, 1500, 10, twister, doubleStrike, poisonDaggers, deathStrike, "./img/assassin.gif", "./img/assassin-walking.gif");
+var assassin = new Character("assassin", "Nia Noltan, the Assassin", "Assassin trained in martial arts and poison techniques.", 1750, 1500, 10, twister, doubleStrike, poisonDaggers, deathStrike, "./img/assassin.gif", "./img/assassin-walking.gif");
 
-var elementalist = new Character("elementalist", "Gloy Stylish, the Elementalist", "Es una rana, si. Y es un mago también. Usa hechizos elementales con daño masivo, y que provocan estados alterados.", 1500, 3500, 9, fireHorse, iceSpear, windKnife, stormHammer, "./img/elementalist.gif", "./img/elementalist-walking.gif");
+var elementalist = new Character("elementalist", "Gloy Stylish, the Elementalist", "It's a frog, yes. And he is a magician too. Use elemental spells with massive damage, and that cause altered states.", 1500, 3500, 9, fireHorse, iceSpear, windKnife, stormHammer, "./img/elementalist.gif", "./img/elementalist-walking.gif");
 
-var demon = new Character("demon", "Liura Blake, the Demon", "No sabemos porque nos quiere ayudar. Lo que sí sabemos es que le gusta la pelea", 3200, 2000, 7, fireBall, demonClaws, wingStrike, hell, "./img/demon.gif", "./img/demon-walking.gif");
+var demon = new Character("demon", "Liura Blake, the Demon", "We don't know why he wants to help us. What we do know is that he likes the fight.", 3200, 2000, 7, fireBall, demonClaws, wingStrike, hell, "./img/demon.gif", "./img/demon-walking.gif");
 
-var robot = new Character("robot", "BX109 - v1.023, the Robot", "Dice que viene de nosequé año para salvar a nosequién de una revolución de nosecuando... Aguanta buenos golpes.", 5600, 900, 5, katanaCyberpunk, metalJump, metallicWhistle, laserBeam, "./img/robot.gif", "./img/robot-walking.gif");
+var robot = new Character("robot", "BX109 - v1.023, the Robot", "He says he comes from 'what?' year to save 'who?' from a revolution of 'when?' ... Take good hits.", 5600, 900, 5, katanaCyberpunk, metalJump, metallicWhistle, laserBeam, "./img/robot.gif", "./img/robot-walking.gif");
 
-var light = new Character("light", "Liskanor Tein, the Sun Soldier", "Dice que es hijo del Sol, que le dio todos sus poderes y habilidades... No se, suena a cuento. Pero demonios, es fuerte.", 2750, 3000, 8, punchSun, laserEyes, lightStrike, sunSon, "./img/light.gif", "./img/light-walking.gif");
+var light = new Character("light", "Liskanor Tein, the Sun Soldier", "He says he is the son of the Sun, who gave him all his powers and abilities ... I don't know, it sounds like a story. But hell, he's strong.", 2750, 3000, 8, punchSun, laserEyes, lightStrike, sunSon, "./img/light.gif", "./img/light-walking.gif");
 
-var healer = new Character("healer", "Suerestil Giysh, the Healer", "Ni idea de donde saca esas medicinas, pero te deja como nuevo.", 3250, 2000, 4, goddessKiss, reverseHealing, confusingMedicine, springOfLife, "./img/healer.gif", "./img/healer-walking.gif");
+var healer = new Character("healer", "Suerestil Giysh, the Healer", "No idea where he gets those medicines, but it leaves you as good as new.", 3250, 2000, 4, goddessKiss, reverseHealing, confusingMedicine, springOfLife, "./img/healer.gif", "./img/healer-walking.gif");
 
-var angel = new Character("angel", "Flixinia Golt, the Angel", "Bajada del cielo para echarnos una mano. No le gustan los malos, no necesita más excusas.", 6500, 2800, 3, lightFist, skysword, divineBlessing, finalJudgment, "./img/angel.gif", "./img/angel-walking.gif");
+var angel = new Character("angel", "Flixinia Golt, the Angel", "Down from heaven to give us a hand. She doesn't like bad guys, she doesn't need any more excuses.", 6500, 2800, 3, lightFist, skysword, divineBlessing, finalJudgment, "./img/angel.gif", "./img/angel-walking.gif");
 
-var knight = new Character("knight", "Blad Nolan, the Shadow Knight", "No parece muy amigable, pero dice que quiere echar una mano en compensación de todo lo que hizo en el pasado.", 4800, 1000, 7, darkSword, darkSpirits, berserker, blackBreath, "./img/knight.gif", "./img/knight-walking.gif");
+var knight = new Character("knight", "Blad Nolan, the Shadow Knight", "He doesn't seem very friendly, but he says he wants to help out in compensation for everything he's done in the past.", 4800, 1000, 7, darkSword, darkSpirits, berserker, blackBreath, "./img/knight.gif", "./img/knight-walking.gif");
 
 //ENEMIGO
-var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha decidido acampar en el campo del pueblo. Está enfadado y no atiende a razones.", 10000, 20000, 10, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
+var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragon who has decided to camp in the village field. He is angry and does not listen to reasons.", 10000, 20000, 10, alientoDragon, espinasDragon, placajeDragon, alaDragon, "./img/elementalist.gif", "./img/dragon-walking.gif");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -178,6 +178,7 @@ var dragon = new Character("dragon", "Goliath, the Red Dragon", "Dragón que ha 
 
 // CREAMOS LOS SONIDOS
 const cancionInit = new Audio("./sound/init.wav");
+cancionInit.volume = 0.6;
 cancionInit.loop = true;
 const cancionManual = new Audio("./sound/manual.wav");
 cancionManual.volume = 0.6;
@@ -186,10 +187,13 @@ const cancionSelecccion = new Audio("./sound/selection.wav");
 cancionSelecccion.volume = 0.6;
 cancionSelecccion.loop = true;
 const cancionBattle = new Audio("./sound/battle.wav");
+cancionBattle.volume = 0.6;
 cancionBattle.loop = true;
 const cancionGameOver = new Audio("./sound/game-over.wav");
+cancionGameOver.volume = 0.6;
 cancionGameOver.loop = true;
 const cancionWin = new Audio("./sound/win.wav");
+cancionWin.volume = 0.6;
 cancionWin.loop = true;
 
 const sonidoBoton = new Audio("./sound/sonido-boton.wav");
