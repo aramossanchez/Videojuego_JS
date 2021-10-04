@@ -1,6 +1,6 @@
 # Videojuego JS
 ## Realización de proyecto en academia Geeks Hubs Academy. Nos solicitan realizar un videojuego con JS creando e instanciando clases.
-##Para el proyecto se usan las tecnologías HTML, CSS Y JS
+## Para el proyecto se usan las tecnologías HTML, CSS Y JS
 <br>
 
 # NEED BEAT THE DRAGON
