@@ -153,6 +153,7 @@ body{
     font-family: 'Press Start 2P';
     color: white;
     overflow-y: scroll;
+    cursor: default;
 }
 /*CON ESTO MODIFICAMOS EL ASPECTO DEL SCROLL LATERAL*/
 #manual::-webkit-scrollbar {
@@ -242,6 +243,7 @@ body{
     justify-content: space-around;
     flex-wrap: wrap;
     position: relative;
+    cursor: default;
 }
 #mensaje-selecciona-heroes{
     position: absolute;
@@ -294,6 +296,7 @@ body{
 }
 /* ELEMENTO EN EL QUE CARGAREMOS TODO EL JUEGO */
 #pantalla-juego{
+    cursor: default;
     width: 60em;
     height: 45em;
     background-image: url("../img/fondo-batalla.png");
@@ -403,6 +406,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    cursor: default;
 }
 #escenario-batalla img{
     width: 5em;
@@ -521,6 +525,7 @@ label span{
     background-repeat: no-repeat;
     background-size: cover;
     text-shadow: 0px 0px 7px #000000;
+    cursor: default;
 }
 #pantalla-victoria h1{
     color: white;
@@ -564,6 +569,7 @@ label span{
     background-size: cover;
     text-shadow: 0px 0px 7px #000000;
     color: white;
+    cursor: default;
 }
 .volver-a-jugar input{
     font-size: 2.5em;
