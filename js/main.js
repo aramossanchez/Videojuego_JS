@@ -246,9 +246,9 @@ const guardarPersonajeElegido = (lugarArray, id) =>{
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // VARIABLES PARA ACCEDER AL JUEGO
-var logo = document.getElementById("logo");
+var pantallaIinicio = document.getElementById("inicio");
 const entrarMenuPrincipal = () =>{
-    logo.style.display = "none";
+    pantallaIinicio.style.display = "none";
     menuPrincipal.style.display = "flex";
     cancionInit.play();
 }

@@ -4,6 +4,8 @@ VERSION: 1.0
 */
 /* IMPORTO FUENTE PARA EL VIDEOJUEGO */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* FUENTE PARA PANTALLA DE INICIO */
+@import url('https://fonts.googleapis.com/css2?family=Germania+One&display=swap');
 
 /* FORMATEO TODO EL DOCUMENTO PARA QUE NO HAYA MARGIN Y PADDING QUE NO CONTROLO */
 *{
@@ -23,6 +25,7 @@ body{
     justify-content: center;
     font-family: 'Press Start 2P';
 }
+
 /*PANTALLA DE INICIO DEL JUEGO*/
 #menu-principal{
     display: none;
@@ -38,21 +41,47 @@ body{
     justify-content: center;
     position: relative;
     overflow: hidden;
+    font-family: 'Germania One', cursive;
 }
-#logo{
+#inicio{
+    background-color: black;
     position: absolute;
     z-index: 4;
-    top: -10%;
     width: 100%;
-    height: 200%;
-    background-color: black;
-    cursor:pointer;
+    height: 100%;
+    background-image: url("../img/fondo-inicio.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: default;
 }
-#logo img{
+#inicio-dragon{
+    position: absolute;
+    top: -45%;
+    right: -30%;
+    animation: inicioDragon 2s;
+}
+#inicio-dragon img{
+    width: 80em;
+    height: 60em;
+}
+#inicio-titulo{
+    margin-top: 0.25em;
+    position: absolute;
+    text-align: center;
+    font-size: 9em;
+    color: rgb(255, 251, 0);
+    animation: inicioTitulo 5s infinite;
+}
+#push-button{
+    text-align: center;
     width: 100%;
-    padding: 0;
-    margin: 0;
-    animation: logo 1.5s infinite;
+    position: absolute;
+    bottom: 10%;
+    font-size: 5em;
+    color: rgb(255, 255, 255);
+    text-shadow: 5px 0px 5px #ffe600;
+    animation: pushButton 1.5s infinite;
+    cursor:pointer;
 }
 #menu-principal h1{
     font-family: 'Press Start 2P';
@@ -571,7 +600,7 @@ label span{
         margin-right: 1em;
     }
 }
-@keyframes logo {
+@keyframes pushButton {
     0% {
         transform: scale(0.95);
     }
@@ -623,5 +652,46 @@ label span{
     }
     100% {
         left: 150%;
+    }
+}
+@keyframes inicioDragon {
+    0% {
+        top: -150%;
+        right: -150%;
+    }
+    60% {
+        top: -40%;
+    }
+    100% {
+        top: -45%;
+        right: -30%;
+    }
+}
+@keyframes inicioTitulo {
+    0% {
+        text-shadow: 5px 0px 5px #ff0000;
+    }
+    25%{
+        text-shadow: 0px 5px 5px #ff0000;
+    }
+    50% {
+        text-shadow: -5px 0px 5px #ff0000;
+    }
+    75%{
+        text-shadow: 0px -5px 5px #ff0000;
+    }
+    100% {
+        text-shadow: 5px 0px 5px #ff0000;
+    }
+}
+@keyframes pushButton {
+    0% {
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
     }
 }

@@ -4,7 +4,7 @@
 <br>
 
 # NEED BEAT THE DRAGON
-![Logo del Juego](screenshots/logo-letras-negras.png)
+![Logo del Juego](screenshots/pantalla-inicial.jpg)
 <br>
 Basándome en los juegos de RPG clásicos he decidido enfocar el proyecto hacia la temática "videojuego por turnos".
 <br>
