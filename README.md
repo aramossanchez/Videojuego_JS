@@ -16,7 +16,7 @@ Procedo a explicar punto por punto el funcionamiento del videojuego:
 * También se crea un objeto Character y 4 objetos Skill más, para crear al enemigo del juego.
 ***
 
-* En la pantalla inicial aparece el logo del videojuego. Si se pulsa el logo se esconde el div que lo contiene con ```display:none;```y aparece la primera vista de la aplicación: **Menu Principal**, añadiendo ```display:flex;``` en el div correspondiente. Se usará este método para cambiar entre vistas durante toda la aplicación.
+* En la pantalla inicial aparece el botón **Press Button**. Si se pulsa, se esconde el div que lo contiene con ```display:none;```y aparece la primera vista de la aplicación: **Menu Principal**, añadiendo ```display:flex;``` en el div correspondiente. Se usará este método para cambiar entre vistas durante toda la aplicación.
 ***
 
 * En este **Menú Principal** se puede entrar al juego pulsando **START** o se puede acceder a la guía del juego pulsando **MANUAL**.
