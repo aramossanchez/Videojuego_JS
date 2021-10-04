@@ -75,16 +75,16 @@ VERSION: 1.0
             
         </div>
         <!-- SELECCION DE PERSONAJES, DONDE APARECE EL LISTADO DE PERSONAJES A ELEGIR (CONTENIDO AÑADIDO DESDE JS) -->
-        <div id="switch" onclick="iniciarJuego()">GO TO THE BATTLE!</div>
+        <div id="switch" class="pointer" onclick="iniciarJuego()">GO TO THE BATTLE!</div>
         <div id="seleccion-personajes">
             <h1 id="mensaje-selecciona-heroes">SELECT 4 HEROES!</h1>
         </div>
         <!-- PANTALLA DE JUEGO, DONDE SE DESARROLLARÁ LA PARTIDA DEL JUEGO (CONTENIDO AÑADIDO DESDE JS) -->
         <div id="pantalla-juego">
             <div id="pantalla-empezar-turno">
-                <div id="boton-empezar-turno" onclick="empezarTurno()">START YOUR TURN</div>
+                <div id="boton-empezar-turno" class="pointer" onclick="empezarTurno()">START YOUR TURN</div>
             </div>
-            <div id="boton-terminar-turno" onclick="terminarTurno()">END YOUR TURN</div>
+            <div id="boton-terminar-turno" class="pointer" onclick="terminarTurno()">END YOUR TURN</div>
             <div id="barras-salud-mana"></div>
             <div id="escenario-batalla">
                 <div id="heroes-en-batalla"></div>
@@ -103,7 +103,7 @@ VERSION: 1.0
             <div id="meritos-victoria"></div>
             <div id="personajes-victoria"></div>
             <div class="volver-a-jugar win">
-                <input type="button" value="PLAY AGAIN!" onclick="sonarBoton(), location.reload()"/>
+                <input type="button" value="PLAY AGAIN!" class="pointer" onclick="sonarBoton(), location.reload()"/>
             </div>
         </div>
         <!-- PANTALLA DE GAMEOVER. PANTALLA QUE APARECE CUANDO PERDEMOS EL JUEGO (CONTENIDO AÑADIDO DESDE JS) -->
@@ -111,8 +111,8 @@ VERSION: 1.0
             <h1>YOU LOSE...</h1>
             <p>All your characters have died...</p>
             <div id="resumen-derrota"></div>
-            <div class="volver-a-jugar">
-                <input type="button" value="TRY AGAIN!" onclick="sonarBoton(), location.reload()"/>
+            <div class="volver-a-jugar pointer">
+                <input type="button" value="TRY AGAIN!" class="pointer" onclick="sonarBoton(), location.reload()"/>
             </div>
         </div>
     </div>

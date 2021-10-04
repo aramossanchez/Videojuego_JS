@@ -212,7 +212,7 @@ var todosLosPersonajes = [assassin, elementalist, demon, robot, light, healer, a
 // MOSTRAMOS PERSONAJES EN LA PANTALLA DE SELECCION DE PERSONAJES
 let personaje = document.getElementById("seleccion-personajes");
 for (let i = 0; i < todosLosPersonajes.length; i++) {
-    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir" onclick="guardarPersonajeElegido('${i}', '${todosLosPersonajes[i].id}')"><h1>${todosLosPersonajes[i].name}</h1><img src="${todosLosPersonajes[i].img}"><p>Life: ${todosLosPersonajes[i].hp}</p><p>Mana: ${todosLosPersonajes[i].mp}</p><p>Attack: ${todosLosPersonajes[i].attack}</p></div>`;
+    personaje.innerHTML = personaje.innerHTML + `<div id="${todosLosPersonajes[i].id}" class="personaje-para-elegir pointer" onclick="guardarPersonajeElegido('${i}', '${todosLosPersonajes[i].id}')"><h1>${todosLosPersonajes[i].name}</h1><img src="${todosLosPersonajes[i].img}"><p>Life: ${todosLosPersonajes[i].hp}</p><p>Mana: ${todosLosPersonajes[i].mp}</p><p>Attack: ${todosLosPersonajes[i].attack}</p></div>`;
 }
 
 // EN ESTE ARRAY GUARDAMOS LOS PERSONAJES ELEGIDOS
@@ -412,7 +412,7 @@ var habilidades = [];
 // EN EL HTML. TRAS GUARDARLO, DEJAMOS EL ARRAY DE HABILIDADES A CERO
 const muestraHabilidades = (objetoPersonaje, posicionObjeto) => {
     for (let i = 0; i < objetoPersonaje.skills.length; i++) {
-        habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="guardaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label id="label-${posicionObjeto}-${i}" onmouseenter="mostrarDescripcion('details-${posicionObjeto}-${i}')" onmouseleave="ocultarDescripcion('details-${posicionObjeto}-${i}')" for="element${posicionObjeto}${i}" style="${(objetoPersonaje.mp < objetoPersonaje.skills[i].cost) ? 'pointer-events : none; opacity: 0.5' : 'pointer-events = initial; opacity: 1'}">${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span><div id="details-${posicionObjeto}-${i}" class="details-skills">Base Damage: ${objetoPersonaje.skills[i].damage}<br>Description: ${objetoPersonaje.skills[i].description}</div></label>`);
+        habilidades.push(`<input type="radio" id="element${posicionObjeto}${i}" name="list${posicionObjeto}" onclick="guardaHabilidades(${posicionObjeto}, ${i}, 'character${posicionObjeto}')"><label id="label-${posicionObjeto}-${i}" onmouseenter="mostrarDescripcion('details-${posicionObjeto}-${i}')" onmouseleave="ocultarDescripcion('details-${posicionObjeto}-${i}')" for="element${posicionObjeto}${i}" style="${(objetoPersonaje.mp < objetoPersonaje.skills[i].cost) ? 'pointer-events : none; opacity: 0.5' : 'pointer-events = initial; opacity: 1'} " class='pointer'>${objetoPersonaje.skills[i].name} <span>(${objetoPersonaje.skills[i].cost})</span><div id="details-${posicionObjeto}-${i}" class="details-skills">Base Damage: ${objetoPersonaje.skills[i].damage}<br>Description: ${objetoPersonaje.skills[i].description}</div></label>`);
     }
     // document.getElementById(`character${posicionObjeto}`).innerHTML = `<form>` + habilidades.join("") + "</form>";
     document.getElementById("habilidades-personajes").innerHTML = document.getElementById("habilidades-personajes").innerHTML + `<div id="character${posicionObjeto}" class="lista-habilidades"><form>` + habilidades.join("") + "</form></div>";
