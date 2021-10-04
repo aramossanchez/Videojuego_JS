@@ -1,6 +1,6 @@
 # Videojuego JS
 ## Realización de proyecto en academia Geeks Hubs Academy. Nos solicitan realizar un videojuego con JS creando e instanciando clases.
-## Se usan para el proyecto las tecnologías HTML, CSS Y JS
+##Ppara el proyecto se usan las tecnologías HTML, CSS Y JS
 <br>
 
 # NEED BEAT THE DRAGON
@@ -18,7 +18,8 @@ Procedo a explicar punto por punto el funcionamiento del videojuego:
 
 * En la pantalla inicial aparece el botón **Press Button**. Si se pulsa, se esconde el div que lo contiene con ```display:none;```y aparece la primera vista de la aplicación: **Menu Principal**, añadiendo ```display:flex;``` en el div correspondiente. Se usará este método para cambiar entre vistas durante toda la aplicación.
 ***
-
+* Se configura el CSS para que toda la aplicación tenga un cursor personalizado.
+***
 * En este **Menú Principal** se puede entrar al juego pulsando **START** o se puede acceder a la guía del juego pulsando **MANUAL**.
 ***
 ![Logo del Juego](screenshots/menu-principal.jpg)
