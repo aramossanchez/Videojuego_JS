@@ -251,6 +251,7 @@ const entrarMenuPrincipal = () =>{
     pantallaIinicio.style.display = "none";
     menuPrincipal.style.display = "flex";
     cancionInit.play();
+    sonidoBoton.play();
 }
 
 // VARIABLES PARA CONTROLA PASAR DE LA PANTALLA DE INICIO A LA ELECCION DE PERSONAJES
