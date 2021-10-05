@@ -692,3 +692,20 @@ label span{
         transform: scale(1);
     }
 }
+
+/* AJUSTES PARA HACER EL JUEGO VISIBLE EN DISPOSITIVOS MÓVILES */
+@media (max-width: 1000px){
+    body{
+        font-size: 0.75em;
+    }
+}
+@media (max-width: 748px){
+    body{
+        font-size: 0.55em;
+    }
+}
+@media (max-width: 553px){
+    body{
+        font-size: 0.35em;
+    }
+}
